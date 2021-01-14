@@ -1,0 +1,17 @@
+Log of Updates and Files
+
+1/14/21
+Reviewing all the work prior to today.
+Cut the samples acc. to (z_lens > 0.05) and (z_src - z_lens > 0.1)
+Created directory w/in csv files labeled "latest"
+Most recent data as of beginning of session:
+    links_autoz_sample_latest.csv (links_autoz_sample_061520) (56 rows, 52 unique candidates)
+    links_knabel_autoz_sample_latest.csv (...061520) (7 rows, 6 unique candidates)
+    li_autoz_sample_latest.csv (...061520) (8 rows, 8 unique candidates)
+Most recent data following end of session:
+    links_sample_latest_len42.csv (42 rows, 40 unique candidates)
+    links_knabel_sample_len7.csv (7 rows, 6 unique candidates)
+    li_sample_len3.csv (3 unique candidates)
+Notes:
+    I have not determined how I will choose one of the duplicates over the other.
+    
