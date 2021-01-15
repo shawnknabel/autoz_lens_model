@@ -14,4 +14,25 @@ Most recent data following end of session:
     li_sample_len3.csv (3 unique candidates)
 Notes:
     I have not determined how I will choose one of the duplicates over the other.
+
+1/15/21
+Working with final two duplicates in LinKS candidates. Simple to cut.
+Most recent data following session:
+	links_sample_latest_len40
+	links_knabel_sample_len7
+	li_sample_len3
+Notes:
+	I intend to combine the notebooks and visualizations and begin writing.   
     
+1/15/21
+Consolidated work to a master notebook. Got through the most recent selection.
+Most recent data following session:
+	links_sample_latest_len40
+	links_knabel_sample_len7
+	li_sample_len3
+Next step to pull the visualization pieces into the master notebook.
+Notes:
+    Check those data against the ones saved in the latest folder earlier today.
+        All candidates should be the same... hopefully I got the Lambdar stuff 
+        right the first time
+
