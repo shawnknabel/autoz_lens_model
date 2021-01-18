@@ -36,3 +36,6 @@ Notes:
         All candidates should be the same... hopefully I got the Lambdar stuff 
         right the first time
 
+1/18/21
+Consolidated visualization code to master notebok.
+Discuss with Benne the relevant info to focus on.
