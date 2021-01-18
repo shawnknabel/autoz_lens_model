@@ -38,4 +38,8 @@ Notes:
 
 1/18/21
 Consolidated visualization code to master notebok.
+Looked at two LinKS candidates that appear to fall within the selection parameter space used by Holwerda-15... One of them passes, and I have no idea why it wasn't selected in the paper.
+It could have been on an alias... All candidates, old and new, near the alias of
+(1+z)/(1+z2)=1.343±0.002 (∼5007/3727) or the inversewere removed from the sample.
+For this candidate, the result is 1.344, which shows that it was removed by happenstance. With a log(mass) ~ 11.2 and redshift 0.22, it falls right at the overlap between spec and mac in the Knabel-2020 paper. Interesting!
 Discuss with Benne the relevant info to focus on.
