@@ -28,8 +28,8 @@ Notes:
 Consolidated work to a master notebook. Got through the most recent selection.
 Most recent data following session:
 	links_sample_latest_len40
-	links_knabel_sample_len7
-	li_sample_len3
+	links_knabel_sample_latest_len6
+	li_sample_latest_len3
 Next step to pull the visualization pieces into the master notebook.
 Notes:
     Check those data against the ones saved in the latest folder earlier today.
@@ -43,3 +43,9 @@ It could have been on an alias... All candidates, old and new, near the alias of
 (1+z)/(1+z2)=1.343±0.002 (∼5007/3727) or the inversewere removed from the sample.
 For this candidate, the result is 1.344, which shows that it was removed by happenstance. With a log(mass) ~ 11.2 and redshift 0.22, it falls right at the overlap between spec and mac in the Knabel-2020 paper. Interesting!
 Discuss with Benne the relevant info to focus on.
+
+1/19/21
+Notebook: 011921_correlation_tests
+Applying tests of correlation for output parameters from autoz and lens scores.
+In master notebook, CNN prob is incorrectly merged. Change that!
+Found ran spearman, pearson and kendall tau tests on the scores and cnn probability output to sigma2 and R. Scores were not correlated at all. CNN probability output was ~0.25, but there are a couple outliers. It may be useful to bootstrap and check again.
