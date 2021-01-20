@@ -52,6 +52,9 @@ Ran spearman, pearson and kendall tau tests on the scores and cnn probability ou
 
 1/20/21
 Notebook: 011021_correlation_tests
-Fitted linear regression to the parameters. Very weak correlations, but I at least have some numbers to it. Ran some bootstrapping tests to see about uncertainties and get more info on how outliers affect it... Not sure how to do all of that properly. Emailed Benne.
+Fitted linear regression to the parameters. 
+Very weak correlations, but I at least have some numbers to it. 
+Ran some bootstrapping tests to see about uncertainties and get more info on how outliers affect it... Not sure how to do all of that properly. Emailed Benne. I used the result of the fit and put the uncertainty as +/- the std from the bootstrapping.
+Printed the pngs and will add them to the paper.
 Still need to fix CNN prob merging in master notebook.
-Will add this to paper in afternoon.
+
