@@ -48,4 +48,10 @@ Discuss with Benne the relevant info to focus on.
 Notebook: 011921_correlation_tests
 Applying tests of correlation for output parameters from autoz and lens scores.
 In master notebook, CNN prob is incorrectly merged. Change that!
-Found ran spearman, pearson and kendall tau tests on the scores and cnn probability output to sigma2 and R. Scores were not correlated at all. CNN probability output was ~0.25, but there are a couple outliers. It may be useful to bootstrap and check again.
+Ran spearman, pearson and kendall tau tests on the scores and cnn probability output to sigma2 and R. Scores were not well-correlated at all. CNN probability output was ~0.25, but there are a couple outliers. It may be useful to bootstrap and check again.
+
+1/20/21
+Notebook: 011021_correlation_tests
+Fitted linear regression to the parameters. Very weak correlations, but I at least have some numbers to it. Ran some bootstrapping tests to see about uncertainties and get more info on how outliers affect it... Not sure how to do all of that properly. Emailed Benne.
+Still need to fix CNN prob merging in master notebook.
+Will add this to paper in afternoon.
