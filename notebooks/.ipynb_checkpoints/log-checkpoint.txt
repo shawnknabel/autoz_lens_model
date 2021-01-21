@@ -66,3 +66,10 @@ Looked at the z-lens redshift outputs for Li candidates against Li photo-z, whic
 
 1/21/21
 Checking on duplicates I came upon the concerning fact that I had mixed up ELG + ELG and PG + PG. Has minor consequences, but I'm glad I caught it here.
+In response to my concern about redshift matches having sigma_source>sigma_lens, Benne:
+    "That is more a strength of the emission line rather than anything else. This is a flux-weighted result after all. 
+So if you have a whopping Halpha line, it's going to be the primary solution, even though the continuum is a lower redshift. SO this is fine.""
+To Do:
+Overlay the redshift and stellar mass results over the results from Knabel-2020
+Further explore primary redshift as background source
+Flesh out writing sections on "what could have been" and results from Li.
