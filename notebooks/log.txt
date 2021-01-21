@@ -58,3 +58,9 @@ Ran some bootstrapping tests to see about uncertainties and get more info on how
 Added these results to the paper.
 Still need to fix CNN prob merging in master notebook and put correlation studies in the master as well.
 
+1/21/21
+Updated master notebook with the correlation studies and visualizations.
+Also removed a LinKS candidate whose probability of redshift success in autoz was very low.
+This forced me to redo the correlation studies, which changed the numbers slightly. No change in outcome.
+Looked at the z-lens redshift outputs for Li candidates against Li photo-z, which are inconsistent for two of the three. Will need to make a decision there. I need to check the z-src as well.
+
