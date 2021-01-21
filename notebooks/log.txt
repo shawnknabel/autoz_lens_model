@@ -65,4 +65,4 @@ This forced me to redo the correlation studies, which changed the numbers slight
 Looked at the z-lens redshift outputs for Li candidates against Li photo-z, which are inconsistent for two of the three. Will need to make a decision there. I need to check the z-src as well.
 
 1/21/21
-I
+Checking on duplicates I came upon the concerning fact that I had mixed up ELG + ELG and PG + PG. Has minor consequences, but I'm glad I caught it here.
