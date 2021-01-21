@@ -64,3 +64,5 @@ Also removed a LinKS candidate whose probability of redshift success in autoz wa
 This forced me to redo the correlation studies, which changed the numbers slightly. No change in outcome.
 Looked at the z-lens redshift outputs for Li candidates against Li photo-z, which are inconsistent for two of the three. Will need to make a decision there. I need to check the z-src as well.
 
+1/21/21
+I
