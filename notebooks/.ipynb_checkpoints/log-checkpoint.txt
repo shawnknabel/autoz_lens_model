@@ -106,3 +106,11 @@ Calculated PM and SIS Einstein radius estimates using AUTOZ source redshifts and
     Li SIS 2to1:  0.965 1.023 0.258
     Average Difference:  -0.015
 I want to show this difference a little better and discuss all of this in the paper. For this afternoon.
+
+1/22/21 Afternoon
+I looked at mean and median stellar masses and Einstein radius estimates. KS tests show disparity to high significance between stellar mass of LinKS AUTOZ and LinKS from Knabel-2020, and an almost identical result when compared to the GAMA spectroscopic sample.
+LinKS - Mass:  [0.352 0.007] (metric pvalue)
+LinKS/Spec - Mass:  [0.353 0.007]
+Also looked at G544226, which would have been the overlap between GAMA spec and LinKS in Knabel2020. It is the ideal for identification by both.
+Plan to rename Li candidates to BG (bright galaxies) or Li-BG for sake of distinguishing them from LinKS.
+Still more to write in the paper, and I need to start on reviewing SVMs on Monday.
