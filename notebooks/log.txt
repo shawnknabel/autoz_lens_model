@@ -73,3 +73,36 @@ To Do:
 Overlay the redshift and stellar mass results over the results from Knabel-2020
 Further explore primary redshift as background source
 Flesh out writing sections on "what could have been" and results from Li.
+
+1/22/21 - Morning
+Notebook: 012221_autoz_samples_comparison_to_knabel2020 (copied to master notebook)
+Plotted lens redshift to lens stellar mass on top of big plot from knabel2020.
+    All autoz candidates are at log(m*) > 11.0 but at the lower end of the range of LinKS-Knabel2020 candidates, throughout redshift range.
+Calculated PM and SIS Einstein radius estimates using AUTOZ source redshifts and comparing to the 2:1 ratio we used in Knabel-2020.
+    In general, AUTOZ source redshifts gave lower estimates compared to 2:1 ratio, which have mean ~ or < 1.0 arcsec.
+    It appears they are typically on the lower end of the machine learning candidate mass range and Einstein radius. Especially looking at the LinKS sample, it appears these candidates have estimated Einstein radii of ~1 arcsec or less, which fits our idea that they would have a better shot of being detected by AUTOZ. Most of these didn't make the cut based on the visual inspection scores given by Petrillo, which also makes sense if their Einstein radii are particularly small (leading to low scores).
+    (mean, median, std)
+    LinKS PM:  1.138 0.984 0.535
+    LinKS PM 2to1:  1.241 1.171 0.414
+    Average Difference:  0.102
+    --
+    LinKS SIS:  0.857 0.771 0.352
+    LinKS SIS 2to1:  1.042 1.015 0.244
+    Average Difference:  0.185
+    --
+    LinKS Knabel-2020 PM:  1.033 0.918 0.192
+    LinKS Knabel-2020 PM 2to1:  1.248 1.199 0.317
+    Average Difference:  0.214
+    --
+    LinKS Knabel-2020 SIS:  0.757 0.726 0.141
+    LinKS Knabel-2020 SIS 2to1:  1.094 1.181 0.263
+    Average Difference:  0.336
+    --
+    Li PM:  1.304 1.043 0.777
+    Li PM 2to1:  1.26 1.257 0.528
+    Average Difference:  -0.044
+    --
+    Li SIS:  0.98 0.819 0.475
+    Li SIS 2to1:  0.965 1.023 0.258
+    Average Difference:  -0.015
+I want to show this difference a little better and discuss all of this in the paper. For this afternoon.
