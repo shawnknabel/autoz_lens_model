@@ -1,0 +1,24 @@
+Access VPN:
+>> sudo openconnect -u smknab01 --protocol=gp vpn5.louisville.edu
+Password: (ulink password)
+** ... ESP session established with server, etc.
+** Open new window to connect to PACER
+
+Access PACER:
+>> ssh sknabel@pacer.physics.louisville.edu
+Password: (pacer password, think simple)
+Access node2:
+>> ssh node2
+
+Open Jupyter Notebook:
+(In PACER) >> jupyter lab --port=9000 --no-browser &
+(In local) >> ssh -N -f -L 8888:localhost:9000 sknabel@pacer.physics.louisville.edu
+Password: (pacer password)
+(In local web browser) http://localhost:8888/lab
+check the list of running jupyter notebooks on the remote server using: jupyter notebook list
+the token  needed to login in the webpage is the character chain after the equal sign
+
+See Ports and Kill Process:
+*** in my machine ***
+sudo ss -tulwn | grep LISTEN
+sudo kill $(sudo lsof -t -i:8888)
