@@ -114,3 +114,20 @@ LinKS/Spec - Mass:  [0.353 0.007]
 Also looked at G544226, which would have been the overlap between GAMA spec and LinKS in Knabel2020. It is the ideal for identification by both.
 Plan to rename Li candidates to BG (bright galaxies) or Li-BG for sake of distinguishing them from LinKS.
 Still more to write in the paper, and I need to start on reviewing SVMs on Monday.
+
+1/25/21
+ML for classification - SVMs (SVC), K-NearestNeighbor, supervised vs unsupervised...
+    What is my test/train?
+    KNN : curse of dimensionality
+    Cross-validation strategies: KFold, etc. https://scikit-learn.org/stable/tutorial/statistical_inference/model_selection.html
+Stopped for lunch at sklearn tutorial 3 - unsupervised learning
+Unsupervised learning:
+    K-means clustering (sparsity mitigates curse of dimensionality)
+    Hierarchical - Agglomerative - bottom-up approaches
+        feature agglomeration mitigates curse of dimensionality
+    Transforms, Decomposition, PCA to reduce dimensionality
+        ICA
+Pipelines... Maximize cross-validation scores from multiple algorithms... e.g. PCA and SVC?
+Quadratic Surface SVM? - SVM are best for supervised learning. Adapt to unsupervised?
+    https://www.sciencedirect.com/science/article/abs/pii/S0377221719306630
+    
