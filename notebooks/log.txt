@@ -130,4 +130,10 @@ Unsupervised learning:
 Pipelines... Maximize cross-validation scores from multiple algorithms... e.g. PCA and SVC?
 Quadratic Surface SVM? - SVM are best for supervised learning. Adapt to unsupervised?
     https://www.sciencedirect.com/science/article/abs/pii/S0377221719306630
-    
+
+1/26/21
+Writing more of the paper.
+Reviewing ML...
+Starting to think I'll want to begin with SVM supervised, tell it what to do. See what it says about the sigma2 and R parameter space.
+Then give it everything, let it decide with PCA what to determine, still keep it supervised.
+Then try it k-means clustering and PCA and see if it marks off anything similar.
