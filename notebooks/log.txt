@@ -137,3 +137,12 @@ Reviewing ML...
 Starting to think I'll want to begin with SVM supervised, tell it what to do. See what it says about the sigma2 and R parameter space.
 Then give it everything, let it decide with PCA what to determine, still keep it supervised.
 Then try it k-means clustering and PCA and see if it marks off anything similar.
+
+1/28/21
+Benne wanted to scrap the ML idea for now... I'll come back to it.
+We're going to focus on the lens modeling, which is more fun anway!
+I've reviewed PyAutolens HowTos thru Ch2.5.
+Tomorrow:
+Finish 6-9, look at preprocessing
+Take a look at some real images
+Hopefully model a KiDS image next week.
