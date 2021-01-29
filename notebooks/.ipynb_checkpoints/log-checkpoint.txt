@@ -146,3 +146,7 @@ Tomorrow:
 Finish 6-9, look at preprocessing
 Take a look at some real images
 Hopefully model a KiDS image next week.
+
+1/29/21
+Finished autolens tutorials, prepping G3575500 (1906) for modeling.
+Trying to get github to load my damn files...
