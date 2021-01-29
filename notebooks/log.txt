@@ -149,4 +149,4 @@ Hopefully model a KiDS image next week.
 
 1/29/21
 Finished autolens tutorials, prepping G3575500 (1906) for modeling.
-Trying to get github to load my damn files...
+Need to figure out the psf stuff and whether I should stack the images... I think that's what I did before.
