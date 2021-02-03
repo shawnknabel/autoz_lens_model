@@ -150,3 +150,7 @@ Hopefully model a KiDS image next week.
 1/29/21
 Finished autolens tutorials, prepping G3575500 (1906) for modeling.
 Need to figure out the psf stuff and whether I should stack the images... I think that's what I did before.
+
+2/3/21
+I am losing my mind. autolens has the most bullshit I've ever experienced with coding. I'm fucking sick of it. Every time I need to do something that isn't explicitly a function from autolens, it will not work with what autolens wants. As of now, I've generated a resized image, psf, and noise map for G3575500 (1906), but when I try to view the subplot images it has some issue with an "autofilename autolabel", which I've determined is because it's not in the autolens workspace so must be a config file thing for autolens workspace. When I copy and paste it into an autolens howtolens tutorial it completely works... So I copied all the autoz shit into the autolens workspace, and it STILL DOESN'T WORK. So I have to have all my notebooks in the autolens workspace? The fuck is that about? ...
+... And it works now... What?
