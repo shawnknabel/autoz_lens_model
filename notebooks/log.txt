@@ -1,5 +1,15 @@
 Log of Updates and Files
 
+2/4/21
+The noise map in tutorials shows features from the galaxies... Perhaps I need to rethink that procedure. Here's how the API for autolens describes it: 'An array describing the RMS standard deviation error in each pixel in units of electrons per second.' I think that's what I've done? What about these units e-/s? Image is also that.
+Downloaded tile and catalog tables that should give each tile's FWHM of psf.
+To ask Benne: Gain - electrons per second?
+Psf convolution was struggling, which I believe is because I made the image too small and the psf too large. Reworked some prep. Ran into another config file problem when I tried to run the model... which had inf loglikelihood measurements. Something is completely wrong that I need to figure  out.. I'm wondering if we misinterpreted the noise map generation. Perhaps I need to add the image back onto it? Why would that be the case?
+Summary:
+- Have tile PSFs for g, r, i
+- Model starts to run; problem appears to be in noise map - don't think I have what it needs
+
+**** I decided on 2/4/21 that it makes more sense to update at the top... ****
 1/14/21
 Reviewing all the work prior to today.
 Cut the samples acc. to (z_lens > 0.05) and (z_src - z_lens > 0.1)
@@ -154,8 +164,3 @@ Need to figure out the psf stuff and whether I should stack the images... I thin
 2/3/21
 Had a bunch of issues trying to make autolens do anything that isn't part of the tutorials.
 
-2/4/21
-The noise map in tutorials shows features from the galaxies... Perhaps I need to rethink that procedure. Here's how the API for autolens describes it: 'An array describing the RMS standard deviation error in each pixel in units of electrons per second.' I think that's what I've done? What about these units e-/s? Image is also that.
-Downloaded tile and catalog tables that should give each tile's FWHM of psf.
-To ask Benne: Gain - electrons per second?
-Psf convolution was struggling, which I believe is because I made the image too small and the psf too large. Reworked some prep. Ran into another config file problem when I tried to run the model... which had inf loglikelihood measurements. Something is completely wrong that I need to figure  out.. I'm wondering if we misinterpreted the noise map generation. Perhaps I need to add the image back onto it? Why would that be the case?
