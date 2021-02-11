@@ -1,5 +1,8 @@
 Log of Updates and Files
 
+2/11/21 - morning
+Trying to work out the problem with accessing the data from the weight map. I believe the data has been truncated or compressed (it's also a large file), and I've found little help from online searches... I'm going to try a different fits opening module (fitsio).
+
 2/10/21 - evening
 Trying to use astropy to create cutouts (which should be super easy) and struggling... The center pixel indices are in the thousands? It's 101x101. Makes no sense. Totally works if I just put in (30, 54) or something.
 I also tried to open the weight map to see if it was just some odd mistake from the LinKS header. I couldn't even access the data from the primary hdu. "error - buffer is too small for requested array"
