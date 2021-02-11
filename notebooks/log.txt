@@ -1,5 +1,42 @@
 Log of Updates and Files
 
+2/11/21 - morning
+Trying to work out the problem with accessing the data from the weight map. I believe the data has been truncated or compressed (it's also a large file), and I've found little help from online searches... I'm going to try a different fits opening module (fitsio).
+
+2/10/21 - evening
+Trying to use astropy to create cutouts (which should be super easy) and struggling... The center pixel indices are in the thousands? It's 101x101. Makes no sense. Totally works if I just put in (30, 54) or something.
+I also tried to open the weight map to see if it was just some odd mistake from the LinKS header. I couldn't even access the data from the primary hdu. "error - buffer is too small for requested array"
+
+2/10/21 - afternoon
+Response from J Nightingale (louisville.edu account) super helpful. The weight coadd is what I need. He gave me two functions that will produce the noise map from the weight map (or inverse noise map). The difference between the two is a squared term.
+I had the wrong tile for the candidate I'm looking at. Have to go to a meeting with UCLA grad.
+
+2/10/21 - morning
+Response from K. Kuijken quite helpful. I was stupid, it's actually DR4, but it should be exactly the same anyway.
+Note: pixel scale is 0.2 (I calculated 0.198 so that's fine)
+Exposure times: g - 900s , r - 1800s, i - 1200s
+Wrote functions to convert to counts.
+Combined counts header info extraction, conversion, resizing, psf generation into one function (one_ring_to_rule_them_all)
+Need to include the noise map when I figure that out. Breaking for lunch.
+
+
+2/9/21
+Still no response from Benne. I need to figure out this noise map thing. The FITS header is useless. I *think* they are in counts because the gain factor is huge and the signal is tiny, so I think it has already been converted to counts (ADUs). Maybe I completely misunderstood that, but hey how am I supposed to make something out of nothing. The lack on information in the images is frustrating. Met with Benne, and he worked through a lot of it with me. See that log for our discussion. Emailed Konrad Kuijken about DR3.
+
+2/5/21
+Tried taking sqrt of pixel values. Did not work at all.
+Emailed James Nightingale (autolens creator), who said I'd need to know units of data (e-/s, counts), exposure time to convert to counts, and sky background level if not already subtracted.
+
+2/4/21
+The noise map in tutorials shows features from the galaxies... Perhaps I need to rethink that procedure. Here's how the API for autolens describes it: 'An array describing the RMS standard deviation error in each pixel in units of electrons per second.' I think that's what I've done? What about these units e-/s? Image is also that.
+Downloaded tile and catalog tables that should give each tile's FWHM of psf.
+To ask Benne: Gain - electrons per second?
+Psf convolution was struggling, which I believe is because I made the image too small and the psf too large. Reworked some prep. Ran into another config file problem when I tried to run the model... which had inf loglikelihood measurements. Something is completely wrong that I need to figure  out.. I'm wondering if we misinterpreted the noise map generation. Perhaps I need to add the image back onto it? Why would that be the case?
+Summary:
+- Have tile PSFs for g, r, i
+- Model starts to run; problem appears to be in noise map - don't think I have what it needs
+
+**** I decided on 2/4/21 that it makes more sense to update at the top... ****
 1/14/21
 Reviewing all the work prior to today.
 Cut the samples acc. to (z_lens > 0.05) and (z_src - z_lens > 0.1)
@@ -154,8 +191,3 @@ Need to figure out the psf stuff and whether I should stack the images... I thin
 2/3/21
 Had a bunch of issues trying to make autolens do anything that isn't part of the tutorials.
 
-2/4/21
-The noise map in tutorials shows features from the galaxies... Perhaps I need to rethink that procedure. Here's how the API for autolens describes it: 'An array describing the RMS standard deviation error in each pixel in units of electrons per second.' I think that's what I've done? What about these units e-/s? Image is also that.
-Downloaded tile and catalog tables that should give each tile's FWHM of psf.
-To ask Benne: Gain - electrons per second?
-Psf convolution was struggling, which I believe is because I made the image too small and the psf too large. Reworked some prep. Ran into another config file problem when I tried to run the model... which had inf loglikelihood measurements. Something is completely wrong that I need to figure  out.. I'm wondering if we misinterpreted the noise map generation. Perhaps I need to add the image back onto it? Why would that be the case?
