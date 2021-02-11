@@ -1,8 +1,21 @@
 Log of Updates and Files
 
-2/10/21
+2/10/21 - evening
+Trying to use astropy to create cutouts (which should be super easy) and struggling... The center pixel indices are in the thousands? It's 101x101. Makes no sense. Totally works if I just put in (30, 54) or something.
+I also tried to open the weight map to see if it was just some odd mistake from the LinKS header. I couldn't even access the data from the primary hdu. "error - buffer is too small for requested array"
+
+2/10/21 - afternoon
+Response from J Nightingale (louisville.edu account) super helpful. The weight coadd is what I need. He gave me two functions that will produce the noise map from the weight map (or inverse noise map). The difference between the two is a squared term.
+I had the wrong tile for the candidate I'm looking at. Have to go to a meeting with UCLA grad.
+
+2/10/21 - morning
 Response from K. Kuijken quite helpful. I was stupid, it's actually DR4, but it should be exactly the same anyway.
 Note: pixel scale is 0.2 (I calculated 0.198 so that's fine)
+Exposure times: g - 900s , r - 1800s, i - 1200s
+Wrote functions to convert to counts.
+Combined counts header info extraction, conversion, resizing, psf generation into one function (one_ring_to_rule_them_all)
+Need to include the noise map when I figure that out. Breaking for lunch.
+
 
 2/9/21
 Still no response from Benne. I need to figure out this noise map thing. The FITS header is useless. I *think* they are in counts because the gain factor is huge and the signal is tiny, so I think it has already been converted to counts (ADUs). Maybe I completely misunderstood that, but hey how am I supposed to make something out of nothing. The lack on information in the images is frustrating. Met with Benne, and he worked through a lot of it with me. See that log for our discussion. Emailed Konrad Kuijken about DR3.
