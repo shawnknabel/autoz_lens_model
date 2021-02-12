@@ -1,10 +1,13 @@
 Log of Updates and Files
 
+2/11/21 - afternoon
+fitsio works on my machine, but I need Lutz to update the library so I can use it on pacer. I've been able to make cutouts on the weight coadds. The problem is now that the position doesn't correspond to the galaxy. It might be close... I can't tell properly. But the Cutout2d is supposed to be able to take the reference wcs coordinates and pixels to find things.
+
 2/11/21 - morning
 Trying to work out the problem with accessing the data from the weight map. I believe the data has been truncated or compressed (it's also a large file), and I've found little help from online searches... I'm going to try a different fits opening module (fitsio).
 
 2/10/21 - evening
-Trying to use astropy to create cutouts (which should be super easy) and struggling... The center pixel indices are in the thousands? It's 101x101. Makes no sense. Totally works if I just put in (30, 54) or something.
+Trying to use astropy.Cutout2d to create cutouts (which should be super easy) and struggling... The center pixel indices are in the thousands? It's 101x101. Makes no sense. Totally works if I just put in (30, 54) or something.
 I also tried to open the weight map to see if it was just some odd mistake from the LinKS header. I couldn't even access the data from the primary hdu. "error - buffer is too small for requested array"
 
 2/10/21 - afternoon
