@@ -1,5 +1,16 @@
 Log of Updates and Files
 
+2/12/21 - morning
+I was mistaken about what I needed for the units. For the final images, I need them in e-/s. The conversion factor is [counts=e-/s * exp_time]. I need the image in counts, then I get the noise value by taking 1/sqrt(weight) (or npsqrt(data)) and then convert back to e-/s by dividing the exp_time.
+I'm not sure the weight map can be used directly to get the noise map (it would basically take 1/sqrt(weight) which is the rms variance). The problem is that the weight map doesn't appear to show any signal from the galaxy and may be just the background sky noise. Maybe I can use that as the background sky noise and add it to the data before taking the sqrt(data+bg) and then convert back to e-/s.
+Here is the procedure:
+1. 1/data in counts to get "shot-noise" of galaxies
+2. take 1/sqrt(weight) to get rms noise (background)
+3. multiply by gain*exp_time to get counts # This part is the problem because the gain is 0.
+4. add background noise to "shot-noise"
+5. sqrt(this image)
+
+
 2/11/21 - afternoon
 fitsio works on my machine, but I need Lutz to update the library so I can use it on pacer. I've been able to make cutouts on the weight coadds. The problem is now that the position doesn't correspond to the galaxy. It might be close... I can't tell properly. But the Cutout2d is supposed to be able to take the reference wcs coordinates and pixels to find things.
 
