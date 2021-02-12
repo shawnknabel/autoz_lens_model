@@ -1,0 +1,24 @@
+Meeting with Benne - 2/12/21
+
+Three filters, add them together for white image.
+
+Add pixel values in counts.
+Then noise images after.
+
+rms = 1/npsr(weight)
+
+psf: we could do mean or worst of three...
+
+Try r and g bands to see if they converge.
+
+.....
+
+If things are not working well, or big error bars, we may submit an HST or Gemini proposal to get better data for the 42 targets. Idea being KiDS images not good enough.
+- HST images good for substructure! Wobbles in the arcs. We need the extremely high resolution images.
+-- Good sample for this with high mass and closeness.
+Once we've gotten all we can get with pyautolens.
+Plug in the plots from this paper.
+
+.....
+Look at the group catalogs.
+
