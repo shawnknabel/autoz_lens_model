@@ -1,5 +1,12 @@
 Log of Updates and Files
 
+2/15/21
+Still struggling with the units from KiDS and autolens.
+J Nightingale admitted that his "counts" means electron counts, which is not typical usage.
+K Kuijken's prescription for converting from "calibrated flux units" was to multiply by *either* the gain or the gain*exp_time... which is an important distinction.
+The calibrated flux units are negative in many pixels, which means they are converted to negative counts, which is not only nonsense but it leads to non-real numbers when I take the sqrt for the noise.
+I'm going to leave this and focus on the environment catalogs from GAMA until I have a clear way forward.
+
 2/12/21 - afternoon
 New plan, no weight maps.
 1. image to counts_image
@@ -7,7 +14,7 @@ New plan, no weight maps.
 3. add background_noise to counts_image to get bg_added_image
 4. sqrt(bg_added_image) to get noise_map
 5. convert counts_image and noise_map to e-/s
-I'm exhausted. I'm close, but I'm exhausted. I'll need to pick it up again on Monday and work it out. I think the noise map valuse should be must smaller, so maybe I missed a factor.
+I'm exhausted. I'm close, but I'm exhausted. I'll need to pick it up again on Monday and work it out. I think the noise map valuse should be much smaller, so maybe I missed a factor.
 
 2/12/21 - morning
 I was mistaken about what I needed for the units. For the final images, I need them in e-/s. The conversion factor is [counts=e-/s * exp_time]. I need the image in counts, then I get the noise value by taking 1/sqrt(weight) (or npsqrt(data)) and then convert back to e-/s by dividing the exp_time.
