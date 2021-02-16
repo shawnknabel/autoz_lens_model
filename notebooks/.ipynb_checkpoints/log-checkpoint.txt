@@ -1,5 +1,13 @@
 Log of Updates and Files
 
+2/16/21 - afternoon
+Tried to figure the noise map out with Benne for a while... We came up with setting the mean to the clipping_mean*10 and then subracting the sqrt of that value at the end.
+
+2/16/21 - morning
+Looking into the flux unit problem by uploading the full tile fits file to see what the values are.
+Found that LinKS made the composite RGB images using HumVI (https://github.com/drphilmarshall/HumVI), but since the fits files are r, g, and i separated, I expect that they either reseparated them or showed only the raw cutouts.
+If LinKS messed with the images, I'll just make my own cutouts.
+
 2/15/21
 Still struggling with the units from KiDS and autolens.
 J Nightingale admitted that his "counts" means electron counts, which is not typical usage.
