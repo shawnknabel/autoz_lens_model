@@ -1,5 +1,10 @@
 Log of Updates and Files
 
+2/17/21 - morning
+Reinterpretted J Nightingale's presciption to mean take the value of the std of the clipped image (in this case ~150000) as the background sky level. I'm not adding noise variance, just the background sky level. Okay.
+Problem is, the minimum values of counts in the image are ~ -400000, so it still leaves negative numbers for the square root. K Kuijken said that the background should be of order 10-100 eps. Typical CCD gains (the ACTUAL definition of the gain) are around 7-10 e-/ADU. So I assume 100 eps, gain of 10, and exp_time of 1200 to see what happens... it adds a constant value of 1200000 counts and is the only thing that has remotely looked correct when the image is loaded by autolens. Hmm. 
+Update, K Kuijken has also been referring to electron counts. So I don't need to use the gain after I convert it from ADUs to electron counts (which is what pyautolens and J Nightingale wanted all along). Then I just need to multiply 100 eps * 1200 s to get 120000 electron counts, which I add to the image and take the sqrt. I then divide again by 1200, and that's my noise map. I'll check after lunch to see if it will converge to a fit.
+
 2/16/21 - afternoon
 Tried to figure the noise map out with Benne for a while... We came up with setting the mean to the clipping_mean*10 and then subracting the sqrt of that value at the end.
 
