@@ -1,0 +1,196 @@
+1/28/21 - Lens modeling
+Steps:
+1. Import libraries - autolens, autolens.plot, autofit
+2. Load imaging - a.Imaging.from_fits (or .load); image_path, noise map_path, psf_path; specify pixel scales
+3. Create mask - al.Mask2D.Circular; shape_2d=imaging.shape_2d, pixel_scales=imaging.pixel_scales, radius
+4. Plot imaging - aplt.ImagingPlotter; imaging=imaging, visuals_2d=aplt.Visuals2D(mask=mask)
+        imaging_plotter.subplot_imaging()
+5. Set galaxy models and priors - al.GalaxyModel; af.UniformPrior, af.GaussianPrior
+6. Settings - al.SettingsMaskedImaging(grid_class=al.Grid, sub_size=)
+        al.SettingsPhaseImaging(settings_masked_imaging=settings_masked_imaging)
+7. Set phase - al.PhaseImaging(search=af.DynestyStatic(path_prefix=, name=, n_live_points),
+                                settings=settings,
+                                galaxies=af.CollectionPriorModel(lens=lens, source=source),
+    ),
+)
+8. Run phase - result = phase.run(dataset=imaging, mask=mask)
+9. Show results - aplt.FitImagingPlotter
+
+********** Whole code *************
+
+import autolens as al
+import autolens.plot as aplt
+import autofit as af
+
+imaging = al.Imaging.from_fits(
+    image_path=path.join(dataset_path, "image.fits"),
+    noise_map_path=path.join(dataset_path, "noise_map.fits"),
+    psf_path=path.join(dataset_path, "psf.fits"),
+    pixel_scales=0.1,
+)
+
+mask = al.Mask2D.circular(
+    shape_2d=imaging.shape_2d, pixel_scales=imaging.pixel_scales, radius=2.5
+)
+
+settings_masked_imaging = al.SettingsMaskedImaging(grid_class=al.Grid, sub_size=2)
+
+settings = al.SettingsPhaseImaging(settings_masked_imaging=settings_masked_imaging)
+
+lens = al.GalaxyModel(redshift=0.5, mass=al.mp.SphericalIsothermal)
+source = al.GalaxyModel(redshift=1.0, bulge=al.lp.SphericalExponential)
+
+# say we know it's definitely close to the center of the frame (default is gaussian with 3sigma=1.0)
+lens.bulge.centre.centre_0 = af.UniformPrior(lower_limit=-0.05, upper_limit=0.05)
+lens.bulge.centre.centre_1 = af.UniformPrior(lower_limit=-0.05, upper_limit=0.05)
+lens.mass.centre.centre_0 = af.UniformPrior(lower_limit=-0.05, upper_limit=0.05)
+lens.mass.centre.centre_1 = af.UniformPrior(lower_limit=-0.05, upper_limit=0.05)
+lens.mass.einstein_radius = af.GaussianPrior(mean=1.4, sigma=0.2)
+source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=0.3)
+
+phase = al.PhaseImaging(
+    search=af.DynestyStatic(
+        path_prefix="howtolens",
+        name="phase_t3_realism_and_complexity",
+        n_live_points=80,
+    ),
+    settings=settings,
+        galaxies=af.CollectionPriorModel(lens=lens, source=source),
+)
+
+print(
+    "Dynesty has begun running - checkout the autolens_workspace/output/3_realism_and_complexity"
+    " folder for live output of the results, images and lens model."
+    " This Jupyter notebook cell with progress once Dynesty has completed - this could take some time!"
+)
+
+result = phase.run(dataset=imaging, mask=mask)
+
+print("Dynesty has finished run - you may now continue the notebook.")
+
+fit_imaging_plotter = aplt.FitImagingPlotter(fit=result.max_log_likelihood_fit)
+fit_imaging_plotter.subplot_fit_imaging()
+
+*****
+
+Tools to help find the Global Maximum Solution:
+1. Tune the priors (specific to each)
+2. Make the models less complex (less realistic)
+3. Commit to the search (could take forever)
+
+Link Phases!
+Phase 1: simplified lens galaxy, output to priors for Phase 2
+Phase 2: return the more realistic model
+
+# set constant numbers for simplicity
+lens.bulge.centre_0 = 0.0
+lens.bulge.centre_1 = 0.0
+lens.mass.centre_0 = 0.0
+lens.mass.centre_1 = 0.0
+
+# make mass trace same ellipticity as light profile
+lens.mass.elliptical_comps = lens.bulge.elliptical_comps
+
+# automatically link outputs of phase1 to phase2
+phase2_pass = al.PhaseImaging(
+    search=af.DynestyStatic(
+        path_prefix="howtolens", name="phase_t5_linking_phases_2_pass", n_live_points=40
+    ),
+    settings=settings,
+    galaxies=af.CollectionPriorModel(
+        lens=phase1_result.model.galaxies.lens,
+        source=phase1_result.model.galaxies.source,
+    ),
+)
+
+# phase2_pass.run(dataset=imaging, mask=mask)
+
+In order to pass priors and change model parametrization in phase2, we use af.PriorModel
+
+"""LENS LIGHT PRIORS"""
+
+sersic = af.PriorModel(al.lp.EllipticalSersic)
+
+sersic.elliptical_comps.elliptical_comps = (
+    phase1_result.model.galaxies.lens.bulge.elliptical_comps
+)
+sersic.intensity = phase1_result.model.galaxies.lens.bulge.intensity
+sersic.effective_radius = phase1_result.model.galaxies.lens.bulge.effective_radius
+
+"""LENS MASS PRIORS"""
+
+mass = af.PriorModel(al.mp.EllipticalIsothermal)
+
+lens.mass.elliptical_comps.elliptical_comps = (
+    phase1_result.model.galaxies.lens.mass.elliptical_comps
+)
+lens.mass.einstein_radius = phase1_result.model.galaxies.lens.mass.einstein_radius
+
+lens = al.GalaxyModel(redshift=0.5, bulge=sersic, mass=mass)
+
+***********
+
+Optimizing the Search:
+Dynesty: nested sampling algorithm
+    n_live_points - # models being tested
+    evidence_tolerance - algorithm stops sampling when it estimates that continuing will not increase Bayesian evidence (log_evidence) beyond the tolerance (<0.8 for reliable error est); keep high for first phase, low for second
+    walks - # steps taken in param space by each live point (5-10 is optimal)
+    facc - how big each step is (0.2-0.3 optimal)
+Optimizers: when we don't care about errors, maximize only the log likelihood!
+    Particle Swarm Optimizer (PySwarm)
+        iters - # steps for ea. live point (particle)
+Also af.Emcee (MCMC) - another non-linear random walk sampler
+
+Typically follow this model:
+1. Initialize with Dynesty
+2. Refine with PySwarm
+3. Finish with Dynesty
+
+*************
+
+Masking:
+    Biggest you can with the least amount of time.
+    Foreground lens light extends pretty far... needs big.
+    
+
+mask = al.Mask2D.circular_annular(
+    shape_2d=imaging.shape_2d,
+    pixel_scales=imaging.pixel_scales,
+    inner_radius=1.4,
+    outer_radius=2.4,
+)
+# check that it fits correctly
+imaging_plotter = aplt.ImagingPlotter(
+    imaging=imaging, visuals_2d=aplt.Visuals2D(mask=mask)
+)
+imaging_plotter.subplot_imaging()
+
+***********
+
+Positions - identify positions which the algorithm first checks if they trace back within a certain arcsec threshold
+    - Place on images... If they don't plot back to the same source, then the algorithm doesn't search the model!
+    
+positions = al.GridIrregularGrouped(
+    grid=[(1.6, 0.0), (0.0, 1.6), (-1.6, 0.0), (0.0, -1.6)]
+)
+
+visuals_2d = aplt.Visuals2D(positions=positions)
+
+imaging_plotter = aplt.ImagingPlotter(imaging=imaging, visuals_2d=visuals_2d)
+imaging_plotter.subplot_imaging()
+
+imaging = al.Imaging(
+    image=imaging.image,
+    noise_map=imaging.noise_map,
+    psf=imaging.psf,
+    positions=positions,
+)
+
+settings_masked_imaging = al.SettingsMaskedImaging(grid_class=al.Grid, sub_size=2)
+settings_lens = al.SettingsLens(positions_threshold=2.0)
+
+settings = al.SettingsPhaseImaging(
+    settings_masked_imaging=settings_masked_imaging, settings_lens=settings_lens
+)
+
+You may observe multiple source-galaxies each with their own set of multiple-images. If you have a means by which to pair different positions to the same source galaxies (for example, spectroscopic data) you can set up multiple sets of positions which each have to trace to within the position threshold of one another for the lens model to be accepted.
