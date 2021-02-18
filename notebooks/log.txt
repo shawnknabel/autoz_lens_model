@@ -2,7 +2,9 @@ Log of Updates and Files
 
 2/18/21 - morning
 The fit appears to be converging! There was an error that it can't find the right config file for 'dataset', which is in the plots.ini from config/visualize. Updated the autolens_workspace from github, so it should all be right. The config files are in the working directory. In contact with J Nightingale right now.
-In
+----
+I have my first models. I first fit the r-band image to get the light profile of the lens galaxy. I then fit the g-band image using the output of the first phase as priors for the second. I'm sending this data to Jammy (J Nightingale) to see if he has some thoughts for it.
+I need to figure out exactly how I'm going to extract dark matter fractions here... M/L ratio? Einstein radius? I have stellar mass, so if I can just get a measure of the lensing mass, then I have the dark matter.
 
 2/17/21 - morning
 Reinterpretted J Nightingale's presciption to mean take the value of the std of the clipped image (in this case ~150000) as the background sky level. I'm not adding noise variance, just the background sky level. Okay.
