@@ -1,5 +1,13 @@
 Log of Updates and Files
 
+2/18/21 - afternoon
+Reran the fits and changed some small pieces according to Jammy's suggestions, which were:
+1. Put tighter prior on r-band fit lens galaxy bulge center (fixed to 0.0, 0.0 or uniform priors with width 1/2 pixel [I chose the latter])
+2. Directly link center of bulge and SIE mass.
+3. Bulge intensities from r- to g-band lens... make sure 0.1 Gaussian Prior is near the solution. (It's ~0.5-0.6)
+They turned out to produce essentially exactly the same max log likelihood.
+I want to keep tweaking this, and I need to find the best way to extract dark matter fractions from this.
+
 2/18/21 - morning
 The fit appears to be converging! There was an error that it can't find the right config file for 'dataset', which is in the plots.ini from config/visualize. Updated the autolens_workspace from github, so it should all be right. The config files are in the working directory. In contact with J Nightingale right now.
 ----
