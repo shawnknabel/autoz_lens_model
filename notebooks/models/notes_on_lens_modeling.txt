@@ -89,6 +89,7 @@ lens.mass.centre_0 = 0.0
 lens.mass.centre_1 = 0.0
 
 # make mass trace same ellipticity as light profile
+lens.mass.centre = lens.bulge.centre
 lens.mass.elliptical_comps = lens.bulge.elliptical_comps
 
 # automatically link outputs of phase1 to phase2

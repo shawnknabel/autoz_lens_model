@@ -1,0 +1,15 @@
+Total Free Parameters = 7 
+
+galaxies
+    lens
+        redshift                                                                          0.232537
+        bulge
+            centre
+                centre_0                                                                  UniformPrior, lower_limit = -1.0, upper_limit = 1.0
+                centre_1                                                                  UniformPrior, lower_limit = -1.0, upper_limit = 1.0
+            elliptical_comps
+                elliptical_comps_0                                                        UniformPrior, lower_limit = -1.0, upper_limit = 1.0
+                elliptical_comps_1                                                        UniformPrior, lower_limit = -1.0, upper_limit = 1.0
+            intensity                                                                     LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+            effective_radius                                                              UniformPrior, lower_limit = 0.0, upper_limit = 3.0
+            sersic_index                                                                  UniformPrior, lower_limit = 0.5, upper_limit = 8.0
