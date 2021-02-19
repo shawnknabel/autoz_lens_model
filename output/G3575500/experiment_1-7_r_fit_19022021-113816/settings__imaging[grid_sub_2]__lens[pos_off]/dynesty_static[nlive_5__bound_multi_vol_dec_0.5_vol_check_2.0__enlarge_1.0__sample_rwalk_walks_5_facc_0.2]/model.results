@@ -1,0 +1,40 @@
+Bayesian Evidence                                                                         -217.46144695
+Maximum Likelihood                                                                        -208.23064270
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        0.071
+                elliptical_comps_1                                                        0.102
+            intensity                                                                     0.900
+            sersic_index                                                                  1.783
+            centre
+                centre_0                                                                  -0.046
+                centre_1                                                                  0.016
+            effective_radius                                                              1.549
+
+ WARNING: The samples have not converged enough to compute a PDF and model errors. 
+ The model below over estimates errors. 
+
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        0.0714 (-0.6752, 0.6058)
+                elliptical_comps_1                                                        0.1021 (-1.0290, 0.5997)
+            intensity                                                                     0.9002 (0.0000, 168550.3132)
+            sersic_index                                                                  1.7829 (0.7349, 7.6885)
+            centre
+                centre_0                                                                  -0.0459 (-0.0992, 0.0939)
+                centre_1                                                                  0.0161 (-0.0974, 0.0987)
+            effective_radius                                                              1.5492 (0.1455, 2.9979)
+
+instances
+

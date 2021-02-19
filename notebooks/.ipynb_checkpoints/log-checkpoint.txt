@@ -1,5 +1,81 @@
 Log of Updates and Files
 
+2/19/21 - morning
+Experimenting with model fits for 1906 to see how different changes affect convergence time and log likelihood.
+*** Best Model as of the end of today.
+Phase 1 - Dynesty(n_live=20, tolerance=2, walks=default)
+Phase 2 - Dynesty(n_live=40, tolerance=0.5, walks=5, facc=0.4)
+***
+Experiments
+1. Adjusting Dynesty settings
+    - n_live_points - # models being tested
+    - evidence_tolerance - algorithm stops sampling when it estimates that continuing will not increase Bayesian evidence (log_evidence) beyond the tolerance (<0.8 for reliable error est); keep high for first phase, low for second
+    - walks - # steps taken in param space by each live point (5-10 is optimal)
+    - facc - how big each step is (0.2-0.3 optimal)
+2. Different optimizers:
+    - Particle Swarm Optimizer (PySwarm)
+        iters - # steps for ea. live point (particle)
+        Typically follow this model:
+    1. Initialize with Dynesty
+    2. Refine with PySwarm
+    3. Finish with Dynesty
+3. Set positions of lens images
+    - Positions - identify positions which the algorithm first checks if they trace back within a certain arcsec threshold
+    - Place on images... If they don't plot back to the same source, then the algorithm doesn't search the model
+    - As long as you keep the threshold above ~0.5" you'll be fine.
+EXPERIMENT: (First phase optimize speed, second optimize likelihood)
+1. -1 Dynesty(n_live=60, all others unchanged), Dynesty(n_live=80, all other unchanged)
+    -2 Dynesty(n_live=80, all others unchanged), Dynesty(n_live=80, all other unchanged)
+    -3 Dynesty(n_live=60, all others unchanged), Dynesty(n_live=100, all other unchanged)
+    -4 Dynesty(n_live=40, all others unchanged), Dynesty(n_live=60, all other unchanged) # The lower n_live_points is fast and just as good
+    -5 Dynesty(n_live=20, all others unchanged), Dynesty(n_live=40, all other unchanged) *** Works fine and is fast! ***
+    -6 Dynesty(n_live=10, all others unchanged), Dynesty(n_live=20, all other unchanged) 
+    -7 Dynesty(n_live=5, all others unchanged), Dynesty(n_live=10, all other unchanged) # here is where things started to fail
+  Experiment  phase1_time  phase1_time  phase2_time  phase2_likelihood  \
+0        1-1   107.555079   296.239404   167.684566         118.462835   
+0        1-2   137.521799   296.010310   143.622440         118.254286   
+0        1-3   104.364316   296.235893   206.749381         118.070031   
+0        1-4    73.453015   296.132388   132.761242         117.998034   
+0        1-5    40.029995   296.179939    98.284560         118.632109   *** n_live = 20, 40 is best.  
+0        1-6    34.548316   286.543298    65.271374         118.514028   
+0        1-7    11.370712  -208.230643    22.767801          89.789176
+---- Take best ---- 1-5
+2. -1 Dynesty(n_live=best, evidence_tolerance=5), Dynesty(n_live=best, evidence_tolerance=0.8)
+    -2 Dynesty(n_live=best, evidence_tolerance=10), Dynesty(n_live=best, evidence_tolerance=0.8)
+    -3 Dynesty(n_live=best, evidence_tolerance=2), Dynesty(n_live=best, evidence_tolerance=0.8)
+    -4 Dynesty(n_live=best, evidence_tolerance=2), Dynesty(n_live=best, evidence_tolerance=0.5) *** This is best ***
+    -5 Dynesty(n_live=best, evidence_tolerance=2), Dynesty(n_live=60, evidence_tolerance=0.5) # trying higher n_live to see if difference... nope
+---- Take best ---- 2-4
+3. -1 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=5) *** This is best ***
+    -2 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=10)
+    -3 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=20)
+    -4 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=50)
+    -5 Dynesty(n_live, tolerance=best, walks=5), Dynesty(n_live, tolerance=best, walks=5)
+---- Take best ---- 3-1
+4. -1 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.2)
+    -2 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.3)
+    -3 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.4) *** This is best ***
+    -4 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.5)
+---- Take best ---- 4-3
+*** Best Model so far:
+Phase 1 - Dynesty(n_live=20, tolerance=2, walks=default)
+Phase 2 - Dynesty(n_live=40, tolerance=0.5, walks=5, facc=0.4)
+***
+# Stopped here. Pick it up on Monday
+5. Dynesty(fastest), PySwarm(n_particles=50, iters=1000), Dynesty(best) # These aren't working right now.
+    Dynesty(fastest), PySwarm(n_particles=80, iters=1000), Dynesty(best)
+    Dynesty(fastest), PySwarm(n_particles=50, iters=1500), Dynesty(best)
+    Dynesty(fastest), PySwarm(n_particles=80, iters=1500), Dynesty(best)
+---- Take best ----
+6. Set positions(position_threshold=2.0)
+    Set positions(position_threshold=1.5)
+    Set positions(position_threshold=1.0)
+    Set positions(position_threshold=0.5)
+NOTE: First set the mask subsize to 2 (instead of 1)
+    - r-band took 2 minutes as opposed to 3 with the subsize at 1.
+    - g-band faster by 10 seconds.
+    - STICK WITH 2!
+
 2/18/21 - afternoon
 Reran the fits and changed some small pieces according to Jammy's suggestions, which were:
 1. Put tighter prior on r-band fit lens galaxy bulge center (fixed to 0.0, 0.0 or uniform priors with width 1/2 pixel [I chose the latter])

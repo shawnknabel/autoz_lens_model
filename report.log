@@ -1,0 +1,87 @@
+2021-02-19 13:23:27,233 - pyswarms.backend.generators - ERROR - Bounds and/or init_pos should be of size (12,)
+Traceback (most recent call last):
+  File "/soft/anaconda3/lib/python3.7/site-packages/pyswarms/backend/generators.py", line 67, in generate_swarm
+    raise ValueError("User-defined init_pos is out of bounds.")
+ValueError: User-defined init_pos is out of bounds.
+2021-02-19 13:27:43,201 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:27:43,900 - root - INFO - No PySwarms samples found, beginning new non-linear search. 
+2021-02-19 13:27:43,902 - root - INFO - Running PySwarmsGlobal Optimizer...
+2021-02-19 13:27:43,903 - pyswarms.backend.generators - ERROR - Bounds and/or init_pos should be of size (12,)
+Traceback (most recent call last):
+  File "/soft/anaconda3/lib/python3.7/site-packages/pyswarms/backend/generators.py", line 67, in generate_swarm
+    raise ValueError("User-defined init_pos is out of bounds.")
+ValueError: User-defined init_pos is out of bounds.
+2021-02-19 13:28:00,425 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:28:00,571 - root - INFO - No PySwarms samples found, beginning new non-linear search. 
+2021-02-19 13:28:00,572 - root - INFO - Running PySwarmsGlobal Optimizer...
+2021-02-19 13:28:00,574 - pyswarms.backend.generators - ERROR - Bounds and/or init_pos should be of size (12,)
+Traceback (most recent call last):
+  File "/soft/anaconda3/lib/python3.7/site-packages/pyswarms/backend/generators.py", line 67, in generate_swarm
+    raise ValueError("User-defined init_pos is out of bounds.")
+ValueError: User-defined init_pos is out of bounds.
+2021-02-19 13:28:10,604 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:28:10,748 - root - INFO - No PySwarms samples found, beginning new non-linear search. 
+2021-02-19 13:28:10,750 - root - INFO - Running PySwarmsGlobal Optimizer...
+2021-02-19 13:28:10,751 - pyswarms.backend.generators - ERROR - Bounds and/or init_pos should be of size (12,)
+Traceback (most recent call last):
+  File "/soft/anaconda3/lib/python3.7/site-packages/pyswarms/backend/generators.py", line 67, in generate_swarm
+    raise ValueError("User-defined init_pos is out of bounds.")
+ValueError: User-defined init_pos is out of bounds.
+2021-02-19 13:31:26,131 - root - INFO - experiment_4-1_r_fit_19022021-113816 already completed, skipping non-linear search.
+2021-02-19 13:31:44,213 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:31:44,954 - root - INFO - No PySwarms samples found, beginning new non-linear search. 
+2021-02-19 13:31:44,956 - root - INFO - Running PySwarmsGlobal Optimizer...
+2021-02-19 13:31:44,957 - pyswarms.backend.generators - ERROR - Bounds and/or init_pos should be of size (12,)
+Traceback (most recent call last):
+  File "/soft/anaconda3/lib/python3.7/site-packages/pyswarms/backend/generators.py", line 67, in generate_swarm
+    raise ValueError("User-defined init_pos is out of bounds.")
+ValueError: User-defined init_pos is out of bounds.
+2021-02-19 13:36:33,484 - root - INFO - experiment_4-1_r_fit_19022021-113816 already completed, skipping non-linear search.
+2021-02-19 13:38:26,072 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:38:26,193 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 13:38:39,702 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:38:50,067 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:38:53,283 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:38:56,514 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:41:13,541 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:41:14,124 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 13:41:43,819 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:42:05,602 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:42:11,379 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:42:17,178 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:44:50,055 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:44:50,166 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 13:45:03,412 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:45:14,224 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:45:17,907 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:45:21,170 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:46:46,277 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:46:46,878 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 13:47:16,813 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:47:32,853 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:47:38,579 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:47:44,326 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:56:19,529 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:56:19,644 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 13:56:32,932 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:56:41,614 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:56:44,736 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:56:48,085 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:58:01,700 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 13:58:02,292 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 13:58:31,488 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:58:47,318 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:58:53,104 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 13:58:58,835 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:00:19,397 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 14:00:19,508 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 14:00:32,741 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:00:42,539 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:00:46,237 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:00:49,460 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:01:14,877 - root - INFO - Generating initial samples of model, which are subject to prior limits and other constraints.
+2021-02-19 14:01:15,459 - root - INFO - No Dynesty samples found, beginning new non-linear search. 
+2021-02-19 14:01:45,658 - root - INFO - 2500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:01:54,350 - root - INFO - 5000 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:02:00,633 - root - INFO - 7500 Iterations: Performing update (Visualization, outputting samples, etc.).
+2021-02-19 14:02:06,901 - root - INFO - 10000 Iterations: Performing update (Visualization, outputting samples, etc.).

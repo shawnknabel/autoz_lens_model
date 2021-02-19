@@ -1,0 +1,10 @@
+Experiment 1-1 
+r-band 
+Time to convergence: 107.55507908388972 seconds 
+Log likelihood: 296.23940404320155 
+Model: Galaxy (centre_0, GaussianPrior, mean = -0.0874271379791887, sigma = 0.05), (centre_1, GaussianPrior, mean = -0.07586964945427546, sigma = 0.05), (elliptical_comps_0, GaussianPrior, mean = 0.028845394880217246, sigma = 0.2), (elliptical_comps_1, GaussianPrior, mean = 0.04986842770126647, sigma = 0.2), (intensity, GaussianPrior, mean = 0.1, sigma = 0.1), (effective_radius, GaussianPrior, mean = 2.9095324297506004, sigma = 2.9095324297506004), (sersic_index, GaussianPrior, mean = 3.5422404334022564, sigma = 1.5), None, None 
+g-band 
+Time to convergence: 167.6845664009452 seconds 
+Log likelihood: 118.46283468362202 
+Model: Galaxy (centre_0, GaussianPrior, mean = -0.11007546838887204, sigma = 0.08918137987770362), (centre_1, GaussianPrior, mean = -0.036997342532843855, sigma = 0.09754955530507271), (elliptical_comps_0, GaussianPrior, mean = -0.014638395181658997, sigma = 0.2), (elliptical_comps_1, GaussianPrior, mean = 0.04368094763813985, sigma = 0.21777665859837692), (intensity, GaussianPrior, mean = 0.06468395346119343, sigma = 0.15031820617751585), (effective_radius, GaussianPrior, mean = 2.6724335667436656, sigma = 3.0759994384174845), (sersic_index, GaussianPrior, mean = 3.233894406781968, sigma = 1.5720982234837744), (centre_0, GaussianPrior, mean = -0.11007546838887204, sigma = 0.08918137987770362), (centre_1, GaussianPrior, mean = -0.036997342532843855, sigma = 0.09754955530507271), (elliptical_comps_0, GaussianPrior, mean = -0.014638395181658997, sigma = 0.2), (elliptical_comps_1, GaussianPrior, mean = 0.04368094763813985, sigma = 0.21777665859837692), (einstein_radius, GaussianPrior, mean = 0.9595242460969294, sigma = 0.7956250561374797), Galaxy (centre_0, GaussianPrior, mean = -0.8304021027693466, sigma = 3.495204365120315), (centre_1, GaussianPrior, mean = 0.5661335030915892, sigma = 3.398199896378975), (intensity, GaussianPrior, mean = 0.000594035842767245, sigma = 0.1298682728695161), (effective_radius, GaussianPrior, mean = 1.616338569715109, sigma = 1.616338569715109), None, None 
+

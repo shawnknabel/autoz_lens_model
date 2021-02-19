@@ -1,0 +1,52 @@
+Bayesian Evidence                                                                         272.58378681
+Maximum Likelihood                                                                        296.23589335
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        0.026
+                elliptical_comps_1                                                        0.055
+            intensity                                                                     0.216
+            sersic_index                                                                  3.618
+            centre
+                centre_0                                                                  -0.090
+                centre_1                                                                  -0.077
+            effective_radius                                                              2.992
+
+
+Summary (3.0 sigma limits):
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        0.0288 (-0.0051, 0.0628)
+                elliptical_comps_1                                                        0.0490 (0.0125, 0.0853)
+            intensity                                                                     0.2248 (0.2092, 0.2888)
+            sersic_index                                                                  3.5356 (3.2470, 3.7654)
+            centre
+                centre_0                                                                  -0.0878 (-0.0994, -0.0695)
+                centre_1                                                                  -0.0764 (-0.0938, -0.0562)
+            effective_radius                                                              2.9276 (2.5054, 2.9995)
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        0.0288 (0.0240, 0.0337)
+                elliptical_comps_1                                                        0.0490 (0.0440, 0.0550)
+            intensity                                                                     0.2248 (0.2204, 0.2315)
+            sersic_index                                                                  3.5356 (3.4938, 3.5806)
+            centre
+                centre_0                                                                  -0.0878 (-0.0902, -0.0850)
+                centre_1                                                                  -0.0764 (-0.0794, -0.0735)
+            effective_radius                                                              2.9276 (2.8840, 2.9565)
+
+instances
+

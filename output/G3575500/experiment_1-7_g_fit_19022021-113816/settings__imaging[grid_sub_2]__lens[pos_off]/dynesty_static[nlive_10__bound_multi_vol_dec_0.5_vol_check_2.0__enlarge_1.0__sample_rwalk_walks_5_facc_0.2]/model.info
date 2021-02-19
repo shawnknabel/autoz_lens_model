@@ -1,0 +1,29 @@
+Total Free Parameters = 12 
+
+galaxies
+    lens
+        bulge
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.04591073553684693, sigma = 0.13981425072261758
+                centre_1                                                                  GaussianPrior, mean = 0.01609348176327892, sigma = 0.11349910174448609
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = 0.07143735009251054, sigma = 0.7466157267601863
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.10209462478780014, sigma = 1.13111076059126
+            intensity                                                                     GaussianPrior, mean = 0.1, sigma = 0.1
+            effective_radius                                                              GaussianPrior, mean = 1.5491557418110933, sigma = 1.5491557418110933
+            sersic_index                                                                  GaussianPrior, mean = 1.7829085329572978, sigma = 5.905546740806812
+        mass
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.04591073553684693, sigma = 0.13981425072261758
+                centre_1                                                                  GaussianPrior, mean = 0.01609348176327892, sigma = 0.11349910174448609
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = 0.07143735009251054, sigma = 0.7466157267601863
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.10209462478780014, sigma = 1.13111076059126
+            einstein_radius                                                               GaussianPrior, mean = 1.0293722302246948, sigma = 0.3088116690674084
+    source
+        bulge
+            centre
+                centre_0                                                                  UniformPrior, lower_limit = -3.0, upper_limit = 3.0
+                centre_1                                                                  UniformPrior, lower_limit = -3.0, upper_limit = 3.0
+            intensity                                                                     LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+            effective_radius                                                              UniformPrior, lower_limit = 0.0, upper_limit = 3.0

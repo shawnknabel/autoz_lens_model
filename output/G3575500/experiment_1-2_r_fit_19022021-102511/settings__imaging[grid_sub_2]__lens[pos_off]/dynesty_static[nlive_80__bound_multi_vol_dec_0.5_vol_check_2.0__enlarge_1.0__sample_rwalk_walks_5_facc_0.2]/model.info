@@ -1,0 +1,22 @@
+Total Free Parameters = 8 
+
+galaxies
+    lens
+        bulge
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.08675132958908427, sigma = 0.05
+                centre_1                                                                  GaussianPrior, mean = -0.07724743482125679, sigma = 0.05
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = 0.027669099370464013, sigma = 0.2
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.04808024536150394, sigma = 0.2
+            intensity                                                                     GaussianPrior, mean = 0.1, sigma = 0.1
+            effective_radius                                                              GaussianPrior, mean = 2.918498566457121, sigma = 2.918498566457121
+            sersic_index                                                                  GaussianPrior, mean = 3.5374237263182544, sigma = 1.5
+        mass
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.08675132958908427, sigma = 0.05
+                centre_1                                                                  GaussianPrior, mean = -0.07724743482125679, sigma = 0.05
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = 0.027669099370464013, sigma = 0.2
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.04808024536150394, sigma = 0.2
+            einstein_radius                                                               GaussianPrior, mean = 1.0293722302246948, sigma = 0.3088116690674084

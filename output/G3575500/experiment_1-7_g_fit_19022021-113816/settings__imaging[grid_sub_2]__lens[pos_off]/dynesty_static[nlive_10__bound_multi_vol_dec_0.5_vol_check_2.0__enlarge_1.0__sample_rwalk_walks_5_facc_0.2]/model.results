@@ -1,0 +1,58 @@
+Bayesian Evidence                                                                         82.41010032
+Maximum Likelihood                                                                        89.78917554
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        mass
+            elliptical_comps
+                elliptical_comps_0                                                        0.039
+                elliptical_comps_1                                                        0.468
+            centre
+                centre_0                                                                  0.045
+                centre_1                                                                  -0.189
+            einstein_radius                                                               0.792
+        bulge
+            sersic_index                                                                  3.129
+            effective_radius                                                              1.592
+            intensity                                                                     0.125
+    source
+        bulge
+            intensity                                                                     0.000
+            centre
+                centre_0                                                                  -0.040
+                centre_1                                                                  0.191
+            effective_radius                                                              0.219
+
+ WARNING: The samples have not converged enough to compute a PDF and model errors. 
+ The model below over estimates errors. 
+
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        mass
+            elliptical_comps
+                elliptical_comps_0                                                        0.0389 (-1.3335, 1.2045)
+                elliptical_comps_1                                                        0.4675 (-1.9119, 2.0643)
+            centre
+                centre_0                                                                  0.0450 (-0.3839, 0.3233)
+                centre_1                                                                  -0.1889 (-0.2305, 0.2736)
+            einstein_radius                                                               0.7915 (0.3851, 1.8253)
+        bulge
+            sersic_index                                                                  3.1286 (-10.5039, 11.3428)
+            effective_radius                                                              1.5925 (0.0818, 6.5107)
+            intensity                                                                     0.1251 (-0.1031, 0.3531)
+    source
+        bulge
+            intensity                                                                     0.0000 (0.0000, 274636.8431)
+            centre
+                centre_0                                                                  -0.0399 (-2.9609, 2.8757)
+                centre_1                                                                  0.1911 (-2.7787, 2.4915)
+            effective_radius                                                              0.2195 (0.1111, 2.9348)
+
+instances
+

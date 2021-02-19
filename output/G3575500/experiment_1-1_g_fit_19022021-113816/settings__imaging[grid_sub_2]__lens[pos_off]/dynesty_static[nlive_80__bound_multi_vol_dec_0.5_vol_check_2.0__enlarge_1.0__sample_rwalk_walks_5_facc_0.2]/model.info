@@ -1,0 +1,29 @@
+Total Free Parameters = 12 
+
+galaxies
+    lens
+        bulge
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.0874271379791887, sigma = 0.05
+                centre_1                                                                  GaussianPrior, mean = -0.07586964945427546, sigma = 0.05
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = 0.028845394880217246, sigma = 0.2
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.04986842770126647, sigma = 0.2
+            intensity                                                                     GaussianPrior, mean = 0.1, sigma = 0.1
+            effective_radius                                                              GaussianPrior, mean = 2.9095324297506004, sigma = 2.9095324297506004
+            sersic_index                                                                  GaussianPrior, mean = 3.5422404334022564, sigma = 1.5
+        mass
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.0874271379791887, sigma = 0.05
+                centre_1                                                                  GaussianPrior, mean = -0.07586964945427546, sigma = 0.05
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = 0.028845394880217246, sigma = 0.2
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.04986842770126647, sigma = 0.2
+            einstein_radius                                                               GaussianPrior, mean = 1.0293722302246948, sigma = 0.3088116690674084
+    source
+        bulge
+            centre
+                centre_0                                                                  UniformPrior, lower_limit = -3.0, upper_limit = 3.0
+                centre_1                                                                  UniformPrior, lower_limit = -3.0, upper_limit = 3.0
+            intensity                                                                     LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+            effective_radius                                                              UniformPrior, lower_limit = 0.0, upper_limit = 3.0
