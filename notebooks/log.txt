@@ -1,5 +1,22 @@
 Log of Updates and Files
 
+2/22/21 - morning
+Following email response from Jammy, I am going to revise some of my model. This ensures we don't fit a local max.
+*** Model
+Phase 1 - Dynesty(n_live=40, tolerance=1, walks=default)
+Phase 2 - Dynesty(n_live=120, tolerance=0.5, walks=10, facc=0.4)
+***
+I'm also trashing the pyswarms idea, on Jammy's suggestion.
+Here's the final experiment for the first model.
+6. Set positions(position_threshold=2.0)
+    Set positions(position_threshold=1.5)
+    Set positions(position_threshold=1.0)
+    Set positions(position_threshold=0.5)
+Then I will try it with the DM profile.
+#
+The positions can be set with a GUI or manually... Neither is working. Having Lutz update the autolens library in pacer.
+I'm trying to set the first phase to give me the light profile and then use those to inform the priors for the lmp in the second phase, but it is not working because the lmp elliptical_comps are not working. I'll wait and see if the autolens library gets updated.
+
 2/19/21 - morning
 Experimenting with model fits for 1906 to see how different changes affect convergence time and log likelihood.
 *** Best Model as of the end of today.
