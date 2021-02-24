@@ -1,5 +1,35 @@
 Log of Updates and Files
 
+2/24/21 - morning
+[conclusion from this session... don't set priors that you don't have a good reason for. leave it at default]
+Tasks for today:
+1. Refine light/dark profile fits
+2. Extract mass info
+----
+I think I'm going to loosen the prior for effective radius up to 5 arcsec and see what it comes up with...
+    - lens effective radius converged to 4.7 (perhaps I want to make this even larger...) with likelihood 300 (highest so far)
+New experiment: All with DM profiles
+*** Model
+Phase 1 - Dynesty(n_live=40, tolerance=1, walks=default)
+Phase 2 - Dynesty(n_live=120, tolerance=0.5, walks=10, facc=0.4)
+***
+1. Effective radius (w/o positions) # why did I even change this in the first place? I don't  know what the effective radius is.
+    - 1. 0.65 - 5.0 , 0.0 - 5.0
+    - 2. 0.65 - 10.0 , 0.0 - 10.0 
+    - 3. defaults... 0.0001 - 30.0 # leave it at defaults (cut if it takes too long)
+####### stopped here for lunch
+2. g-band intensity
+    - 1. 0.0 - 1.0
+    - 2. 0.0 - 5.0
+    - 3. 0.0 - 10.0
+3. Positions
+    - 1. Set positions(position_threshold=2.0)
+    - 2. Set positions(position_threshold=1.5)
+    - 3. Set positions(position_threshold=1.0)
+    - 4. Set positions(position_threshold=0.5)
+----
+I also just realized that this example is one where the first fit was the higher redshift.. so this was a poor choice for the first fit.
+
 2/23/21 - morning
 lmp and positions not working. I need to check the autolens version. (pacer is on 1.10.0, latest is 1.12.l)
 I tried giving the second phase the light profile from the first, a mass profile representing the stellar mass, and a dark profile.
