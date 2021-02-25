@@ -1,5 +1,17 @@
 Log of Updates and Files
 
+2/25/21 - morning
+Experiments to improve the lens light fit for G250289_2730.
+    1-3 - Use GAMA DR3 R_E, sigma=1
+    1-4 - smaller mask (1.5)
+    1-5 - smaller mask (1.2)
+    1-6 - smaller mask centered at light center (1.0)
+        *** This one gave semi-reasonable results in that it doesn't overestimate the ellipticity and effective radius.
+        2nd phase will show if it's actually helpful or not. Maybe the two-phase system doesn't work that well for this one, with only one image.
+        ### Had to interrupt for M Swinbank meeting. Come back to it after.
+Try taking it as an "instance", which means it will fix the value there.
+    bulge.take_attributes(source=phase1_result.instance)
+
 2/24/21 - evening
 My connection to the vpn was broken.
 I ran 2 experiments today on the second model using only the r-band image.
