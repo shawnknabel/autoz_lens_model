@@ -1,5 +1,31 @@
 Log of Updates and Files
 
+2/24/21 - evening
+My connection to the vpn was broken.
+I ran 2 experiments today on the second model using only the r-band image.
+I *think* that the fit is confusing part of the lensed features with an extent of the lens galaxy and fitting the lens poorly for that reason.
+The second one did run better than the first (though longer).
+I think I should continue using the effective radius measured in GAMA DR3.
+Tomorrow:
+    - Try to improve the lens light fit.
+        - shrink the mask?
+        - restrict the effective radius prior?
+    - Experiment with the positions
+        - 2.0, 1.5, 1.0, 0.5
+    - Figure out the M/L ratio and mass extraction
+
+2/24/21 - afternoon
+I've chosen to shift gears to model 2, using G250289_2730.
+The g-band image is really noisey and doesn't offer anything good. 
+r-band by itself is fine, so I'm using just that.
+Found effective radius measurements in GAMA DR3
+ - www.gama-survey.org/dr3/schema/table.php?id=46
+ - single object viewer http://www.gama-survey.org/dr3/tools/sov.php
+ - GALRE_r is galaxy R_E (effective radius) in r-band
+     - for G250289_2730, that is 1.3435 arcsec
+I think things are starting to work for this model. I think the lens light it being overwhelmed by the lens, and autolens is modeling it as a stretch elliptical instead of that bit as being part of the lens.
+I believe the fix to that will be in the first phase.
+
 2/24/21 - morning
 [conclusion from this session... don't set priors that you don't have a good reason for. leave it at default]
 Tasks for today:
