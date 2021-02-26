@@ -1,5 +1,35 @@
 Log of Updates and Files
 
+2/26/21 - afternoon
+Experiment 1-13 was not an extreme improvement, but I will keep the n_live=150 for phase 3 of experiment 2.
+Experiment 2:
+    2-1 - Phase 1: lens mask 0.8, nlive=60, tolerance=1.0, walks=10
+            Phase 2: source mask inner=0.8 and outer=2.5, nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4
+            ### Phase 2 does not have the priors on the lens mass... Try assigning it explicitly instead of take_attributes
+            ### Make source mask inner/outer radii slightly larger (0.9, 2.6)?
+            *** Something went terribly wrong. I think I need to figure out how to better separate the lens and source.
+    2-2 - Phase 1: lens mask 0.8, nlive=60, tolerance=1.0, walks=10
+            Phase 2: source mask inner=1.0 and outer=3.0, nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4
+            ### Phase 2 is not doing any better at removing the lens light.
+            ### Didn't work well.
+###
+For Monday:
+    - Run things in scripts, not notebooks.
+    - Check out inversions for the source light modeling.
+    - Try custom masking lens light out.
+    - Try subtracting lens light.
+
+2/26/21 - morning
+Refine fit. I need to start running these as scripts instead of the notebook so I can prepare the next batch.
+Experiments:
+    1-13 - 4 positions. Phase 1 : n_live=40, tolerance=1.0, walks=10. Phase 2 : n_live=150, tolerance=0.25, walks=10
+        ### Running
+    2. 3 phases. Phase1: lens light. Phase2: source light, use ellipticalsersic mass profile with no light. Phase 3: All.
+### Started Exp 2 (3 phases) in new notebook. Designed first two phases. Need to do third and then begin.
+Stopped to prepare for DARK interview.
+
 2/25/21 - post-meeting
 Shrinking the mask on phase1 and tightly constraining the effective radius is working to make sure it ignores the lens light.
 Experiments:
