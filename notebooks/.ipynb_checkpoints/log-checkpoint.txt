@@ -1,5 +1,31 @@
 Log of Updates and Files
 
+3/5/21 - afternoon
+G3629152_1933
+Experiment 1 - phase1_nlive = 200, phase1_tolerance = 0.5, phase2_nlive = 200, phase2_tolerance = 0.25, use effective radius from GAMA DR3 Sersic 
+                Photometry catalog (including errors) and upper limit (effective radius + error), normal mask, Source R_E (0->10*lens.inensity), 1 
+                position, threshold=2.0
+        ### Didn't quite converge to show the lens feature, but was okay. Converged quickly.
+Experiment 2 - same as Exp 1, phase2_nlive = 300, 2 positions at threshold 1.0
+        ### Turned out fairly well! :)
+        ### Try it again with higher phase2_nlive, then try it three-phase with second phase being the source light.
+Experiment 2-a - phase2_nlive = 500
+        ### Similar log likelihood to 2. Need to check out results.
+Experiment 3 - same as Exp 2... phase 2 becomes phase 3. Phase 2 now has a source mask with light-less elliptical lens. Pass only the light priors.
+        ### Simmilar log likelihood to 2a.
+Experiment 3a - same as Exp 3, phase3_nlive = 500
+
+3/5/21 - morning
+Selecting third candidate to model while I wait to discuss the error stuff with James Nightingale.
+I've selected 3629152_1933. There isn't much of a lens feature to look at, even in the g-band, which is lower signal and much noisier.
+###
+I'm thinking I may have to revisit the bullshit assumption of the noisemap. Konrad Kuijken said that I need to use the gain from the coadd.. Which makes perfect sense but damn.
+I'm going to look back to the second model (G250289_2730), redo the noise map and see if that helps convergence.
+I still have problems reading in the data for the weight maps from the fits files, for both 1906 and 2730.
+I emailed Konrad Kuijken.
+###
+
+
 3/4/21 - afternoon
 Still running Exp 3-2 (probably will go on into the night...)
 Looking at pulling in results with the aggregator tool and examining them. Notebook G250289_2730_results_extraction

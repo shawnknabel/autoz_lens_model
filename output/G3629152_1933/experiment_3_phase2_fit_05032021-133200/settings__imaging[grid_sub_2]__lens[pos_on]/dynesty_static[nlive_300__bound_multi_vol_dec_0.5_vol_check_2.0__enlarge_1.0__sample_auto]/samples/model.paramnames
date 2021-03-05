@@ -1,0 +1,8 @@
+galaxies_lens_mass_intensity                                          I_i
+galaxies_lens_mass_effective_radius                                   R_e
+galaxies_lens_mass_sersic_index                                       n_s
+galaxies_lens_mass_mass_to_light_ratio                                Psi_m
+galaxies_source_bulge_intensity                                       I_i
+galaxies_source_bulge_centre_0                                        y_c
+galaxies_source_bulge_centre_1                                        x_c
+galaxies_source_bulge_effective_radius                                R_e
