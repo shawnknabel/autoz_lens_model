@@ -1,5 +1,88 @@
 Log of Updates and Files
 
+3/4/21 - afternoon
+Still running Exp 3-2 (probably will go on into the night...)
+Looking at pulling in results with the aggregator tool and examining them. Notebook G250289_2730_results_extraction
+Trying to figure out the whole error thing... For M/L ratio, the max likelihood model says 0.093. And then the summary 3-sigma (guassian priors) give 0.3346 (upper limit 0.0698, lower limit 0.8173).
+My guess is that the max log likelihood model is the model with the peak likelihood, while the summary weights all of the models and gives a "mean" (presumably fairly close to the max likelihood model) with error bars associated with that.
+I can extract mass information... But I think it pulls from the max log likelihood.
+So the errors are associated with the mean there. How does that propagate?
+
+3/4/21 - morning
+Running Experiment 3-2 from the other day.
+Depending on performance here, I will make the lens mask smaller again.
+This may be the best model I can get for this one for right now. It may be time to move on to another that has r and g images.
+
+3/2/21 - morning
+Drop the 3-phase idea for now. Take phase 1 for lens light, phase 2 for source light and lens light. Take much larger n_live.
+Experiment 3 (2-phase, high n_live)
+    3-1 : phase1_nlive = 150, phase1_tolerance = 0.5, phase2_nlive = 200, phase2_tolerance = 0.25, 4 Positions, Positions threshold = 1.0, use 
+                        effective radius from GAMA DR3 Sersic Photometry catalog with smaller sigma (0.25) and upper limit (effective radius + 
+                        error 1.3435+0.1146=1.4581), smaller mask (effective radius) centered at (0.075, -0.075), fix lens light bulge profile in 
+                        second phase. Source R_E (0->10*lens.inensity)
+     ### For some reason it isn't taking the priors for the center of the lens.
+     ### Did a decent job with the upper left image but not the lower right.
+     ### Took 6 hours.
+    3-2 : phase1_nlive = 200, phase1_tolerance = 0.5, phase2_nlive = 500, phase2_tolerance = 0.25, 4 Positions, Positions threshold = 1.0, use 
+                        effective radius from GAMA DR3 Sersic Photometry catalog with smaller sigma (0.25) and upper limit (effective radius + 
+                        error 1.3435+0.1146=1.4581), smaller mask (effective radius) centered at (0.075, -0.075), fix lens light bulge profile in 
+                        second phase. Source R_E (0->10*lens.inensity)
+
+## Don't take the instance for the ellipticity and effective radius. Set same max effective radius.             
+
+3/1/21 - morning
+Experiment 2 (3-phase)
+            ### Trying to see if I can shift the phase2 mask to remove the lens light in the upper left...
+    2-3 (Redone)- Phase 1: lens_mask = al.Mask2D.elliptical(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.25),
+                        major_axis_radius=1.15,
+                        axis_ratio=0.85,
+                        phi=140.0,
+                        nlive=60, tolerance=1.0, walks=10
+            Phase 2: source mask source_mask = al.Mask2D.elliptical_annular(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.25),
+                        inner_major_axis_radius=1.1,
+                        inner_axis_ratio=0.85,
+                        inner_phi=140.0,
+                        outer_axis_ratio=0.8,
+                        outer_phi=140.0,
+                        outer_major_axis_radius=2.5,
+                        nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at 
+                        threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4
+    2-4 - Phase 1: lens_mask = al.Mask2D.elliptical(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.25),
+                        major_axis_radius=1.15,
+                        axis_ratio=0.85,
+                        phi=140.0,
+                        nlive=60, tolerance=1.0, walks=10
+            Phase 2: al.Mask2D.elliptical_annular(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.3),
+                        inner_major_axis_radius=1.2,
+                        inner_axis_ratio=0.8,
+                        inner_phi=50.0,
+                        outer_axis_ratio=0.7,
+                        outer_phi=150.0,
+                        outer_major_axis_radius=2.5
+                        nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at 
+                        threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4        
+###
+I think the inversion is what I need for the second phase.
+ALL the above failed... Revisit this stuff.
+
 2/26/21 - afternoon
 Experiment 1-13 was not an extreme improvement, but I will keep the n_live=150 for phase 3 of experiment 2.
 Experiment 2:
