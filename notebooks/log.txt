@@ -1,5 +1,11 @@
 Log of Updates and Files
 
+3/8/21 - morning
+G3629152_1933
+Trying to look at the results to see what I should do differently. It appears they did converge to different models, but the log likelihood is similar for each of the five results.
+It's difficult to look at them and get anything meaningful, especially since I still don't quite understand the best fit vs sigma results.
+I'm going to start another model just to get some progress in.
+
 3/5/21 - afternoon
 G3629152_1933
 Experiment 1 - phase1_nlive = 200, phase1_tolerance = 0.5, phase2_nlive = 200, phase2_tolerance = 0.25, use effective radius from GAMA DR3 Sersic 
@@ -12,9 +18,18 @@ Experiment 2 - same as Exp 1, phase2_nlive = 300, 2 positions at threshold 1.0
 Experiment 2-a - phase2_nlive = 500
         ### Similar log likelihood to 2. Need to check out results.
 Experiment 3 - same as Exp 2... phase 2 becomes phase 3. Phase 2 now has a source mask with light-less elliptical lens. Pass only the light priors.
-        ### Simmilar log likelihood to 2a.
+        ### Similar log likelihood to 2a.
 Experiment 3a - same as Exp 3, phase3_nlive = 500
+        ### Similar again
+###
+For Monday:
+- Compare results of 3rd candidate.
+- Figure out the results/errors problem
+- Figure out the weight maps.
+- Talk to Benne about the preiveous two notes
+- Try # 4!
 
+        
 3/5/21 - morning
 Selecting third candidate to model while I wait to discuss the error stuff with James Nightingale.
 I've selected 3629152_1933. There isn't much of a lens feature to look at, even in the g-band, which is lower signal and much noisier.

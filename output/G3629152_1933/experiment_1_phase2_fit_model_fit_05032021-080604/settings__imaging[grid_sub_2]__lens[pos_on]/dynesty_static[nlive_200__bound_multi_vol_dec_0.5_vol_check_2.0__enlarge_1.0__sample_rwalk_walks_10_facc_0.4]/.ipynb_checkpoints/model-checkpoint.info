@@ -1,0 +1,23 @@
+Total Free Parameters = 11 
+
+galaxies
+    lens
+        bulge
+            centre                                                                        (-0.09651781449981936, 0.0999696103520959)
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = -0.1349046981495257, sigma = 0.2
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.1863827244225051, sigma = 0.2
+            intensity                                                                     GaussianPrior, mean = 0.16078572954436132, sigma = 0.08039286477218066
+            effective_radius                                                              GaussianPrior, mean = 1.9137, sigma = 0.1999
+            sersic_index                                                                  GaussianPrior, mean = 3.544184329289555, sigma = 1.5
+            mass_to_light_ratio                                                           LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+        dark
+            centre                                                                        (-0.09651781449981936, 0.0999696103520959)
+            mass_at_200                                                                   LogUniformPrior, lower_limit = 100000000.0, upper_limit = 1000000000000000.0
+    source
+        bulge
+            centre
+                centre_0                                                                  UniformPrior, lower_limit = -3.0, upper_limit = 3.0
+                centre_1                                                                  UniformPrior, lower_limit = -3.0, upper_limit = 3.0
+            intensity                                                                     LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+            effective_radius                                                              UniformPrior, lower_limit = 0.0, upper_limit = 5.0

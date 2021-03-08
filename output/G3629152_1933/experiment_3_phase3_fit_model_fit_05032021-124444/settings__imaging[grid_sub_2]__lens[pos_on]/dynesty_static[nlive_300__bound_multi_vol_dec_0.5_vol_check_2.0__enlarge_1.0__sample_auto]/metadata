@@ -1,0 +1,3 @@
+name=experiment_3_phase3_fit_05032021-124444
+tag=settings__imaging[grid_sub_2]__lens[pos_on]
+non_linear_search=dynestystatic
