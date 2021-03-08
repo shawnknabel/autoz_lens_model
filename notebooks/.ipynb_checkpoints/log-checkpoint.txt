@@ -1,5 +1,13 @@
 Log of Updates and Files
 
+3/8/21 - afternoon
+I had to shut the computer down mid-model... So G3629152 should be redone from the first fit.
+###
+Figured out the weight maps. They were so large that when I was uploading them to the cluster it just didn't load it all.
+Solution: use local machine for the prep there and save as a csv file before uploading.
+*** See kids_weight_maps_030821 notebook for the details.
+The weight maps are in the same units as the coadds, so I should only have to multiply by the gain to get into eps... I think.
+
 3/8/21 - morning
 G3629152_1933
 Trying to look at the results to see what I should do differently. It appears they did converge to different models, but the log likelihood is similar for each of the five results.
