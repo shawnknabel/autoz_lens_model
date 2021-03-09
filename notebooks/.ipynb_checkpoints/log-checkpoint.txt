@@ -1,12 +1,25 @@
 Log of Updates and Files
 
+3/8/21 - evening
+I think that K Kuijken is correct about the mode for getting to electron counts.
+I should multiply the image data by the gain and exp_time to get electron counts. 
+For the rms noise, I take 1/sqrt(weight_image), resulting in the same units as the coadd.
+So I multiply the image and the rms noise by the gain and exp_time to get both in counts. Great.
+These are on the same order of magnitude. Great.
+Problem: the sum of these on a pixel-by-pixel basis still results in negative numbers, so that the sqrt of that is NaN.
+
 3/8/21 - afternoon
 I had to shut the computer down mid-model... So G3629152 should be redone from the first fit.
 ###
 Figured out the weight maps. They were so large that when I was uploading them to the cluster it just didn't load it all.
 Solution: use local machine for the prep there and save as a csv file before uploading.
 *** See kids_weight_maps_030821 notebook for the details.
-The weight maps are in the same units as the coadds, so I should only have to multiply by the gain to get into eps... I think.
+###
+Retrying the noise map generation.
+The weight maps are in the same units as the coadds.
+I think those units contain the time, so I should only have to multiply by the gain to get into eps, and then by exp_time for electron counts.
+I need to rewrite my functions for the image prep with this knowledge.
+It makes sense because it's supposed to be 10-100 eps (according to Kuijken), which is what I've been getting for the electron counts.
 
 3/8/21 - morning
 G3629152_1933
