@@ -1,5 +1,44 @@
 Log of Updates and Files
 
+3/9/21 - Benne meeting
+Chris Hawk - six IFU observations of the GAMA lenses
+    - good to look into them
+Noise map
+- try making all negative values 0
+- or buffer it by the minimum value
+    - also add that level to the image as well
+- buffer it, add the rms noise, take sqrt
+Get posterior pdf
+- report 1 sigma and 3 sigma
+We've confirmed a few... 42 of them.
+Getting difficult to model them. S/N is good enough to identify, not enough to do good models.
+    - HST
+We have a clean sample. But what is our science case for doing so?
+    - redshifts 0.2-0.4, what does that add?
+    - we have GAMA info (environment) - M/L and enclosed mass
+Do the GAMA group analysis. (mass vs redshift with group info)
+    - how many in Robotham group catalog and not?
+    - are they central galaxy?
+    - separation from center?
+    - isolated centrals vs group centrals (group id 0 is isolated)
+    - if all have group_id we can get rank and separations, then go into group catalog
+        - Cen is center of group (center of mass)
+        - BCG is brightest cluster galaxy?
+        - iterative center (preferred center) -> mass proxy or massA (read the bottom)
+    - enclosed mass to halo mass
+###
+Plan:
+1. Write script for generating u, g, r, i fits images and noise from coadds/weights.
+2. Rewrite script for image preparation, include the above script.
+3. Rewrite script for modeling based on latest success.
+4. Rerun previous models.
+5. Do group analysis.
+
+3/9/21 - morning
+Ran G544226_3212, only one experiment. Moving on to next.
+G585328_3234
+Didn't work super well.
+
 3/8/21 - evening
 I think that K Kuijken is correct about the mode for getting to electron counts.
 I should multiply the image data by the gain and exp_time to get electron counts. 
@@ -9,7 +48,7 @@ These are on the same order of magnitude. Great.
 Problem: the sum of these on a pixel-by-pixel basis still results in negative numbers, so that the sqrt of that is NaN.
 
 3/8/21 - afternoon
-I had to shut the computer down mid-model... So G3629152 should be redone from the first fit.
+I had to shut the computer down mid-model... So G544226_3212 should be redone from the first fit.
 ###
 Figured out the weight maps. They were so large that when I was uploading them to the cluster it just didn't load it all.
 Solution: use local machine for the prep there and save as a csv file before uploading.
