@@ -1,5 +1,15 @@
 Log of Updates and Files
 
+3/10/21 - morning
+image_preprocessing notebook and script take fits files from KiDS server, creates cutouts, makes image and noise_map in eps, makes psf, then saves as either csv or fits.
+Since I can't get the fits files on the cluster, I'm going to save them as csv files and see if that will work to load in instead of the al.Imaging.from_fits(). I think it should work.
+#####
+For the afternoon:
+- Check if the csv files will work.
+- Do group analysis.
+- Read Treu through 4.
+- Respond to emails.
+
 3/9/21 - Benne meeting
 Chris Hawk - six IFU observations of the GAMA lenses
     - good to look into them
