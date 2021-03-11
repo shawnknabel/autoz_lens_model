@@ -116,36 +116,31 @@ def count_chocula (image, header, band, noise=False):
         image = 1/np.sqrt(image)
         print('Calculating rms noise...')
     #print(np.mean(rms_noise))
-    image_counts = image*gain*exp_time
+    image_counts = image*gain#*exp_time
+    if noise == True:
+        image_counts = image_counts**2
     image_eps = image_counts/exp_time
-    print(f'Mean/Min image counts: {np.mean(image_counts), np.min(image_counts)}')
-    print(f'Mean image eps: {np.mean(image_eps)}')
-    # plot image data
-    print('Image (counts)')
-    plt.figure()
-    plt.imshow(image_counts, cmap='gray') # show image in grayscale
-    plt.colorbar(label="pixel value", orientation="vertical")
-    plt.show()
-    print('Image (eps)')
-    plt.figure()
-    plt.imshow(image_eps, cmap='gray') # show image in grayscale
-    plt.colorbar(label="pixel value", orientation="vertical")
-    plt.show()
+    print(f'Mean/Min/Max image counts: {np.mean(image_counts), np.min(image_counts), np.max(image_counts)}')
+    print(f'Mean/Min/Max image eps: {np.mean(image_eps), np.max(image_eps), np.max(image_eps)}')
     return(image_counts, exp_time)
+
+def plot_image (image, units):
+    print(f'Image ', {units})
+    plt.figure()
+    plt.imshow(image, cmap='gray') # show image in grayscale
+    plt.colorbar(label="pixel value", orientation="vertical")
+    plt.show()
 
 def reconstruct_image (image, weight):
     added_image = image + weight
-    reconstructed_image = added_image - np.min(added_image)
-    print(f'Reconstructed image min pixel value: {reconstructed_image} (should be 0)')
-    return(reconstructed_image)
+    if np.min(added_image) < 0:    
+        added = added_image - np.min(added_image)
+    print(f'Reconstructed image min pixel value: {added_image} (should be >= 0)')
+    return(added_image)
 
 def get_noisey (reconstructed_image):
+    print('Gettin noisey!')
     noise_map = np.sqrt(reconstructed_image)
-    print('Noise map (counts)')
-    plt.figure()
-    plt.imshow(noise_map, cmap='gray') # show image in grayscale
-    plt.colorbar(label="pixel value", orientation="vertical")
-    plt.show()
     return(noise_map)
 
 def divide_the_time (image_counts, exp_time):
@@ -163,7 +158,6 @@ def resize_image(image, new_size):
     resized_image=image[lower:upper+1,lower:upper+1]
     print(f'Middle pixel at index {center}. New image created from indices {lower} to {upper} in axes 0 and 1.')
     print(f'New shape: {resized_image.shape}')
-    print(f'New things are good!')
     return(resized_image)
 
 # generate psf
@@ -192,7 +186,7 @@ def point_to_the_spread(image, header, pixel_scale, new_size):
 
 def if_i_fits_i_sits (image, gama_id, links_id, band, noise=False, psf=False):
     if noise == True:
-        band=f'{band}_weight'
+        band=f'{band}_noise_map'
     if psf == True:
         band=f'{band}_psf'
     print(f'Saving {gama_id}_{links_id} {band} image')
@@ -229,6 +223,9 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     #convert to counts
     print('\n Converting cutout image to counts.')
     image_counts, exp_time = count_chocula(cutout_image, image_header, band)
+
+    #plot counts
+    plot_image(image_counts, 'counts')
     
     #load weight
     print('\n Loading weight image.')
@@ -244,8 +241,11 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     print('\n Converting weight image to noise image in counts.')
     background_counts, exp_time = count_chocula(cutout_weight, image_header, band, noise=True)
     
+    #plot counts
+    plot_image(background_counts, 'counts')
+
     #reconstruct the image
-    print('\n Reconstructing image with background noise.')
+    print('\n Reconstructing image with background.')
     reconstructed_image = reconstruct_image(image_counts, background_counts)
     
     print('\n I am hungry for human food.')
@@ -258,11 +258,17 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     # convert image to eps
     print('\n Converting image to eps.')
     image_eps = divide_the_time(image_counts, exp_time)
+
+    # plot eps
+    plot_image(image_eps, 'eps')
     
     #convert noise to eps
     print('\n Converting noise map to eps.')
     noise_map_eps = divide_the_time(noise_map_counts, exp_time)
+
+    plot_image(noise_map_eps, 'eps')
     
+
     #create psf
     print('\n Creating psf.')
     psf = point_to_the_spread(image_eps, image_header, pixel_scale, psf_kernel_size)
