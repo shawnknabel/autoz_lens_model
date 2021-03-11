@@ -2,6 +2,17 @@ Log of Updates and Files
 
 3/11/21 - afternoon
 Had an ENORMOUS snafu.
+I had only updated the preprocessing script locally, and it was overwritten when I pulled from origin.
+Then the internet started going out, so I had to reestablish my connection to the cluster... worked out, saved the model running.
+In the process of trying to recover the preprocessing script, I lost the modeling script.
+In the process of trying to sort these, I interrupted the model.
+I had to revert to the status at the beginning of today, but I recovered the modeling script.
+I rewrote the changes to the preprocessing script and tested it. It appears to be correct.
+I think the fits files are all safe because they are in the .gitignore file.
+###
+Running 2730 model again. It was at log likelihood ~ 370 when I unfortunately stopped it... That's the best I've gotten period.
+###
+
 
 3/11/21 - morning
 I may have figured it out... In the email, Kuijken said that 1/sqrt(weight) gives rms noise, convert to counts (x gain [NOT exp_time]), "you should find rougly [sic] sqrt(bg), again in total counts." I tried squaring this value before, but it gave HUGE numbers because I had already multiplied it by the exp_time. Squaring this value gives the background at a max of 10 eps, which is right in line with what he was saying. So I think this is actually right.
