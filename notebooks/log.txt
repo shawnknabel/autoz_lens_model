@@ -1,5 +1,34 @@
 Log of Updates and Files
 
+3/11/21 - afternoon
+Had an ENORMOUS snafu.
+
+3/11/21 - morning
+I may have figured it out... In the email, Kuijken said that 1/sqrt(weight) gives rms noise, convert to counts (x gain [NOT exp_time]), "you should find rougly [sic] sqrt(bg), again in total counts." I tried squaring this value before, but it gave HUGE numbers because I had already multiplied it by the exp_time. Squaring this value gives the background at a max of 10 eps, which is right in line with what he was saying. So I think this is actually right.
+Script has been updated locally.
+###
+Running the updated noise map in fit for Experiment 4 of G250289_2730.
+    ### Phase1 -300ish max log likelihood. May be better just to run two phases on g with increasing complexity?
+###
+Pull g band coadd and weight and do the same!
+I did, and that's great... But the g is useless, which I already noted. I need to be more observant of my past notes.
+###
+Started 2730 model.
+Taking a while...
+###
+Prepping 1933.
+Done.
+###
+Looked back into Autolens notes to find what the red and black rings are in the image outputs... They are critical curves
+(From Dodelson Lensing text)
+Caustic curve: circle with radius Beta_c that delineates regions of SOURCE plane that produce one image (outside) or multiple images (inside)
+Critical curve: location of images in the LENS plane that lie on the caustic curve, infinite magnitude, perfectly focused light rays, much brighter than true luminosity
+Essentially, caustic curves and critical curves map to each other in their respective planes.
+###
+Prepping 3212.
+
+
+
 3/10/21 - morning
 image_preprocessing notebook and script take fits files from KiDS server, creates cutouts, makes image and noise_map in eps, makes psf, then saves as either csv or fits.
 Since I can't get the fits files on the cluster, I'm going to save them as csv files and see if that will work to load in instead of the al.Imaging.from_fits(). I think it should work.
