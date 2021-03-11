@@ -8,10 +8,17 @@ In the process of trying to recover the preprocessing script, I lost the modelin
 In the process of trying to sort these, I interrupted the model.
 I had to revert to the status at the beginning of today, but I recovered the modeling script.
 I rewrote the changes to the preprocessing script and tested it. It appears to be correct.
-I think the fits files are all safe because they are in the .gitignore file.
+I think the fits files are all safe because they are in the .gitignore file, so the prepping I did is okay.
+I'm only pushed back the time it took to do this, and the model. :)
 ###
 Running 2730 model again. It was at log likelihood ~ 370 when I unfortunately stopped it... That's the best I've gotten period.
+Phase1 log likelihood ~ -200, similar to the first time. Good signs.
 ###
+Started Group Analysis... Bummers.
+- The catalog is only G02 and G15. 23 of the candidates are not in the group catalog.
+- Even more unfortunate is that the top prospects are mostly not in the group catalog. :(
+- Of the 19 galaxies that have group data, 10 are isolated and 9 in groups.
+- In stellar-mass-redshift space, they appear to show groups at higher redshift, maybe?
 
 
 3/11/21 - morning
