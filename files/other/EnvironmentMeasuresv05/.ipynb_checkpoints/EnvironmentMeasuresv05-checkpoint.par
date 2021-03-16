@@ -1,0 +1,30 @@
+# EnvironmentMeasures
+# EnvironmentMeasures
+# v05
+# 2015-02-25
+# Sarah Brough <sb@aao.gov.au>
+#
+# This catalogue provides three different environment measures for all
+# GAMA galaxies with 0.002 <z < 0.18 and nQ>2: a surface density, the number of
+# galaxies within a cylinder, and the density of galaxies within an
+# adaptive Gaussian ellipsoid.
+
+CATAID               1  -       meta.id                      Unique GAMA ID
+RA                   2  deg     pos.eq.ra                    J2000
+DEC                  3  deg     pos.eq.dec                   J2000
+Z_TONRY              4  -       src.redshift                 Heliocentric redshift corrected for the effects of peculiar velocity
+nQ                   5  -       meta.code.qual;src.redshift  Redshift quality flag 
+M_r                  6  mag     phys.magAbs                  Extinction and k-corrected absolute r-band magnitude
+DistanceToEdge       7  Mpc     pos.distance                 Distance to nearest angular survey edge in co-moving units
+Completeness         8  -       arith.factor                 Value used to correct measures for local survey incompleteness (see notes)
+DistanceTo5nn        9  Mpc     pos.distance                 Distance to 5th nearest neighbour in co-moving units
+SurfaceDensity      10  Mpc^-2  src.density                  Surface density based on the distance to the 5th nearest neighbour
+SurfaceDensityErr   11  Mpc^-2  stat.error;src.density       Surface density uncertainty 
+SurfaceDensityFlag  12  -       meta.code.error;src.density  Flag indicating problems with surface density measurement (see notes) 
+CountInCyl          13  -       meta.number                  Number of (other) galaxies within cylinder of radius 1 co-moving Mpc
+CountInCylErr       14  -       stat.error;meta.number       Poisson error on number of galaxies in cylinder
+CountInCylFlag      15  -       meta.code.error;meta.number  Flag indicating problems with CountInCyl (see notes) 
+AGEDenPar           16  Mpc^-1 	src.density                  Density of galaxies within an adaptive Gaussian ellipsoid
+AGEErr              17  -       stat.error;meta.number       Poisson error on number of galaxies used to calculate AGEDensity
+AGEScale	    18	-	arith.factor		     Adaptive scaling factor for adaptive Gaussian ellipsoid
+AGEDenParFlag       19  -       meta.code.error;src.density  Flag indicating problems with AGEDensity (see notes)

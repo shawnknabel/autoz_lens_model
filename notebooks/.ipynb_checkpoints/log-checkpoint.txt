@@ -1,12 +1,30 @@
 Log of Updates and Files
 
+TO DO:
+- Look at HST proposal text
+- Model 5 candidates
+- Simulate one of the models w/ 0.65 psf and 1.0 psf
+- Check out the mass estimates from the group catalogue
+
 3/16/21 - afternoon
 ### Models
 Exp 6 for 2730 phase 2 did not work. Checking the code for bugs.
 Apparently the al.mp mass profiles now include light information... So there is no separating it from the lmp?
 I have substituted a dark matter profile for phase 2.
 Running Experiment 7 based on this change.
+Phase 2 appears to have once again been extremely unsuccessful, but it at least did not model the light of the lens galaxy.
 ### Environmental Catalogue
+Pulled Braugh2013 EnvironmentMeasurev05.tar file from meeting with Benne.
+See notebook 031621_environment_analysis 
+The catalogue indeed does have objects in G09, G12 and G15, but it does not include any of the 42 lenses. 
+It also does not include all of the G15 objects that are in the G15 field from the Robotham2011 group catalog.
+# of objects in each catalogue:
+Braugh2013 Environment (G09, G12, and G15): 67996
+Braugh2013 Environment (G15 only): 24947
+Robotham2011 Group (G15):  62004
+Overlap between two: 24919
+It appears to me that this catalogue is not complete.
+I've emailed Benne. Nothing else I can do with this.
 
 3/16/21 - Benne Meeting
 TO DO:
