@@ -82,7 +82,7 @@ candidate = data[data.CATAID == gama_id]
 re_r = candidate.GALRE_r[0]
 re_r_err = candidate.GALREERR_r[0]
 re_g = candidate.GALRE_g[0]
-re_g_err = candidate.GALREERR_u[0]
+re_g_err = candidate.GALREERR_g[0]
 
 # load r-band imaging
 imaging_r = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_r_image.fits'),

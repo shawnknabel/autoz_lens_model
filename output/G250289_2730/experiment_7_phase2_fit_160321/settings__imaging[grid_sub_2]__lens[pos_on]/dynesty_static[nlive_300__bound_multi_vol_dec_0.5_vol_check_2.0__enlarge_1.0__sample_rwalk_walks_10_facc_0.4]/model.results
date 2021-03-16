@@ -1,0 +1,38 @@
+Bayesian Evidence                                                                         -1231.11293755
+Maximum Likelihood                                                                        -1211.73480800
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        dark
+            mass_at_200                                                                   328353453320095.750
+    source
+        bulge
+            intensity                                                                     0.302
+            centre
+                centre_0                                                                  0.026
+                centre_1                                                                  0.042
+            effective_radius                                                              0.945
+
+ WARNING: The samples have not converged enough to compute a PDF and model errors. 
+ The model below over estimates errors. 
+
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        dark
+            mass_at_200                                                                   3.2835e+14 (3.0651e+14, 6.6226e+14)
+    source
+        bulge
+            intensity                                                                     0.3015 (0.2006, 0.3850)
+            centre
+                centre_0                                                                  0.0256 (-0.1377, 0.1206)
+                centre_1                                                                  0.0421 (-0.0304, 0.1898)
+            effective_radius                                                              0.9454 (0.4588, 1.8695)
+
+instances
+

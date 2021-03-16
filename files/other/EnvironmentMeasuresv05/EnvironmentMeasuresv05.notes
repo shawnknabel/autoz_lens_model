@@ -1,0 +1,186 @@
+EnvironmentMeasures
+EnvironmentMeasures
+v05
+2015-02-25
+Sarah Brough <sb@aao.gov.au>
+
+The EnvironmentMeasures DMU provides several different metrics of the
+local environment of GAMA II galaxies in the equatorial survey
+regions. The number of metrics included in this DMU will increase with
+later versions, but for now three different metrics of local galaxy
+environment are provided: a surface density, the number of galaxies
+within a cylinder, and the adaptive Gaussian environment parameter.
+
+All of these environment measurements are performed on a density
+defining pseudo-volume-limited population of galaxies. This population
+is defined as all galaxies with M_r(z_ref=0, Q=0.78) < -20 mag, where
+Q defines the expected evolution of M_r as a function of redshift. Q
+is taken from Loveday et al. (2014, in prep). Given the depth of the
+GAMA II survey (r < 19.8 mag) the above absolute magnitude limit
+implies a redshift (i.e. volume) limit of z=0.18333. However, in order
+to account for the upper edge of the velocity range employed when
+searching for nearby galaxies (see below), the environment
+measurements are only provided for galaxies out to z=0.18. The exact
+sample included in this DMU is: all galaxies in the GAMA II
+completeness masks with redshift quality nQ > 2 (i.e. reliable
+redshifts) and within the redshift limits of 0.002 < Z_TONRY < 0.18
+(69,023 galaxies).
+
+This catalogue is based on DistancesFramesv12 (which is itself based
+on TilingCatv43), kCorrectionsv04 and the GAMA II completeness masks,
+and uses H_0 = 70 km/s/Mpc, O_M = 0.3, O_L = 0.7.
+
+#######################################################################
+
+Differences between the present version of this DMU and its previous
+version:
+
+- In v03 there was a mix-up of the columns. The data of the present
+  version are identical to those of v03, but the columns are now in
+  the correct order. The column meta-data and notes related to the
+  adaptive Gaussian environment parameter have also been updated.
+
+Differences between the present version of this DMU and v02:
+
+- Expanded to GAMA II equatorial regions.
+- Now going deeper: the faint limit is now r < 19.8 mag instead of
+  19.4 mag. This means that that the environment measures are now
+  available for more objects, and that the faint limit of the density
+  defining population is now 0.4 mag fainter (-20 instead of -20.4).
+
+#######################################################################
+
+We now describe the three environment measures provided by this DMU in
+more detail.
+
+SurfaceDensity:
+This column provides the surface density based on the distance to the
+5th nearest neighbour among the density defining population in a
+velocity cylinder of +/-1000 km/s, i.e. 5 / (Pi * DistanceTo5nn^2).
+
+CountInCyl:
+This column provides the number of (other) galaxies from the density
+defining population within a cylinder of co-moving radius 1 Mpc and a
+velocity range of +/-1000 km/s. The overdensity is given by
+CountInCyl / (nbar_ref * volume_of_cylinder)
+where nbar_ref = 0.00911 Mpc^-3 is the average number density of the
+density defining population. 
+
+AGEDenPar:
+This column provides the adaptive Gaussian density parameter, as
+introduced by Schawinski et al. (2007), but better described by Yoon
+et al. (2008). To calculate this density parameter we first identify
+all (other) galaxies from the density defining population in an
+adaptive Gaussian ellipsoid defined by
+
+(r_a/(3*sigma))^2 + (r_z/(AGEScale*3*sigma))^2 <= 1, 
+
+where r_a and r_z are the distances from the centre of the ellipsoid
+(i.e. from the position of the galaxy in question) in the plane of sky
+and along the line-of-sight in co-moving Mpc, respectively, and sigma
+= 2 Mpc. The adaptive scaling factor
+
+AGEScale = 1 + (0.2*n_gals_within_2Mpc) 
+
+is used to scale the value of sigma along the redshift axis by up to a
+factor of 3 (i.e. n_gals_within_2Mpc[max] = 10) for the highest
+density environments to compensate for the "finger-of-God" effect.
+The adaptive Gaussian density parameter is then computed as:
+
+AGEDenPar = 1/sqrt(2*pi)/sigma * SUM_i exp(-0.5 * ((r_a,i/sigma)^2 + (r_z,i/AGEScale*sigma)^2))
+
+Effectively, this parameter is equivalent to a weighted local volume
+density of galaxies, where closer galaxies receive more weight than
+more distant ones.
+
+#######################################################################
+
+All unflagged environment measures are corrected for survey
+incompleteness as (for example):
+SurfaceDensity = SurfaceDensity_raw * (1 / Completeness),
+where Completeness is the local completeness as given by the
+completeness mask at the position of the galaxy, and not a completeness
+averaged over the area or volume over which the environment measure is
+determined.
+
+#######################################################################
+
+The errors on the environment measures are calculated as follows.
+
+SurfaceDensityErr:
+Calculated as the larger of 
+|(SurfaceDensity to 5th nearest neighbour) -
+ (SurfaceDensity to 4th nearest neighbour)| 
+and
+|(SurfaceDensity to 5th nearest neighbour) - 
+ (SurfaceDensity to 6th nearest neighbour)|
+
+CountInCylErr:
+Calculated as sqrt(CountInCyl).
+
+AGEErr:
+Calculated as sqrt(Ngals).
+Note that this is the Poisson error on the number of galaxies found in
+the adaptive Gaussian ellipsoid. It is *not* the error on AGEDenPar.
+
+#######################################################################
+
+Below we describe the meanings of the various problem-indicating flags.
+
+SurfaceDensityFlag:
+
+    Flag value     Flag meaning
+   ------------------------------------------------------------------
+             0     SurfaceDensity is exact.
+             1     The distance to the 5th nearest neighbour is larger
+                   than the distance to the nearest angular survey
+                   edge, but a nearer galaxy is within this distance.
+                   The surface density is calculated using the
+                   distance to the nearer galaxy and hence
+                   SurfaceDensity is an upper limit.
+             2     No neighbours found among the density defining
+                   population within the distance to the nearest
+                   angular survey edge. SurfaceDensity is calculated
+                   as 1 / (Pi * DistanceToEdge^2).
+             4     The galaxy lies inside a bright star exclusion
+                   region (Completeness=-1) or outside of the GAMA
+                   survey boundary (as defined by the completeness
+                   mask, Completeness=-2). SurfaceDensity cannot be
+                   determined accurately and is set to -999.9.
+
+
+CountInCylFlag:
+
+    Flag value     Flag meaning
+   ------------------------------------------------------------------
+             0     CountInCyl is exact.
+             1     The cylinder extends across the nearest angular
+                   survey edge. CountInCyl is a lower limit.
+             2     The galaxy lies inside a bright star exclusion
+                   region (Completeness=-1) or outside of the GAMA
+                   survey boundary (as defined by the completeness
+                   mask, Completeness=-2). CountInCyl cannot be 
+                   determined accurately and is set to -999.9.
+
+
+AGEDenParFlag:
+
+    Flag value     Flag meaning
+   ------------------------------------------------------------------
+             0     AGEDenPar is exact.
+             1     The ellipsoid extends across the nearest angular
+                   survey edge. AGEDenPar is set to -999.9.
+             2     No (other) galaxies from the density defining
+                   population are found within the ellipsoid (not due
+                   to angular survey edge). AGEDenPar is set to
+                   -999.9.
+             4     The galaxy lies inside a bright star exclusion
+                   region (Completeness=-1) or outside of the GAMA
+                   survey boundary (as defined by the completeness
+                   mask, Completeness=-2). AGEDenPar cannot be 
+                   determined accurately and is set to -999.9.
+
+#######################################################################
+
+M_r:
+Calculated as R_PETRO - Dmod70 - KCOR_(r,zref=0).

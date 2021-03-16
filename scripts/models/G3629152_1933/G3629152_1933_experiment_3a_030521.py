@@ -33,7 +33,7 @@ from os import path
 import time
 
 # set datetime variable
-datetime = time.strftime("%d%m%Y-%H%M%S")
+datetime = time.strftime("%d%m%y")
 
 # paths
 autoz_path = '/data/sknabel/autoz_lens_model/'
@@ -73,14 +73,14 @@ re_g_err = 0.1999
 
 # load r-band imaging
 imaging_r = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_r_image.fits'),
-                              noise_map_path=path.join(object_folder, f'{links_id}_r_noisemap.fits'),
-                              psf_path=path.join(object_folder, f'{links_id}_r_psf.fits'),
+                              noise_map_path=path.join(object_folder, f'{links_id}_r_noise_map_image.fits'),
+                              psf_path=path.join(object_folder, f'{links_id}_r_psf_image.fits'),
                                pixel_scales=0.2)
 
 # load g-band imaging
 imaging_g = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_g_image.fits'),
-                              noise_map_path=path.join(object_folder, f'{links_id}_g_noisemap.fits'),
-                              psf_path=path.join(object_folder, f'{links_id}_g_psf.fits'),
+                              noise_map_path=path.join(object_folder, f'{links_id}_g_noise_map_image.fits'),
+                              psf_path=path.join(object_folder, f'{links_id}_g_psf_image.fits'),
                                pixel_scales=0.2)
 
 # set up mask
@@ -147,11 +147,11 @@ visuals_2d = aplt.Visuals2D(mask=lens_mask)
 # I can probably use the regular mask for this.
 
 # plot subplots for first view
-print('Plotting r-band')
-imaging_plotter_r = aplt.ImagingPlotter(
-    imaging=imaging_r, visuals_2d=visuals_2d
-)
-imaging_plotter_r.subplot_imaging()
+#print('Plotting r-band')
+#imaging_plotter_r = aplt.ImagingPlotter(
+#    imaging=imaging_r, visuals_2d=visuals_2d
+#)
+#imaging_plotter_r.subplot_imaging()
 
 # set up phase
 phase1 = al.PhaseImaging(
@@ -187,8 +187,8 @@ print(f'Model: {phase1_result.model}')
 phase1_time = tock-tick
 
 # plot it!
-fit_imaging_plotter = aplt.FitImagingPlotter(fit=phase1_result.max_log_likelihood_fit)
-fit_imaging_plotter.subplot_fit_imaging()
+#fit_imaging_plotter = aplt.FitImagingPlotter(fit=phase1_result.max_log_likelihood_fit)
+#fit_imaging_plotter.subplot_fit_imaging()
 
 
 # In[22]:
@@ -248,11 +248,11 @@ source_mask = al.Mask2D.circular_annular(
 # Set up the positions... (GUI is not working...)
 
 # plot the r-band image to see it
-print('Plotting g-band')
-imaging_plotter_g = aplt.ImagingPlotter( # this is where the noise is coming up weird
-    imaging=imaging_g, visuals_2d=aplt.Visuals2D(mask=source_mask)
-)
-imaging_plotter_g.figures(image=True)
+#print('Plotting g-band')
+#imaging_plotter_g = aplt.ImagingPlotter( # this is where the noise is coming up weird
+#    imaging=imaging_g, visuals_2d=aplt.Visuals2D(mask=source_mask)
+#)
+#imaging_plotter_g.figures(image=True)
 
 # set positions
 imaging_g.positions = al.Grid2DIrregular(
@@ -260,9 +260,9 @@ imaging_g.positions = al.Grid2DIrregular(
 )
 
 # plot the image
-visuals_2d = aplt.Visuals2D(mask=mask, positions=imaging_g.positions)
-imaging_plotter_g = aplt.ImagingPlotter(imaging=imaging_g, visuals_2d=aplt.Visuals2D(mask=source_mask))
-imaging_plotter_g.figures(image=True)
+#visuals_2d = aplt.Visuals2D(mask=mask, positions=imaging_g.positions)
+#imaging_plotter_g = aplt.ImagingPlotter(imaging=imaging_g, visuals_2d=aplt.Visuals2D(mask=source_mask))
+#imaging_plotter_g.figures(image=True)
 
 
 # In[39]:
@@ -464,8 +464,8 @@ performance_log.to_csv(f'{csv_path}G{gama_id}_{links_id}_performance_log.csv')
 #plt.xlim()
 
 # plot it!
-fit_imaging_plotter = aplt.FitImagingPlotter(fit=phase3_result.max_log_likelihood_fit)
-fit_imaging_plotter.subplot_fit_imaging()
+#fit_imaging_plotter = aplt.FitImagingPlotter(fit=phase3_result.max_log_likelihood_fit)
+#fit_imaging_plotter.subplot_fit_imaging()
 
 
 # In[ ]:

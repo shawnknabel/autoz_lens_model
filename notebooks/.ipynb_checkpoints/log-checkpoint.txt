@@ -1,5 +1,112 @@
 Log of Updates and Files
 
+3/16/21 - afternoon
+### Models
+Exp 6 for 2730 phase 2 did not work. Checking the code for bugs.
+Apparently the al.mp mass profiles now include light information... So there is no separating it from the lmp?
+I have substituted a dark matter profile for phase 2.
+Running Experiment 7 based on this change.
+### Environmental Catalogue
+
+3/16/21 - Benne Meeting
+TO DO:
+- Look at HST proposal text
+- Model 5 candidates
+- Simulate one of the models w/ 0.65 psf and 1.0 psf
+- Check out the mass estimates from the group catalogue
+- Plot environmental estimates from Braugh2013
+###
+Check out the HST proposal. April 9th.
+- show the groups
+- models and uncertainties
+- generate a fake one (typical parameters) - or use a model we like!
+    - 10**11 stellar mass
+    - 10** 
+    - show w/ 0.65 psf and 0.1 psf
+- The thing we're after is M/L changing between isolated and group galaxies (mass enclosed)
+    - w/o stellar imf and stellar population assumptions -> we can then learn about stellar populations
+    - Big focus in proposal
+    - Try to make it a binary question
+###
+Groups:
+Mass estimates besides MassA?
+###
+FoF Algorithm on the Environmental Catalogue
+- All environmental info exists, we could really get that afterwards
+- 4th nearest neighbor, local densities, etc.
+- Sarah Braugh 2013 
+    - 5th nearest neighbor
+    - cylinder
+    - Which one is the best density measurement
+- We should use the Environmental estimates
+    - We'll combine these with the groups and mark the FoF 
+- Plot densities to M/L w/ error bars
+    - we'll show the fake HST error bars here too
+- FoF
+    - the 5th is probably a misidentification (~180 arcsec away from center)
+    - they are probably all centrals
+
+3/16/21 - morning
+TO DO:
+Prep 3234
+Model 2730 3-phase (experiment 6)
+###
+3234 did download, and the image and noise maps are made. Ready for model.
+###
+Running Experiment 6 for 2730 - 3-phase with source mask on second phase that is elliptical annular
+- Phase 2 did not work.
+
+
+3/15/21 - morning/afternoon
+TO DO:
+- Redo model 2730.
+###
+Started 3-phase fit of 2730.
+Interrupted befor phase 3 because bug in script.
+Restarted.
+Interrupted again on purpose... Phase 2 fit was terrible. It's really difficult to fit the source light separately for this one.
+###
+Going to run it again as Experiment 6.
+###
+Prepped 3212
+###
+Tried to download 3234 r, g images, weights. Failed.
+Trying again.
+###
+Finished Kinematics section 3.4
+###
+Lunchtime!
+
+3/12/21 - afternoon
+Looking at groups again.
+Are the candidates without group info in G12 or are the group databases incomplete?
+Those with nonzero group_id we can get rank and separations, then go into group catalog
+        - Cen is center of group (center of mass)
+        - BCG is brightest cluster galaxy?
+        - iterative center (preferred center) -> mass proxy or massA (read the bottom)
+The 9 groups have solid data in G3CFoFGroups.
+    - exception: 2 have 0 total mass
+    - Ranks: seven rank 1, one rank 2 (w/o mass), and one rank 4
+    - Nfof: six 2, one 3, two 5
+Plotted total group mass to galaxy stellar mass w/ color indicating rank or separation.
+###
+1933 model still running phase 3.
+Finished up with best fit to date!!! The three-phase approach may actually be best.
+
+3/12/21 - morning
+Starting 1933 model.
+Running.
+Phase 1 and 2 worked... Phase 3 was interrupted because the upper limit of the lens effective radius was given as lower than 0 (the lower limit).
+I checked, and it's a huge negative number. It's also the u-band error instead of g. I mistyped that.
+It was also that way for the 2730 model, so I might be able to improve that model if I run it again as well.
+Rerunning, it just loads in the model from Phase 1 and 2. Good.
+###
+I should work the positions and masks step into the preprocessing script and load those into the model. 
+    - That will allow more generality in the model script.
+
+3/11/21 - evening
+2730 worked! Log likelihood 371 :)
+
 3/11/21 - afternoon
 Had an ENORMOUS snafu.
 I had only updated the preprocessing script locally, and it was overwritten when I pulled from origin.

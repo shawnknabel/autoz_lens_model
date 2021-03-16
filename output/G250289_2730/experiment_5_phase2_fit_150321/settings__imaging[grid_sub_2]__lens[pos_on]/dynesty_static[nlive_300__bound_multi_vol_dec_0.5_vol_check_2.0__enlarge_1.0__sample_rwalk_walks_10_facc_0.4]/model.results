@@ -1,0 +1,58 @@
+Bayesian Evidence                                                                         -1833.68684872
+Maximum Likelihood                                                                        -1782.44860578
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        mass
+            intensity                                                                     0.001
+            effective_radius                                                              1.034
+            sersic_index                                                                  0.509
+            mass_to_light_ratio                                                           594.385
+    source
+        bulge
+            intensity                                                                     0.221
+            centre
+                centre_0                                                                  0.012
+                centre_1                                                                  0.051
+            effective_radius                                                              1.187
+
+
+Summary (3.0 sigma limits):
+
+galaxies
+    lens
+        mass
+            intensity                                                                     0.0009 (0.0001, 0.0038)
+            effective_radius                                                              1.0443 (1.0002, 1.0956)
+            sersic_index                                                                  0.5094 (0.5093, 0.5322)
+            mass_to_light_ratio                                                           791.4212 (190.3174, 7039.0637)
+    source
+        bulge
+            intensity                                                                     0.2201 (0.2152, 0.2254)
+            centre
+                centre_0                                                                  0.0102 (-0.0056, 0.0354)
+                centre_1                                                                  0.0631 (0.0343, 0.0784)
+            effective_radius                                                              1.1954 (1.1411, 1.2429)
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        mass
+            intensity                                                                     0.0009 (0.0008, 0.0011)
+            effective_radius                                                              1.0443 (1.0415, 1.0588)
+            sersic_index                                                                  0.5094 (0.5094, 0.5131)
+            mass_to_light_ratio                                                           791.4212 (646.3611, 898.0848)
+    source
+        bulge
+            intensity                                                                     0.2201 (0.2195, 0.2212)
+            centre
+                centre_0                                                                  0.0102 (0.0064, 0.0121)
+                centre_1                                                                  0.0631 (0.0551, 0.0751)
+            effective_radius                                                              1.1954 (1.1891, 1.2001)
+
+instances
+
