@@ -6,6 +6,34 @@ TO DO:
 - Simulate one of the models w/ 0.65 psf and 1.0 psf
 - Check out the mass estimates from the group catalogue
 
+3/17/21 - morning
+TO DO:
+Check environment catalogue redshifts (cutoff?)
+2730 finish Exp 7.
+3212 begin model.
+Simulate 1933 at 0.65 psf blurring and 1.0 blurring, test results.
+### 2730 Model
+Set the date a day early so it continues where it left off.
+Restarted, picked up where it left off. ~ -292 log likelihood.
+I don't expect much from this.
+Finished at -270
+### Environment
+The Braugh2013 catalogue is totally complete... Up to z < 0.18, which she totally said in the data description.
+Looks like we need to figure something else out.
+It seems we could run some study on this. Maybe it's something I do, or we farm it to someone looking for research experience? That wouldn't be too cool, since they wouldn't get first-author.
+### Simulation
+Trying to simulate... Have everything where it should be but the stupid aggregator won't let me use the max log likelihood instance.
+The effective radius is 2.22 or so, and I put a limit of 2.11 max (DR3 eff radius + error) to help it focus away from fitting big elliptical.
+I can't figure out how to force it to let me use it. This is a bad feature.
+I simulated the median PDF model, and it is okayish.
+I simulated it with optics for VST, VRO (LSST), and HST.
+Might be better just to simulate a fake lens.
+
+3/16/21 - evening
+### 2730 Model Exp 7
+Still running. I want to play StarCraft.
+I have interrupted it.
+
 3/16/21 - afternoon
 ### Models
 Exp 6 for 2730 phase 2 did not work. Checking the code for bugs.
@@ -13,6 +41,7 @@ Apparently the al.mp mass profiles now include light information... So there is 
 I have substituted a dark matter profile for phase 2.
 Running Experiment 7 based on this change.
 Phase 2 appears to have once again been extremely unsuccessful, but it at least did not model the light of the lens galaxy.
+Leaving it running for the rest of the day.
 ### Environmental Catalogue
 Pulled Braugh2013 EnvironmentMeasurev05.tar file from meeting with Benne.
 See notebook 031621_environment_analysis 
