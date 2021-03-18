@@ -10,8 +10,8 @@
 #get_ipython().run_line_magic('matplotlib', 'inline')
 import matplotlib.pyplot as plt
 #from autoconf import conf
-#import autolens as al
-#import autolens.plot as aplt
+import autolens as al
+import autolens.plot as aplt
 #import autofit as af
 import pandas as pd
 import numpy as np
@@ -71,7 +71,7 @@ def open_sesame (gama_id, links_id, band, weight=False):
     return(image, header)
 
 # create the cutout
-def cut_it_out (gama_id, image, header):
+def cut_it_out (gama_id, image, header, pixel_scale):
     print(f'Making cutout of {gama_id}')
     # attached real-world coordinates to pixel locations
     wcs = WCS(header) # let wcs pull info from header
@@ -82,24 +82,42 @@ def cut_it_out (gama_id, image, header):
     ra = candidate.RA.iloc[0]
     dec = candidate.DEC.iloc[0]
     
-    coord=SkyCoord(ra=ra, dec=dec, unit='deg', frame='icrs') # international celestial reference frame
-    position = wcs.world_to_pixel(coord)
-    print(f'Coordinates: {coord}')
-    #print(wcs.wcs.crval)
-    print(f' Position: {position}')
-    size = u.Quantity(101, u.pixel)
+    answer = 'n'
+    
+    while answer == 'n':
+            
+        coord=SkyCoord(ra=ra, dec=dec, unit='deg', frame='icrs') # international celestial reference frame
+        position = wcs.world_to_pixel(coord)
+        print(f'Coordinates: {coord}')
+        #print(wcs.wcs.crval)
+        print(f' Position: {position}')
+        size = u.Quantity(101, u.pixel)
 
-    cutout = Cutout2D(data=image, position=position, size=size, wcs=wcs, mode='trim')
-    cutout_image = cutout.data
+        cutout = Cutout2D(data=image, position=position, size=size, wcs=wcs, mode='trim')
+        cutout_image = cutout.data
     
-    # plot cutout
-    print('Cutout')
-    plt.figure()
-    plt.imshow(cutout_image, origin='lower', cmap='gray')   
-    plt.show()
-    print(f'Cutout shape: {cutout_image.shape}')
+        # plot cutout
+        print('Cutout')
+        plt.figure()
+        plt.imshow(cutout_image, origin='lower', cmap='gray')  
+        plt.scatter(50, 50, color='r')
+        plt.show()
+        print(f'Cutout shape: {cutout_image.shape}')
+        print(f'Is this centered correctly? (Remember to do the same adjustments to the image and weight map!) y/n')
+        answer = str(input())
+        if answer == 'y':
+            break
+            print('Lovely, let us continue.')
+        elif answer == 'n':
+            print(f'Give adjustments in pixels. Pixel scale is {pixel_scale}. Up, Down, Left, Right')
+            up, down, left, right = [float(input()), float(input()), float(input()), float(input())]
+            ra = ra+(right-left)*pixel_scale/3600
+            dec = dec+(up-down)*pixel_scale/3600
+        else:
+            print('Please answer y or n')
+            answer = str(input())
     return(cutout_image)
-    
+        
 def count_chocula (image, header, band, noise=False):
     gain = header['GAIN']
     print(f'Gain: {gain}')
@@ -146,7 +164,7 @@ def get_noisey (reconstructed_image):
 def divide_the_time (image_counts, exp_time):
     image_eps = image_counts/exp_time
     return(image_eps)
-
+    
 # resize
 def resize_image(image, new_size):
     print(f'Resizing image to {new_size}.')
@@ -206,6 +224,7 @@ def if_i_csv_i_cannosee (image, gama_id, links_id, band, noise=False, psf=False)
     print(f'Image sent to {csv_path}G{gama_id}_{links_id}/{links_id}_{band}_image.csv')
 
 
+
 # In[39]:
 
 
@@ -218,7 +237,7 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     
     #cut out image
     print('\n Producing cutout of coadd image.')
-    cutout_image = cut_it_out(gama_id, image, image_header)
+    cutout_image = cut_it_out(gama_id, image, image_header, pixel_scale)
     
     #convert to counts
     print('\n Converting cutout image to counts.')
@@ -233,7 +252,7 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     
     #cut out weight
     print('\n Producing cutout of weight image.')
-    cutout_weight = cut_it_out(gama_id, weight, weight_header)
+    cutout_weight = cut_it_out(gama_id, weight, weight_header, pixel_scale)
     
     print('\n All this work makes me hungry...')
     
@@ -287,7 +306,6 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
         #save psf to hdu
         if_i_fits_i_sits(psf, gama_id, links_id, band, psf=True)
     
-        print('\n Work complete!')
         
     elif filetype=='csv':
         os.makedirs(f'{csv_path}G{gama_id}_{links_id}', exist_ok=True)
@@ -303,7 +321,8 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     else:
         print('\n Get your filetypes straight!')
     
-        print('\n Work complete!')
+    
+    print('\n\n\n Work complete!')
     
     
     

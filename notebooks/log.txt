@@ -3,8 +3,54 @@ Log of Updates and Files
 TO DO:
 - Look at HST proposal text
 - Model 5 candidates
+    - Redo 1933 and 2730 with correct phase2 mass profile
+    - We'll have 2730, 1933, 3234, 3212, and 3056
 - Simulate one of the models w/ 0.65 psf and 1.0 psf
+    - 1933 was pretty good, but I'm redoing that fit, so it would be useful to redo the simulation as well.
 - Check out the mass estimates from the group catalogue
+
+3/18/21 - afternoon
+### Positions and masks script
+Positions can't be exported to json file.
+I have set it to convert to an array and export as csv.
+Load it in as [y1, x1, y2, x2, ...,  yn, xn]
+Works now.
+### Model 3234
+Has been prepped and is ready to run on script!
+First stage is running. Will interrupt before too long.
+###
+Models 2730 and 1933 should be ready for a redo.
+###
+Next candidate: G3891172_3056 	RA:139.22725 	DEC:-1.54519 	score:16.0 	zlens:0.339517 	z_source:0.609052 	
+Downloading images for 3056 from KiDS Astro_WISE server.
+PLAN:
+- Tonight -
+    Run model 3234
+- Tomorrow - 
+    Run model 2730
+    Prep next image
+- Tomorrow night -
+    Run model 1933
+- Saturday night -
+    Run model 3056
+
+3/18/21 - morning
+### Model 3234
+Center is offset to the right by ~ 0.8 arcseconds. 
+Rewrite preprocessing script to check for centering, then return to model.
+### Revising Preprocessing Module to include centering, creating positions and masks
+Rewrote script to include the three features above. Hasn't fully worked yet.
+Centering works.
+Also wrote contained script to create positions and masks.
+### Positions and masks script
+Positions side of it at least makes positions.
+***
+Stopping for lunch. 
+After lunch:
+Finish the masking.
+Prep 3234.
+Model 3234
+
 
 3/17/21 - evening
 Model 3212 finished with 1854 max log likelihood.
