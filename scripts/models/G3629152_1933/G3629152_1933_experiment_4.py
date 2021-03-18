@@ -212,7 +212,7 @@ phase1_time = tock-tick
 #set up lens and source
 
 # set stellar mass profile
-mass = al.mp.EllipticalSersic
+mass = al.mp.EllipticalSersic # This should have been EllipticalIsothermal
 #mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
 
 lens = al.GalaxyModel(

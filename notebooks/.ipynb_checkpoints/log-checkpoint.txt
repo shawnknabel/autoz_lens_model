@@ -6,6 +6,46 @@ TO DO:
 - Simulate one of the models w/ 0.65 psf and 1.0 psf
 - Check out the mass estimates from the group catalogue
 
+3/17/21 - afternoon
+Realized the problem I had in Phase2 of models where the mass profile included light was because I was using EllipticalSersic instead of EllipticalIsothermal...
+May want to redo 2730 then.
+Yes... the same problem showed up in the analysis of 1933.
+### Model 3212 - 3-phase
+Phase1 : lens light, lens_mask; phase1_nlive = 200, phase1_tolerance = 0.5
+Phase2 : lens mass and source light, source_mask; phase2_nlive = 200 (source mask), phase2_tolerance = 0.5
+Phase3 : all; phase3_nlive = 300, phase3_tolerance = 0.25
+facc=0.4 for all phases, use effective radius from GAMA DR3 Sersic Photometry catalog (including errors) and upper limit (effective radius + error), 3 position, pos_threshold=1.0
+The model is running.
+Phase1 was wildly unsuccessful, which I believe is because the mask sucks.
+Phase2 appears to be doing okay.
+### Simulated Lenses
+Earlier, I forgot to change the pixel scale for HST from 0.2"/pixel to 0.05"/pixel, which is SIGNIFICANTLY better.
+I also was able to simulate a decent looking mock lens.
+I manually input the max log likelihood parameters and it looks great!
+### Analysis 1933
+I've tried unboxing some more details from the results. 
+Here's for that max log likelihood model:
+    Einstein Radius via Tracer (arcsec) =  2.186904227338246
+    Einstein Radius via Tracer (kpc) =  11.38284900959853
+    Einstein Mass via Tracer (angular) =  15.024824258171073
+    Einstein Mass via Tracer (Msol) =  1456940820059.0918
+    Einstein Mass via Tracer (Msol) =  1.4569e+12
+    Log Einstein Mass = 12.16344191138306
+    Log Stellar Mass : 11.630485 (from GAMA LAMBDAR)
+Looked at median pdf model... Fairly similar.
+Trying to remember exactly what it is that we want...
+Plotted convergence, deflections, and potential.
+Plotted the PDF corner plots of each of the three phases.... Each of them gave me the following warning...
+    WARNING:root:Too few points to create valid contours
+I do think it will be pretty useful though.
+The only odd thing about this model is that it has a mass to light ratio of 8.550 when modeled with an elliptical Sersic light/mass profile and dark matter halo component. 
+I believe it is because I made a mistake Phase2 where I intended to give it only a mass profile, but I accidentally fit it with a light-mass profile before taking those results as Gaussian priors to the next step. 
+So it's possible it overestimated the light contribution then, which may mean the dark matter content is underestimated.
+It's a lot. I'm still trying to dig through what I can do with this information and come up with useful results.
+Calling it a day!
+
+
+
 3/17/21 - morning
 TO DO:
 Check environment catalogue redshifts (cutoff?)
@@ -37,7 +77,8 @@ I have interrupted it.
 3/16/21 - afternoon
 ### Models
 Exp 6 for 2730 phase 2 did not work. Checking the code for bugs.
-Apparently the al.mp mass profiles now include light information... So there is no separating it from the lmp?
+Apparently the al.mp mass profiles now include light information... So there is no separating it from the lmp? 
+                    ### 3/17/21 - I'm stupid, I was doing EllipticalSersic instead of EllipticalIsothermal. 
 I have substituted a dark matter profile for phase 2.
 Running Experiment 7 based on this change.
 Phase 2 appears to have once again been extremely unsuccessful, but it at least did not model the light of the lens galaxy.
