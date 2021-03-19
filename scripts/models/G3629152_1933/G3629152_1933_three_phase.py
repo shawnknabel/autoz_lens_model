@@ -207,42 +207,45 @@ phase1_time = tock-tick
 # In[22]:
 
 
-# now phase 2!
-
 #set up lens and source
 
 # set stellar mass profile
-mass = al.mp.EllipticalIsothermal # This was set to EllipticalSersic (lmp) prior to this.
+mass = af.PriorModel(al.mp.EllipticalIsothermal)
 mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
 
+# set dark profile
+dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
+dark.mass_at_200 = af.LogUniformPrior(lower_limit=1e8, upper_limit=1e15)
+dark.redshift_object = zlens
+dark.redshift_source = zsource
+
 lens = al.GalaxyModel(
-    redshift=zlens, mass=mass
+    redshift=zlens, mass=mass, dark=dark
 )
 
 source = al.GalaxyModel(
     redshift=zsource, bulge=al.lp.SphericalExponential)
 
-# make lens intensity default to 0.1 +- 0.1 because red to green makes it wonky
-#lens.bulge.intensity = af.GaussianPrior(mean=0.1, sigma=0.1)
 
-# set uniform m_l ratio
-#lens.bulge.mass_to_light_ratio = af.UniformPrior(lower_limit=0.0, upper_limit=100000.0) # leave it default
-
-# fix stellar mass center
+# fix stellar mass center and source mask center
 lens.mass.centre = phase1_result.instance.galaxies.lens.bulge.centre
+lens.dark.centre = lens.mass.centre
+#source_mask.centre =lens.mass.centre
 
-# lens einstein radius
+# fix lens elliptical comps
+#lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
+
+# einstein radius
 lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
 
 # source position
-source.bulge.centre_0 = af.UniformPrior(lower_limit=-3, upper_limit=3)
-source.bulge.centre_1 = af.UniformPrior(lower_limit=-3, upper_limit=3)
+source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)
+source.bulge.centre_1 = af.UniformPrior(lower_limit=-5, upper_limit=5)
 source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=5.0)
 #source.bulge.intensity = af.UniformPrior(lower_limit=0.0, upper_limit=10*lens.bulge.intensity)
 
 print(f'Lens: {lens}')
 print(f'Source: {source}')
-
 
 # In[10]:
 
@@ -293,7 +296,7 @@ settings = al.SettingsPhaseImaging(
 phase2 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase2_fit_{datetime}", n_live_points=300,
-        evidence_tolerance=0.5, walks=10, facc=0.4
+        evidence_tolerance=0.5, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)
@@ -332,7 +335,7 @@ phase2_time=tock-tick
 # now phase 3!
 
 #update mask to be centered on lens
-mask.centre = phase1_result.model.galaxies.lens.bulge.centre
+#mask.centre = phase1_result.model.galaxies.lens.bulge.centre
 
 #set up lens and source
 
@@ -342,7 +345,7 @@ bulge.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
 
 # set dark matter profile
 dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
-dark.mass_at_200 = af.LogUniformPrior(lower_limit=1e8, upper_limit=1e15)
+dark.take_attributes(source=phase2_result.model.galaxies.lens.dark)
 dark.redshift_object = zlens
 dark.redshift_source = zsource
 
@@ -396,7 +399,7 @@ settings = al.SettingsPhaseImaging(
 phase3 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase3_fit_{datetime}", n_live_points=500,
-        evidence_tolerance=0.25, walks=10, facc=0.4
+        evidence_tolerance=0.25, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)

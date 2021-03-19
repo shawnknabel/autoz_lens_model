@@ -91,10 +91,10 @@ imaging_r = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id
                              noise_map_path=path.join(object_folder, f'{links_id}_r_noise_map_image.fits'),
                              psf_path=path.join(object_folder, f'{links_id}_r_psf_image.fits'),
                               pixel_scales=0.2)
-imaging_g = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_g_image.fits'),
-                             noise_map_path=path.join(object_folder, f'{links_id}_g_noise_map_image.fits'),
-                             psf_path=path.join(object_folder, f'{links_id}_g_psf_image.fits'),
-                              pixel_scales=0.2)
+#imaging_g = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_g_image.fits'),
+#                             noise_map_path=path.join(object_folder, f'{links_id}_g_noise_map_image.fits'),
+#                             psf_path=path.join(object_folder, f'{links_id}_g_psf_image.fits'),
+#                              pixel_scales=0.2)
 
 
 # set up mask
@@ -227,10 +227,10 @@ phase1_time = tock-tick
 mass = af.PriorModel(al.mp.EllipticalIsothermal)
 mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
 
-#dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
-#dark.mass_at_200 = af.LogUniformPrior(lower_limit=1e8, upper_limit=1e15)
-#dark.redshift_object = zlens
-#dark.redshift_source = zsource
+dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
+dark.mass_at_200 = af.LogUniformPrior(lower_limit=1e8, upper_limit=1e15)
+dark.redshift_object = zlens
+dark.redshift_source = zsource
 
 lens = al.GalaxyModel(
     redshift=zlens, mass=mass#, dark=dark
@@ -242,8 +242,8 @@ source = al.GalaxyModel(
 
 # fix mass center
 lens.mass.centre = phase1_result.instance.galaxies.lens.bulge.centre
-#lens.dark.centre = phase1_result.instance.galaxies.lens.bulge.centre
-#lens.dark.centre = lens.mass.centre
+lens.dark.centre = phase1_result.instance.galaxies.lens.bulge.centre
+lens.dark.centre = lens.mass.centre
 
 # lens einstein radius
 lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
@@ -310,7 +310,7 @@ settings = al.SettingsPhaseImaging(
 phase2 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase2_fit_{datetime}", n_live_points=300,
-        evidence_tolerance=0.5, walks=10, facc=0.4
+        evidence_tolerance=0.5, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)
@@ -350,7 +350,7 @@ phase2_time=tock-tick
 # now phase 3!
 
 #update mask to be centered on lens
-mask.centre = phase1_result.model.galaxies.lens.bulge.centre
+#mask.centre = phase1_result.model.galaxies.lens.bulge.centre
 
 #set up lens and source
 
@@ -412,7 +412,7 @@ settings = al.SettingsPhaseImaging(
 phase3 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase3_fit_{datetime}", n_live_points=500,
-        evidence_tolerance=0.25, walks=10, facc=0.4
+        evidence_tolerance=0.25, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)

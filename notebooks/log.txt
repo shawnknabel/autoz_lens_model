@@ -7,7 +7,32 @@ TO DO:
     - We'll have 2730, 1933, 3234, 3212, and 3056
 - Simulate one of the models w/ 0.65 psf and 1.0 psf
     - 1933 was pretty good, but I'm redoing that fit, so it would be useful to redo the simulation as well.
-- Check out the mass estimates from the group catalogue
+- Check out the mass estimates from the group catalogue'
+
+3/19/21 - morning
+### Model scripts prep
+- Model 3234 was not ready to run last night. Somehow I ended up with two versions?
+- Going through models 3234, 1933, and 2730 to be sure.
+- Phase 2 -> choosing to fit both stellar and dark mass
+- 3234, 1933, and 2730 are ready. (I may want to go back and change the source mask for 2730 if it doesn't work well)
+### Model 3234 - Experiment 1
+- Running. Start 9:47 am.
+- Error -> ellipticalisothermal mp does not have 'take attributes' 
+    - change for 3234, 1933, and 2730
+    - needs to be a PriorModel
+- Rerunning.
+- Phase 2 appears to be running fairly well.
+### Image prep 3891172_3056
+- r and g images prepped
+- r image only (take from three-phase 3234 but change all to r)
+- Preparing script.
+    - 3056 model script ready.
+###
+- May want to set up image preprocessing to be able to do both r and g in one sweep
+    - Works well enough now as it is
+- Registered for 2021 KAAS Meeting (4/16-17)
+    - Abstract: KiDS/GAMA Strong Lenses as Probes of Elliptical Galaxies' Mass Content -
+Strong gravitational lenses identified in the Kilo Degree Survey (KiDS) in the LinKS (Petrillo+2018) and Bright Galaxy (Li+2020) catalogues are examined in the GAMA AUTOZ catalogue for confirmation of second (background source) redshift. With the foreground lens and background source redshifts of 42 lens candidates in hand, it is possible to model these lenses using Python library PyAutolens (Nightingale+2020) and constrain the mass-to-light ratio and the mass distribution of the foreground galaxy (baryonic and dark). We present the current state of the study, detailing the AUTOZ selection, lens modelling method, and preliminary results of 5 modelled lenses.
 
 3/18/21 - afternoon
 ### Positions and masks script

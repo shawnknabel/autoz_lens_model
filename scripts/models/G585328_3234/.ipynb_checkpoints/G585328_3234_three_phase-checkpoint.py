@@ -231,8 +231,8 @@ phase1_time = tock-tick
 #set up lens and source
 
 # set stellar mass profile
-mass = al.mp.EllipticalIsothermal
-#mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
+mass = af.PriorModel(al.mp.EllipticalIsothermal)
+mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge) # doesn't work for this mass profile
 
 # set dark profile
 dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
@@ -247,21 +247,16 @@ lens = al.GalaxyModel(
 source = al.GalaxyModel(
     redshift=zsource, bulge=al.lp.SphericalExponential)
 
-# make lens intensity default to 0.1 +- 0.1 because red to green makes it wonky
-#lens.bulge.intensity = af.GaussianPrior(mean=0.1, sigma=0.1)
-
-# set uniform m_l ratio
-#lens.bulge.mass_to_light_ratio = af.UniformPrior(lower_limit=0.0, upper_limit=100000.0) # leave it default
-
 # fix stellar mass center and source mask center
 lens.mass.centre = phase1_result.instance.galaxies.lens.bulge.centre
+lens.dark.centre = lens.mass.centre
 source_mask.centre =lens.mass.centre
 
 # fix lens elliptical comps
-lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
+#lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
 
 # einstein radius
-#lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
+lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
 
 # source position
 source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)
@@ -341,6 +336,8 @@ bulge.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
 # set dark matter profile
 dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
 dark.take_attributes(source=phase2_result.model.galaxies.lens.dark)
+dark.redshift_object = zlens
+dark.redshift_source = zsource
 
 lens = al.GalaxyModel(
     redshift=zlens, bulge=bulge, dark=dark

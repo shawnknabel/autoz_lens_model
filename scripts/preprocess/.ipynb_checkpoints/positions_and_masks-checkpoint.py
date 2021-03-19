@@ -287,7 +287,6 @@ print('Plotting g image')
 g_array_plotter = aplt.Array2DPlotter(array=g_image)
 g_array_plotter.figure()
 
-
 # positions
 print('Do you want to indicate positions? y/n')
 answer = input()
