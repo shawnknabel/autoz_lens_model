@@ -1,0 +1,54 @@
+Bayesian Evidence                                                                         307.05670874
+Maximum Likelihood                                                                        333.41057867
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        -0.253
+                elliptical_comps_1                                                        0.049
+            intensity                                                                     0.077
+            sersic_index                                                                  5.393
+            mass_to_light_ratio                                                           0.068
+            effective_radius                                                              2.707
+        dark
+            mass_at_200                                                                   537774440360744.125
+    source
+        bulge
+            intensity                                                                     0.075
+            centre
+                centre_0                                                                  -0.047
+                centre_1                                                                  -0.429
+            effective_radius                                                              0.696
+
+ WARNING: The samples have not converged enough to compute a PDF and model errors. 
+ The model below over estimates errors. 
+
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        -0.2525 (-0.3078, -0.1137)
+                elliptical_comps_1                                                        0.0489 (-0.0447, 0.1100)
+            intensity                                                                     0.0767 (0.0511, 0.0985)
+            sersic_index                                                                  5.3930 (4.4743, 6.8848)
+            mass_to_light_ratio                                                           0.0683 (0.0375, 0.1627)
+            effective_radius                                                              2.7067 (2.4311, 3.3349)
+        dark
+            mass_at_200                                                                   5.3777e+14 (4.4459e+14, 6.1139e+14)
+    source
+        bulge
+            intensity                                                                     0.0750 (0.0567, 0.1033)
+            centre
+                centre_0                                                                  -0.0475 (-0.1056, 0.0551)
+                centre_1                                                                  -0.4295 (-0.5080, -0.3272)
+            effective_radius                                                              0.6960 (0.4896, 0.9482)
+
+instances
+

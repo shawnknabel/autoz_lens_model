@@ -1,0 +1,23 @@
+Total Free Parameters = 11 
+
+galaxies
+    lens
+        bulge
+            centre                                                                        (-0.09984662771999095, 0.0999874281874136)
+            elliptical_comps
+                elliptical_comps_0                                                        GaussianPrior, mean = -0.13033472683033195, sigma = 0.2
+                elliptical_comps_1                                                        GaussianPrior, mean = 0.18462279582557428, sigma = 0.2
+            intensity                                                                     GaussianPrior, mean = 0.1105921795545172, sigma = 0.0552960897772586
+            effective_radius                                                              GaussianPrior, mean = 1.9136550426483154, sigma = 0.1998744010925293
+            sersic_index                                                                  GaussianPrior, mean = 3.982602047719374, sigma = 1.5
+            mass_to_light_ratio                                                           LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+        dark
+            centre                                                                        (-0.09984662771999095, 0.0999874281874136)
+            mass_at_200                                                                   GaussianPrior, mean = 2448199592005.66, sigma = 118694380659646.53
+    source
+        bulge
+            centre
+                centre_0                                                                  GaussianPrior, mean = -0.016760695711093992, sigma = 0.09618166933396106
+                centre_1                                                                  GaussianPrior, mean = -0.46914349661106597, sigma = 0.2158238664246272
+            intensity                                                                     GaussianPrior, mean = 0.046095009335104416, sigma = 0.023047504667552208
+            effective_radius                                                              GaussianPrior, mean = 0.9351807670070417, sigma = 0.9351807670070417

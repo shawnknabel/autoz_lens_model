@@ -1,0 +1,1024 @@
+Log of Updates and Files
+
+TO DO:
+- Look at HST proposal text
+- Model 5 candidates
+    - Redo 1933 and 2730 with correct phase2 mass profile
+    - We'll have 2730, 1933, 3234, 3212, and 3056
+- Simulate one of the models w/ 0.65 psf and 1.0 psf
+    - 1933 was pretty good, but I'm redoing that fit, so it would be useful to redo the simulation as well.
+- Check out the mass estimates from the group catalogue
+
+3/23/21 - morning
+- Run Model 1933
+- Prepare 2828
+### Model 2730 - Experiment 8
+- Finished with ~ 400 log likelihood and reasonable looking fit! Hooray!
+### Model 1933 - Experiment 5
+- Running on surface
+### Prep G138582_2828
+- downloading r weight.
+### M/L ratio plot
+- We want to plot M/L ratio against the environmental measures that we don't have...
+- Plotted M/L to stellar mass as a sort of first look.
+### Group catalog masses
+- MassA, MassProxy, and MassAfunc are all 0 for two of the 9... Not sure what the deal is there, but there's no way around it for me.
+#####
+- Need to rerun 3234.
+
+3/22/21 - morning
+### Model 3234 - Experiment 2
+- Did not converge very well to similar solution from Exp 1
+- Phase 2 and 3 did not manage to find a solution that shows the feature at the lower right of the foreground galaxy.
+### Model 2730 - Experiment 8
+- Running.
+- Phase 3 has already surpassed previous log likelihoods and is looking good. :)
+### Next candidate
+- G138582_2828 	RA: 183.14009 	DEC: -1.82700 	Score: 14.0 	zlens: 0.325175 	zsource: 0.432648
+- downloaded r-image
+- downloading r-weight... failed
+######
+Notes:
+- Consider using a broader Einstein radius prior for Phase 2. My estimate may be too low for these.
+- I set up globalprotect on the surface pro so I can run more models while being able to use my pc for other things.
+
+3/19/21 - morning
+### Model scripts prep
+- Model 3234 was not ready to run last night. Somehow I ended up with two versions?
+- Going through models 3234, 1933, and 2730 to be sure.
+- Phase 2 -> choosing to fit both stellar and dark mass
+- 3234, 1933, and 2730 are ready. (I may want to go back and change the source mask for 2730 if it doesn't work well)
+### Model 3234 - Experiment 1
+- Running. Start 9:47 am.
+- Error -> ellipticalisothermal mp does not have 'take attributes' 
+    - change for 3234, 1933, and 2730
+    - needs to be a PriorModel
+- Rerunning.
+- Phase 2 appears to be running fairly well.
+- There was an interruption in the ssh connection that may or may not have interrupted the fit. I restarted it, but I think they may have been running at the same time...
+- Phase 3 finished, but I want to redo it because I think it messed up from the above note.
+### Image prep 3891172_3056
+- r and g images prepped
+- r image only (take from three-phase 3234 but change all to r)
+- Preparing script.
+    - 3056 model script ready.
+###
+- May want to set up image preprocessing to be able to do both r and g in one sweep
+    - Works well enough now as it is
+- Registered for 2021 KAAS Meeting (4/16-17)
+    - Abstract: KiDS/GAMA Strong Lenses as Probes of Elliptical Galaxies' Mass Content -
+Strong gravitational lenses identified in the Kilo Degree Survey (KiDS) in the LinKS (Petrillo+2018) and Bright Galaxy (Li+2020) catalogues are examined in the GAMA AUTOZ catalogue for confirmation of second (background source) redshift. With the foreground lens and background source redshifts of 42 lens candidates in hand, it is possible to model these lenses using Python library PyAutolens (Nightingale+2020) and constrain the mass-to-light ratio and the mass distribution of the foreground galaxy (baryonic and dark). We present the current state of the study, detailing the AUTOZ selection, lens modelling method, and preliminary results of 5 modelled lenses.
+
+3/18/21 - afternoon
+### Positions and masks script
+Positions can't be exported to json file.
+I have set it to convert to an array and export as csv.
+Load it in as [y1, x1, y2, x2, ...,  yn, xn]
+Works now.
+### Model 3234
+Has been prepped and is ready to run on script!
+First stage is running. Will interrupt before too long.
+###
+Models 2730 and 1933 should be ready for a redo.
+###
+Next candidate: G3891172_3056 	RA:139.22725 	DEC:-1.54519 	score:16.0 	zlens:0.339517 	z_source:0.609052 	
+Downloading images for 3056 from KiDS Astro_WISE server.
+PLAN:
+- Tonight -
+    Run model 3234
+- Tomorrow - 
+    Run model 2730
+    Prep next image
+- Tomorrow night -
+    Run model 1933
+- Saturday night -
+    Run model 3056
+
+3/18/21 - morning
+### Model 3234
+Center is offset to the right by ~ 0.8 arcseconds. 
+Rewrite preprocessing script to check for centering, then return to model.
+### Revising Preprocessing Module to include centering, creating positions and masks
+Rewrote script to include the three features above. Hasn't fully worked yet.
+Centering works.
+Also wrote contained script to create positions and masks.
+### Positions and masks script
+Positions side of it at least makes positions.
+***
+Stopping for lunch. 
+After lunch:
+Finish the masking.
+Prep 3234.
+Model 3234
+
+
+3/17/21 - evening
+Model 3212 finished with 1854 max log likelihood.
+I'm a bit considered with the M/L ratios I'm getting (each of below are the summary 3-sigma mean)
+2730 : 0.0527 [dark mass_at_200 = 3.1390e+14]
+1933 : 5.7031 [3.0714e+10]
+3212 : 0.4787 [6.6364e+13]
+These are too different for comfort.
+
+3/17/21 - afternoon
+Realized the problem I had in Phase2 of models where the mass profile included light was because I was using EllipticalSersic instead of EllipticalIsothermal...
+May want to redo 2730 then.
+Yes... the same problem showed up in the analysis of 1933.
+### Model 3212 - 3-phase
+Phase1 : lens light, lens_mask; phase1_nlive = 200, phase1_tolerance = 0.5
+Phase2 : lens mass and source light, source_mask; phase2_nlive = 200 (source mask), phase2_tolerance = 0.5
+Phase3 : all; phase3_nlive = 300, phase3_tolerance = 0.25
+facc=0.4 for all phases, use effective radius from GAMA DR3 Sersic Photometry catalog (including errors) and upper limit (effective radius + error), 3 position, pos_threshold=1.0
+The model is running.
+Phase1 was wildly unsuccessful, which I believe is because the mask sucks.
+Phase2 appears to be doing okay.
+### Simulated Lenses
+Earlier, I forgot to change the pixel scale for HST from 0.2"/pixel to 0.05"/pixel, which is SIGNIFICANTLY better.
+I also was able to simulate a decent looking mock lens.
+I manually input the max log likelihood parameters and it looks great!
+### Analysis 1933
+I've tried unboxing some more details from the results. 
+Here's for that max log likelihood model:
+    Einstein Radius via Tracer (arcsec) =  2.186904227338246
+    Einstein Radius via Tracer (kpc) =  11.38284900959853
+    Einstein Mass via Tracer (angular) =  15.024824258171073
+    Einstein Mass via Tracer (Msol) =  1456940820059.0918
+    Einstein Mass via Tracer (Msol) =  1.4569e+12
+    Log Einstein Mass = 12.16344191138306
+    Log Stellar Mass : 11.630485 (from GAMA LAMBDAR)
+Looked at median pdf model... Fairly similar.
+Trying to remember exactly what it is that we want...
+Plotted convergence, deflections, and potential.
+Plotted the PDF corner plots of each of the three phases.... Each of them gave me the following warning...
+    WARNING:root:Too few points to create valid contours
+I do think it will be pretty useful though.
+The only odd thing about this model is that it has a mass to light ratio of 8.550 when modeled with an elliptical Sersic light/mass profile and dark matter halo component. 
+I believe it is because I made a mistake Phase2 where I intended to give it only a mass profile, but I accidentally fit it with a light-mass profile before taking those results as Gaussian priors to the next step. 
+So it's possible it overestimated the light contribution then, which may mean the dark matter content is underestimated.
+It's a lot. I'm still trying to dig through what I can do with this information and come up with useful results.
+Calling it a day!
+
+3/17/21 - morning
+TO DO:
+Check environment catalogue redshifts (cutoff?)
+2730 finish Exp 7.
+3212 begin model.
+Simulate 1933 at 0.65 psf blurring and 1.0 blurring, test results.
+### 2730 Model
+Set the date a day early so it continues where it left off.
+Restarted, picked up where it left off. ~ -292 log likelihood.
+I don't expect much from this.
+Finished at -270
+### Environment
+The Braugh2013 catalogue is totally complete... Up to z < 0.18, which she totally said in the data description.
+Looks like we need to figure something else out.
+It seems we could run some study on this. Maybe it's something I do, or we farm it to someone looking for research experience? That wouldn't be too cool, since they wouldn't get first-author.
+### Simulation
+Trying to simulate... Have everything where it should be but the stupid aggregator won't let me use the max log likelihood instance.
+The effective radius is 2.22 or so, and I put a limit of 2.11 max (DR3 eff radius + error) to help it focus away from fitting big elliptical.
+I can't figure out how to force it to let me use it. This is a bad feature.
+I simulated the median PDF model, and it is okayish.
+I simulated it with optics for VST, VRO (LSST), and HST.
+Might be better just to simulate a fake lens.
+
+3/16/21 - evening
+### 2730 Model Exp 7
+Still running. I want to play StarCraft.
+I have interrupted it.
+
+3/16/21 - afternoon
+### Models
+Exp 6 for 2730 phase 2 did not work. Checking the code for bugs.
+Apparently the al.mp mass profiles now include light information... So there is no separating it from the lmp? 
+                    ### 3/17/21 - I'm stupid, I was doing EllipticalSersic instead of EllipticalIsothermal. 
+I have substituted a dark matter profile for phase 2.
+Running Experiment 7 based on this change.
+Phase 2 appears to have once again been extremely unsuccessful, but it at least did not model the light of the lens galaxy.
+Leaving it running for the rest of the day.
+### Environmental Catalogue
+Pulled Braugh2013 EnvironmentMeasurev05.tar file from meeting with Benne.
+See notebook 031621_environment_analysis 
+The catalogue indeed does have objects in G09, G12 and G15, but it does not include any of the 42 lenses. 
+It also does not include all of the G15 objects that are in the G15 field from the Robotham2011 group catalog.
+# of objects in each catalogue:
+Braugh2013 Environment (G09, G12, and G15): 67996
+Braugh2013 Environment (G15 only): 24947
+Robotham2011 Group (G15):  62004
+Overlap between two: 24919
+It appears to me that this catalogue is not complete.
+I've emailed Benne. Nothing else I can do with this.
+
+3/16/21 - Benne Meeting
+TO DO:
+- Look at HST proposal text
+- Model 5 candidates
+- Simulate one of the models w/ 0.65 psf and 1.0 psf
+- Check out the mass estimates from the group catalogue
+- Plot environmental estimates from Braugh2013
+###
+Check out the HST proposal. April 9th.
+- show the groups
+- models and uncertainties
+- generate a fake one (typical parameters) - or use a model we like!
+    - 10**11 stellar mass
+    - 10** 
+    - show w/ 0.65 psf and 0.1 psf
+- The thing we're after is M/L changing between isolated and group galaxies (mass enclosed)
+    - w/o stellar imf and stellar population assumptions -> we can then learn about stellar populations
+    - Big focus in proposal
+    - Try to make it a binary question
+###
+Groups:
+Mass estimates besides MassA?
+###
+FoF Algorithm on the Environmental Catalogue
+- All environmental info exists, we could really get that afterwards
+- 4th nearest neighbor, local densities, etc.
+- Sarah Braugh 2013 
+    - 5th nearest neighbor
+    - cylinder
+    - Which one is the best density measurement
+- We should use the Environmental estimates
+    - We'll combine these with the groups and mark the FoF 
+- Plot densities to M/L w/ error bars
+    - we'll show the fake HST error bars here too
+- FoF
+    - the 5th is probably a misidentification (~180 arcsec away from center)
+    - they are probably all centrals
+
+3/16/21 - morning
+TO DO:
+Prep 3234
+Model 2730 3-phase (experiment 6)
+###
+3234 did download, and the image and noise maps are made. Ready for model.
+###
+Running Experiment 6 for 2730 - 3-phase with source mask on second phase that is elliptical annular
+- Phase 2 did not work.
+
+
+3/15/21 - morning/afternoon
+TO DO:
+- Redo model 2730.
+###
+Started 3-phase fit of 2730.
+Interrupted befor phase 3 because bug in script.
+Restarted.
+Interrupted again on purpose... Phase 2 fit was terrible. It's really difficult to fit the source light separately for this one.
+###
+Going to run it again as Experiment 6.
+###
+Prepped 3212
+###
+Tried to download 3234 r, g images, weights. Failed.
+Trying again.
+###
+Finished Kinematics section 3.4
+###
+Lunchtime!
+
+3/12/21 - afternoon
+Looking at groups again.
+Are the candidates without group info in G12 or are the group databases incomplete?
+Those with nonzero group_id we can get rank and separations, then go into group catalog
+        - Cen is center of group (center of mass)
+        - BCG is brightest cluster galaxy?
+        - iterative center (preferred center) -> mass proxy or massA (read the bottom)
+The 9 groups have solid data in G3CFoFGroups.
+    - exception: 2 have 0 total mass
+    - Ranks: seven rank 1, one rank 2 (w/o mass), and one rank 4
+    - Nfof: six 2, one 3, two 5
+Plotted total group mass to galaxy stellar mass w/ color indicating rank or separation.
+###
+1933 model still running phase 3.
+Finished up with best fit to date!!! The three-phase approach may actually be best.
+
+3/12/21 - morning
+Starting 1933 model.
+Running.
+Phase 1 and 2 worked... Phase 3 was interrupted because the upper limit of the lens effective radius was given as lower than 0 (the lower limit).
+I checked, and it's a huge negative number. It's also the u-band error instead of g. I mistyped that.
+It was also that way for the 2730 model, so I might be able to improve that model if I run it again as well.
+Rerunning, it just loads in the model from Phase 1 and 2. Good.
+###
+I should work the positions and masks step into the preprocessing script and load those into the model. 
+    - That will allow more generality in the model script.
+
+3/11/21 - evening
+2730 worked! Log likelihood 371 :)
+
+3/11/21 - afternoon
+Had an ENORMOUS snafu.
+I had only updated the preprocessing script locally, and it was overwritten when I pulled from origin.
+Then the internet started going out, so I had to reestablish my connection to the cluster... worked out, saved the model running.
+In the process of trying to recover the preprocessing script, I lost the modeling script.
+In the process of trying to sort these, I interrupted the model.
+I had to revert to the status at the beginning of today, but I recovered the modeling script.
+I rewrote the changes to the preprocessing script and tested it. It appears to be correct.
+I think the fits files are all safe because they are in the .gitignore file, so the prepping I did is okay.
+I'm only pushed back the time it took to do this, and the model. :)
+###
+Running 2730 model again. It was at log likelihood ~ 370 when I unfortunately stopped it... That's the best I've gotten period.
+Phase1 log likelihood ~ -200, similar to the first time. Good signs.
+###
+Started Group Analysis... Bummers.
+- The catalog is only G02 and G15. 23 of the candidates are not in the group catalog.
+- Even more unfortunate is that the top prospects are mostly not in the group catalog. :(
+- Of the 19 galaxies that have group data, 10 are isolated and 9 in groups.
+- In stellar-mass-redshift space, they appear to show groups at higher redshift, maybe?
+
+
+3/11/21 - morning
+I may have figured it out... In the email, Kuijken said that 1/sqrt(weight) gives rms noise, convert to counts (x gain [NOT exp_time]), "you should find rougly [sic] sqrt(bg), again in total counts." I tried squaring this value before, but it gave HUGE numbers because I had already multiplied it by the exp_time. Squaring this value gives the background at a max of 10 eps, which is right in line with what he was saying. So I think this is actually right.
+Script has been updated locally.
+###
+Running the updated noise map in fit for Experiment 4 of G250289_2730.
+    ### Phase1 -300ish max log likelihood. May be better just to run two phases on g with increasing complexity?
+###
+Pull g band coadd and weight and do the same!
+I did, and that's great... But the g is useless, which I already noted. I need to be more observant of my past notes.
+###
+Started 2730 model.
+Taking a while...
+###
+Prepping 1933.
+Done.
+###
+Looked back into Autolens notes to find what the red and black rings are in the image outputs... They are critical curves
+(From Dodelson Lensing text)
+Caustic curve: circle with radius Beta_c that delineates regions of SOURCE plane that produce one image (outside) or multiple images (inside)
+Critical curve: location of images in the LENS plane that lie on the caustic curve, infinite magnitude, perfectly focused light rays, much brighter than true luminosity
+Essentially, caustic curves and critical curves map to each other in their respective planes.
+###
+Prepping 3212.
+
+
+
+3/10/21 - morning
+image_preprocessing notebook and script take fits files from KiDS server, creates cutouts, makes image and noise_map in eps, makes psf, then saves as either csv or fits.
+Since I can't get the fits files on the cluster, I'm going to save them as csv files and see if that will work to load in instead of the al.Imaging.from_fits(). I think it should work.
+#####
+For the afternoon:
+- Check if the csv files will work.
+- Do group analysis.
+- Read Treu through 4.
+- Respond to emails.
+
+3/9/21 - Benne meeting
+Chris Hawk - six IFU observations of the GAMA lenses
+    - good to look into them
+Noise map
+- try making all negative values 0
+- or buffer it by the minimum value
+    - also add that level to the image as well
+- buffer it, add the rms noise, take sqrt
+Get posterior pdf
+- report 1 sigma and 3 sigma
+We've confirmed a few... 42 of them.
+Getting difficult to model them. S/N is good enough to identify, not enough to do good models.
+    - HST
+We have a clean sample. But what is our science case for doing so?
+    - redshifts 0.2-0.4, what does that add?
+    - we have GAMA info (environment) - M/L and enclosed mass
+Do the GAMA group analysis. (mass vs redshift with group info)
+    - how many in Robotham group catalog and not?
+    - are they central galaxy?
+    - separation from center?
+    - isolated centrals vs group centrals (group id 0 is isolated)
+    - if all have group_id we can get rank and separations, then go into group catalog
+        - Cen is center of group (center of mass)
+        - BCG is brightest cluster galaxy?
+        - iterative center (preferred center) -> mass proxy or massA (read the bottom)
+    - enclosed mass to halo mass
+###
+Plan:
+1. Write script for generating u, g, r, i fits images and noise from coadds/weights.
+2. Rewrite script for image preparation, include the above script.
+3. Rewrite script for modeling based on latest success.
+4. Rerun previous models.
+5. Do group analysis.
+
+3/9/21 - morning
+Ran G544226_3212, only one experiment. Moving on to next.
+G585328_3234
+Didn't work super well.
+
+3/8/21 - evening
+I think that K Kuijken is correct about the mode for getting to electron counts.
+I should multiply the image data by the gain and exp_time to get electron counts. 
+For the rms noise, I take 1/sqrt(weight_image), resulting in the same units as the coadd.
+So I multiply the image and the rms noise by the gain and exp_time to get both in counts. Great.
+These are on the same order of magnitude. Great.
+Problem: the sum of these on a pixel-by-pixel basis still results in negative numbers, so that the sqrt of that is NaN.
+
+3/8/21 - afternoon
+I had to shut the computer down mid-model... So G544226_3212 should be redone from the first fit.
+###
+Figured out the weight maps. They were so large that when I was uploading them to the cluster it just didn't load it all.
+Solution: use local machine for the prep there and save as a csv file before uploading.
+*** See kids_weight_maps_030821 notebook for the details.
+###
+Retrying the noise map generation.
+The weight maps are in the same units as the coadds.
+I think those units contain the time, so I should only have to multiply by the gain to get into eps, and then by exp_time for electron counts.
+I need to rewrite my functions for the image prep with this knowledge.
+It makes sense because it's supposed to be 10-100 eps (according to Kuijken), which is what I've been getting for the electron counts.
+
+3/8/21 - morning
+G3629152_1933
+Trying to look at the results to see what I should do differently. It appears they did converge to different models, but the log likelihood is similar for each of the five results.
+It's difficult to look at them and get anything meaningful, especially since I still don't quite understand the best fit vs sigma results.
+I'm going to start another model just to get some progress in.
+
+3/5/21 - afternoon
+G3629152_1933
+Experiment 1 - phase1_nlive = 200, phase1_tolerance = 0.5, phase2_nlive = 200, phase2_tolerance = 0.25, use effective radius from GAMA DR3 Sersic 
+                Photometry catalog (including errors) and upper limit (effective radius + error), normal mask, Source R_E (0->10*lens.inensity), 1 
+                position, threshold=2.0
+        ### Didn't quite converge to show the lens feature, but was okay. Converged quickly.
+Experiment 2 - same as Exp 1, phase2_nlive = 300, 2 positions at threshold 1.0
+        ### Turned out fairly well! :)
+        ### Try it again with higher phase2_nlive, then try it three-phase with second phase being the source light.
+Experiment 2-a - phase2_nlive = 500
+        ### Similar log likelihood to 2. Need to check out results.
+Experiment 3 - same as Exp 2... phase 2 becomes phase 3. Phase 2 now has a source mask with light-less elliptical lens. Pass only the light priors.
+        ### Similar log likelihood to 2a.
+Experiment 3a - same as Exp 3, phase3_nlive = 500
+        ### Similar again
+###
+For Monday:
+- Compare results of 3rd candidate.
+- Figure out the results/errors problem
+- Figure out the weight maps.
+- Talk to Benne about the preiveous two notes
+- Try # 4!
+
+        
+3/5/21 - morning
+Selecting third candidate to model while I wait to discuss the error stuff with James Nightingale.
+I've selected 3629152_1933. There isn't much of a lens feature to look at, even in the g-band, which is lower signal and much noisier.
+###
+I'm thinking I may have to revisit the bullshit assumption of the noisemap. Konrad Kuijken said that I need to use the gain from the coadd.. Which makes perfect sense but damn.
+I'm going to look back to the second model (G250289_2730), redo the noise map and see if that helps convergence.
+I still have problems reading in the data for the weight maps from the fits files, for both 1906 and 2730.
+I emailed Konrad Kuijken.
+###
+
+
+3/4/21 - afternoon
+Still running Exp 3-2 (probably will go on into the night...)
+Looking at pulling in results with the aggregator tool and examining them. Notebook G250289_2730_results_extraction
+Trying to figure out the whole error thing... For M/L ratio, the max likelihood model says 0.093. And then the summary 3-sigma (guassian priors) give 0.3346 (upper limit 0.0698, lower limit 0.8173).
+My guess is that the max log likelihood model is the model with the peak likelihood, while the summary weights all of the models and gives a "mean" (presumably fairly close to the max likelihood model) with error bars associated with that.
+I can extract mass information... But I think it pulls from the max log likelihood.
+So the errors are associated with the mean there. How does that propagate?
+
+3/4/21 - morning
+Running Experiment 3-2 from the other day.
+Depending on performance here, I will make the lens mask smaller again.
+This may be the best model I can get for this one for right now. It may be time to move on to another that has r and g images.
+
+3/2/21 - morning
+Drop the 3-phase idea for now. Take phase 1 for lens light, phase 2 for source light and lens light. Take much larger n_live.
+Experiment 3 (2-phase, high n_live)
+    3-1 : phase1_nlive = 150, phase1_tolerance = 0.5, phase2_nlive = 200, phase2_tolerance = 0.25, 4 Positions, Positions threshold = 1.0, use 
+                        effective radius from GAMA DR3 Sersic Photometry catalog with smaller sigma (0.25) and upper limit (effective radius + 
+                        error 1.3435+0.1146=1.4581), smaller mask (effective radius) centered at (0.075, -0.075), fix lens light bulge profile in 
+                        second phase. Source R_E (0->10*lens.inensity)
+     ### For some reason it isn't taking the priors for the center of the lens.
+     ### Did a decent job with the upper left image but not the lower right.
+     ### Took 6 hours.
+    3-2 : phase1_nlive = 200, phase1_tolerance = 0.5, phase2_nlive = 500, phase2_tolerance = 0.25, 4 Positions, Positions threshold = 1.0, use 
+                        effective radius from GAMA DR3 Sersic Photometry catalog with smaller sigma (0.25) and upper limit (effective radius + 
+                        error 1.3435+0.1146=1.4581), smaller mask (effective radius) centered at (0.075, -0.075), fix lens light bulge profile in 
+                        second phase. Source R_E (0->10*lens.inensity)
+
+## Don't take the instance for the ellipticity and effective radius. Set same max effective radius.             
+
+3/1/21 - morning
+Experiment 2 (3-phase)
+            ### Trying to see if I can shift the phase2 mask to remove the lens light in the upper left...
+    2-3 (Redone)- Phase 1: lens_mask = al.Mask2D.elliptical(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.25),
+                        major_axis_radius=1.15,
+                        axis_ratio=0.85,
+                        phi=140.0,
+                        nlive=60, tolerance=1.0, walks=10
+            Phase 2: source mask source_mask = al.Mask2D.elliptical_annular(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.25),
+                        inner_major_axis_radius=1.1,
+                        inner_axis_ratio=0.85,
+                        inner_phi=140.0,
+                        outer_axis_ratio=0.8,
+                        outer_phi=140.0,
+                        outer_major_axis_radius=2.5,
+                        nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at 
+                        threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4
+    2-4 - Phase 1: lens_mask = al.Mask2D.elliptical(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.25),
+                        major_axis_radius=1.15,
+                        axis_ratio=0.85,
+                        phi=140.0,
+                        nlive=60, tolerance=1.0, walks=10
+            Phase 2: al.Mask2D.elliptical_annular(
+                        shape_native=imaging_r.shape_native, 
+                        pixel_scales=imaging_r.pixel_scales, 
+                        sub_size=2,
+                        centre=(0.135, -0.3),
+                        inner_major_axis_radius=1.2,
+                        inner_axis_ratio=0.8,
+                        inner_phi=50.0,
+                        outer_axis_ratio=0.7,
+                        outer_phi=150.0,
+                        outer_major_axis_radius=2.5
+                        nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at 
+                        threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4        
+###
+I think the inversion is what I need for the second phase.
+ALL the above failed... Revisit this stuff.
+
+2/26/21 - afternoon
+Experiment 1-13 was not an extreme improvement, but I will keep the n_live=150 for phase 3 of experiment 2.
+Experiment 2:
+    2-1 - Phase 1: lens mask 0.8, nlive=60, tolerance=1.0, walks=10
+            Phase 2: source mask inner=0.8 and outer=2.5, nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4
+            ### Phase 2 does not have the priors on the lens mass... Try assigning it explicitly instead of take_attributes
+            ### Make source mask inner/outer radii slightly larger (0.9, 2.6)?
+            *** Something went terribly wrong. I think I need to figure out how to better separate the lens and source.
+    2-2 - Phase 1: lens mask 0.8, nlive=60, tolerance=1.0, walks=10
+            Phase 2: source mask inner=1.0 and outer=3.0, nlive=120, tolerance=0.25, walks=10, facc=0.4, 4 positions at threshold=1.0
+            Phase 3: mask, nlive=150, tolerance=0.25, walks=10, facc=0.4
+            ### Phase 2 is not doing any better at removing the lens light.
+            ### Didn't work well.
+###
+For Monday:
+    - Run things in scripts, not notebooks.
+    - Check out inversions for the source light modeling.
+    - Try custom masking lens light out.
+    - Try subtracting lens light.
+
+2/26/21 - morning
+Refine fit. I need to start running these as scripts instead of the notebook so I can prepare the next batch.
+Experiments:
+    1-13 - 4 positions. Phase 1 : n_live=40, tolerance=1.0, walks=10. Phase 2 : n_live=150, tolerance=0.25, walks=10
+        ### Running
+    2. 3 phases. Phase1: lens light. Phase2: source light, use ellipticalsersic mass profile with no light. Phase 3: All.
+### Started Exp 2 (3 phases) in new notebook. Designed first two phases. Need to do third and then begin.
+Stopped to prepare for DARK interview.
+
+2/25/21 - post-meeting
+Shrinking the mask on phase1 and tightly constraining the effective radius is working to make sure it ignores the lens light.
+Experiments:
+    1-6 - updated so that second phase fixes the light profile as an "instance".
+        *** Appears to be working fairly well. Finally showing the lensed image in the upper left. *** Took ~ an hour.
+    1-7 - Following 1-6... Even smaller sigma 0.25. Mask 0.8. Center at visual estimated center (0.075, -0.075) and set bulge center priors (0.0->0.1, -0.1->0.0). Move right position slightly down and right.
+    ### Start using the bulge.effective_radius constraints again. This may be one of the things making it take so long.
+    ### I don't think I was using the instance correctly.
+    1-8 - Following 1-7... Constrain bulge.effective_radius < 5.0. Set bulge=phase1_result.instance.galaxies.lens.bulge.
+    1-9 - Constrain source.intensity < 10*lens.bulge.intensity. Positions threshold 1.0.
+    1-10 - 3 positions.
+    1-11 - 4 positions. *** I don't think the fourth helped at all. 3 is good.
+    1-12 - 4 positions, on accident. Phase 1 : n_live=80, tolerance=0.5, walks=10. Phase 2 : n_live=120, tolerance=0.25, walks=10
+    ### The extra time on phase 1 does not help it at all. Phase 2 was improved by the deeper search.
+Extracting information from max likelihood model:
+    https://github.com/Jammy2211/autolens_workspace/blob/release/scripts/misc/einstein_radii_and_mass.py
+    https://github.com/Jammy2211/autolens_workspace/blob/release/scripts/database/tutorial_5_derived.py
+    https://github.com/Jammy2211/autolens_workspace/blob/release/scripts/database/tutorial_3_lens_models.py
+#### For tomorrow ####
+1. Keep refining fit.
+    Increase phase2 n_live_points? 150?
+    Decrease positions_threshold? 0.75, 0.5?
+2. M/L ratio and mass extraction.
+
+2/25/21 - morning
+Experiments to improve the lens light fit for G250289_2730.
+    1-3 - Use GAMA DR3 R_E, sigma=1
+    1-4 - smaller mask (1.5)
+    1-5 - smaller mask (1.2)
+    1-6 - smaller mask centered at light center (1.0)
+        *** This one gave semi-reasonable results in that it doesn't overestimate the ellipticity and effective radius.
+        2nd phase will show if it's actually helpful or not. Maybe the two-phase system doesn't work that well for this one, with only one image.
+        ### Had to interrupt for M Swinbank meeting. Come back to it after.
+Try taking it as an "instance", which means it will fix the value there.
+    bulge.take_attributes(source=phase1_result.instance)
+
+2/24/21 - evening
+My connection to the vpn was broken.
+I ran 2 experiments today on the second model using only the r-band image.
+I *think* that the fit is confusing part of the lensed features with an extent of the lens galaxy and fitting the lens poorly for that reason.
+The second one did run better than the first (though longer).
+I think I should continue using the effective radius measured in GAMA DR3.
+Tomorrow:
+    - Try to improve the lens light fit.
+        - shrink the mask?
+        - restrict the effective radius prior?
+    - Experiment with the positions
+        - 2.0, 1.5, 1.0, 0.5
+    - Figure out the M/L ratio and mass extraction
+
+2/24/21 - afternoon
+I've chosen to shift gears to model 2, using G250289_2730.
+The g-band image is really noisey and doesn't offer anything good. 
+r-band by itself is fine, so I'm using just that.
+Found effective radius measurements in GAMA DR3
+ - www.gama-survey.org/dr3/schema/table.php?id=46
+ - single object viewer http://www.gama-survey.org/dr3/tools/sov.php
+ - GALRE_r is galaxy R_E (effective radius) in r-band
+     - for G250289_2730, that is 1.3435 arcsec
+I think things are starting to work for this model. I think the lens light it being overwhelmed by the lens, and autolens is modeling it as a stretch elliptical instead of that bit as being part of the lens.
+I believe the fix to that will be in the first phase.
+
+2/24/21 - morning
+[conclusion from this session... don't set priors that you don't have a good reason for. leave it at default]
+Tasks for today:
+1. Refine light/dark profile fits
+2. Extract mass info
+----
+I think I'm going to loosen the prior for effective radius up to 5 arcsec and see what it comes up with...
+    - lens effective radius converged to 4.7 (perhaps I want to make this even larger...) with likelihood 300 (highest so far)
+New experiment: All with DM profiles
+*** Model
+Phase 1 - Dynesty(n_live=40, tolerance=1, walks=default)
+Phase 2 - Dynesty(n_live=120, tolerance=0.5, walks=10, facc=0.4)
+***
+1. Effective radius (w/o positions) # why did I even change this in the first place? I don't  know what the effective radius is.
+    - 1. 0.65 - 5.0 , 0.0 - 5.0
+    - 2. 0.65 - 10.0 , 0.0 - 10.0 
+    - 3. defaults... 0.0001 - 30.0 # leave it at defaults (cut if it takes too long)
+####### stopped here for lunch
+2. g-band intensity
+    - 1. 0.0 - 1.0
+    - 2. 0.0 - 5.0
+    - 3. 0.0 - 10.0
+3. Positions
+    - 1. Set positions(position_threshold=2.0)
+    - 2. Set positions(position_threshold=1.5)
+    - 3. Set positions(position_threshold=1.0)
+    - 4. Set positions(position_threshold=0.5)
+----
+I also just realized that this example is one where the first fit was the higher redshift.. so this was a poor choice for the first fit.
+
+2/23/21 - morning
+lmp and positions not working. I need to check the autolens version. (pacer is on 1.10.0, latest is 1.12.l)
+I tried giving the second phase the light profile from the first, a mass profile representing the stellar mass, and a dark profile.
+- Kinda feels like it didn't work. The mass profile has an intensity and effective radius? I think I need it to use the lmp
+Updated to 1.13.0...
+Changes:
+- shape_2d is now shape_native
+- al.Grid is now al.Grid2D
+lmp appears to work now, as do the positions (but not gui), marking these should be something I do in the preprocessing and save to json, to be loaded in with the fits files.
+
+2/22/21 - morning
+Following email response from Jammy, I am going to revise some of my model. This ensures we don't fit a local max.
+*** Model
+Phase 1 - Dynesty(n_live=40, tolerance=1, walks=default)
+Phase 2 - Dynesty(n_live=120, tolerance=0.5, walks=10, facc=0.4)
+***
+I'm also trashing the pyswarms idea, on Jammy's suggestion.
+Here's the final experiment for the first model.
+6. Set positions(position_threshold=2.0)
+    Set positions(position_threshold=1.5)
+    Set positions(position_threshold=1.0)
+    Set positions(position_threshold=0.5)
+Then I will try it with the DM profile.
+#
+The positions can be set with a GUI or manually... Neither is working. Having Lutz update the autolens library in pacer.
+I'm trying to set the first phase to give me the light profile and then use those to inform the priors for the lmp in the second phase, but it is not working because the lmp elliptical_comps are not working. I'll wait and see if the autolens library gets updated.
+
+2/19/21 - morning
+Experimenting with model fits for 1906 to see how different changes affect convergence time and log likelihood.
+*** Best Model as of the end of today.
+Phase 1 - Dynesty(n_live=20, tolerance=2, walks=default)
+Phase 2 - Dynesty(n_live=40, tolerance=0.5, walks=5, facc=0.4)
+***
+Experiments
+1. Adjusting Dynesty settings
+    - n_live_points - # models being tested
+    - evidence_tolerance - algorithm stops sampling when it estimates that continuing will not increase Bayesian evidence (log_evidence) beyond the tolerance (<0.8 for reliable error est); keep high for first phase, low for second
+    - walks - # steps taken in param space by each live point (5-10 is optimal)
+    - facc - how big each step is (0.2-0.3 optimal)
+2. Different optimizers:
+    - Particle Swarm Optimizer (PySwarm)
+        iters - # steps for ea. live point (particle)
+        Typically follow this model:
+    1. Initialize with Dynesty
+    2. Refine with PySwarm
+    3. Finish with Dynesty
+3. Set positions of lens images
+    - Positions - identify positions which the algorithm first checks if they trace back within a certain arcsec threshold
+    - Place on images... If they don't plot back to the same source, then the algorithm doesn't search the model
+    - As long as you keep the threshold above ~0.5" you'll be fine.
+EXPERIMENT: (First phase optimize speed, second optimize likelihood)
+1. -1 Dynesty(n_live=60, all others unchanged), Dynesty(n_live=80, all other unchanged)
+    -2 Dynesty(n_live=80, all others unchanged), Dynesty(n_live=80, all other unchanged)
+    -3 Dynesty(n_live=60, all others unchanged), Dynesty(n_live=100, all other unchanged)
+    -4 Dynesty(n_live=40, all others unchanged), Dynesty(n_live=60, all other unchanged) # The lower n_live_points is fast and just as good
+    -5 Dynesty(n_live=20, all others unchanged), Dynesty(n_live=40, all other unchanged) *** Works fine and is fast! ***
+    -6 Dynesty(n_live=10, all others unchanged), Dynesty(n_live=20, all other unchanged) 
+    -7 Dynesty(n_live=5, all others unchanged), Dynesty(n_live=10, all other unchanged) # here is where things started to fail
+  Experiment  phase1_time  phase1_time  phase2_time  phase2_likelihood  \
+0        1-1   107.555079   296.239404   167.684566         118.462835   
+0        1-2   137.521799   296.010310   143.622440         118.254286   
+0        1-3   104.364316   296.235893   206.749381         118.070031   
+0        1-4    73.453015   296.132388   132.761242         117.998034   
+0        1-5    40.029995   296.179939    98.284560         118.632109   *** n_live = 20, 40 is best.  
+0        1-6    34.548316   286.543298    65.271374         118.514028   
+0        1-7    11.370712  -208.230643    22.767801          89.789176
+---- Take best ---- 1-5
+2. -1 Dynesty(n_live=best, evidence_tolerance=5), Dynesty(n_live=best, evidence_tolerance=0.8)
+    -2 Dynesty(n_live=best, evidence_tolerance=10), Dynesty(n_live=best, evidence_tolerance=0.8)
+    -3 Dynesty(n_live=best, evidence_tolerance=2), Dynesty(n_live=best, evidence_tolerance=0.8)
+    -4 Dynesty(n_live=best, evidence_tolerance=2), Dynesty(n_live=best, evidence_tolerance=0.5) *** This is best ***
+    -5 Dynesty(n_live=best, evidence_tolerance=2), Dynesty(n_live=60, evidence_tolerance=0.5) # trying higher n_live to see if difference... nope
+---- Take best ---- 2-4
+3. -1 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=5) *** This is best ***
+    -2 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=10)
+    -3 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=20)
+    -4 Dynesty(n_live, tolerance=best), Dynesty(n_live, tolerance=best, walks=50)
+    -5 Dynesty(n_live, tolerance=best, walks=5), Dynesty(n_live, tolerance=best, walks=5)
+---- Take best ---- 3-1
+4. -1 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.2)
+    -2 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.3)
+    -3 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.4) *** This is best ***
+    -4 Dynesty(n_live, tolerance, walks=best), Dynesty(n_live, tolerance, walks=best, facc=0.5)
+---- Take best ---- 4-3
+*** Best Model so far:
+Phase 1 - Dynesty(n_live=20, tolerance=2, walks=default)
+Phase 2 - Dynesty(n_live=40, tolerance=0.5, walks=5, facc=0.4)
+***
+# Stopped here. Pick it up on Monday
+5. Dynesty(fastest), PySwarm(n_particles=50, iters=1000), Dynesty(best) # These aren't working right now.
+    Dynesty(fastest), PySwarm(n_particles=80, iters=1000), Dynesty(best)
+    Dynesty(fastest), PySwarm(n_particles=50, iters=1500), Dynesty(best)
+    Dynesty(fastest), PySwarm(n_particles=80, iters=1500), Dynesty(best)
+---- Take best ----
+6. Set positions(position_threshold=2.0)
+    Set positions(position_threshold=1.5)
+    Set positions(position_threshold=1.0)
+    Set positions(position_threshold=0.5)
+NOTE: First set the mask subsize to 2 (instead of 1)
+    - r-band took 2 minutes as opposed to 3 with the subsize at 1.
+    - g-band faster by 10 seconds.
+    - STICK WITH 2!
+
+2/18/21 - afternoon
+Reran the fits and changed some small pieces according to Jammy's suggestions, which were:
+1. Put tighter prior on r-band fit lens galaxy bulge center (fixed to 0.0, 0.0 or uniform priors with width 1/2 pixel [I chose the latter])
+2. Directly link center of bulge and SIE mass.
+3. Bulge intensities from r- to g-band lens... make sure 0.1 Gaussian Prior is near the solution. (It's ~0.5-0.6)
+They turned out to produce essentially exactly the same max log likelihood.
+I want to keep tweaking this, and I need to find the best way to extract dark matter fractions from this.
+
+2/18/21 - morning
+The fit appears to be converging! There was an error that it can't find the right config file for 'dataset', which is in the plots.ini from config/visualize. Updated the autolens_workspace from github, so it should all be right. The config files are in the working directory. In contact with J Nightingale right now.
+----
+I have my first models. I first fit the r-band image to get the light profile of the lens galaxy. I then fit the g-band image using the output of the first phase as priors for the second. I'm sending this data to Jammy (J Nightingale) to see if he has some thoughts for it.
+I need to figure out exactly how I'm going to extract dark matter fractions here... M/L ratio? Einstein radius? I have stellar mass, so if I can just get a measure of the lensing mass, then I have the dark matter.
+
+2/17/21 - morning
+Reinterpretted J Nightingale's presciption to mean take the value of the std of the clipped image (in this case ~150000) as the background sky level. I'm not adding noise variance, just the background sky level. Okay.
+Problem is, the minimum values of counts in the image are ~ -400000, so it still leaves negative numbers for the square root. K Kuijken said that the background should be of order 10-100 eps. Typical CCD gains (the ACTUAL definition of the gain) are around 7-10 e-/ADU. So I assume 100 eps, gain of 10, and exp_time of 1200 to see what happens... it adds a constant value of 1200000 counts and is the only thing that has remotely looked correct when the image is loaded by autolens. Hmm. 
+Update, K Kuijken has also been referring to electron counts. So I don't need to use the gain after I convert it from ADUs to electron counts (which is what pyautolens and J Nightingale wanted all along). Then I just need to multiply 100 eps * 1200 s to get 120000 electron counts, which I add to the image and take the sqrt. I then divide again by 1200, and that's my noise map. I'll check after lunch to see if it will converge to a fit.
+
+2/16/21 - afternoon
+Tried to figure the noise map out with Benne for a while... We came up with setting the mean to the clipping_mean*10 and then subracting the sqrt of that value at the end.
+
+2/16/21 - morning
+Looking into the flux unit problem by uploading the full tile fits file to see what the values are.
+Found that LinKS made the composite RGB images using HumVI (https://github.com/drphilmarshall/HumVI), but since the fits files are r, g, and i separated, I expect that they either reseparated them or showed only the raw cutouts.
+If LinKS messed with the images, I'll just make my own cutouts.
+
+2/15/21
+Still struggling with the units from KiDS and autolens.
+J Nightingale admitted that his "counts" means electron counts, which is not typical usage.
+K Kuijken's prescription for converting from "calibrated flux units" was to multiply by *either* the gain or the gain*exp_time... which is an important distinction.
+The calibrated flux units are negative in many pixels, which means they are converted to negative counts, which is not only nonsense but it leads to non-real numbers when I take the sqrt for the noise.
+I'm going to leave this and focus on the environment catalogs from GAMA until I have a clear way forward.
+
+2/12/21 - afternoon
+New plan, no weight maps.
+1. image to counts_image
+2. sigma clip counts_image to get background_noise
+3. add background_noise to counts_image to get bg_added_image
+4. sqrt(bg_added_image) to get noise_map
+5. convert counts_image and noise_map to e-/s
+I'm exhausted. I'm close, but I'm exhausted. I'll need to pick it up again on Monday and work it out. I think the noise map valuse should be much smaller, so maybe I missed a factor.
+
+2/12/21 - morning
+I was mistaken about what I needed for the units. For the final images, I need them in e-/s. The conversion factor is [counts=e-/s * exp_time]. I need the image in counts, then I get the noise value by taking 1/sqrt(weight) (or npsqrt(data)) and then convert back to e-/s by dividing the exp_time.
+I'm not sure the weight map can be used directly to get the noise map (it would basically take 1/sqrt(weight) which is the rms variance). The problem is that the weight map doesn't appear to show any signal from the galaxy and may be just the background sky noise. Maybe I can use that as the background sky noise and add it to the data before taking the sqrt(data+bg) and then convert back to e-/s.
+Here is the procedure:
+1. npsqrt(data) in counts to get "shot-noise" of galaxies
+2. take 1/sqrt(weight) to get rms noise (background)
+3. multiply by gain*exp_time to get counts # This part is the problem because the gain is 0.
+4. add background noise to "shot-noise"
+5. sqrt(this image)
+I have done step 1. I can't load the weight data because fitsio is not working properly... again.
+
+
+2/11/21 - afternoon
+fitsio works on my machine, but I need Lutz to update the library so I can use it on pacer. I've been able to make cutouts on the weight coadds. The problem is now that the position doesn't correspond to the galaxy. It might be close... I can't tell properly. But the Cutout2d is supposed to be able to take the reference wcs coordinates and pixels to find things.
+
+2/11/21 - morning
+Trying to work out the problem with accessing the data from the weight map. I believe the data has been truncated or compressed (it's also a large file), and I've found little help from online searches... I'm going to try a different fits opening module (fitsio).
+
+2/10/21 - evening
+Trying to use astropy.Cutout2d to create cutouts (which should be super easy) and struggling... The center pixel indices are in the thousands? It's 101x101. Makes no sense. Totally works if I just put in (30, 54) or something.
+I also tried to open the weight map to see if it was just some odd mistake from the LinKS header. I couldn't even access the data from the primary hdu. "error - buffer is too small for requested array"
+
+2/10/21 - afternoon
+Response from J Nightingale (louisville.edu account) super helpful. The weight coadd is what I need. He gave me two functions that will produce the noise map from the weight map (or inverse noise map). The difference between the two is a squared term.
+I had the wrong tile for the candidate I'm looking at. Have to go to a meeting with UCLA grad.
+
+2/10/21 - morning
+Response from K. Kuijken quite helpful. I was stupid, it's actually DR4, but it should be exactly the same anyway.
+Note: pixel scale is 0.2 (I calculated 0.198 so that's fine)
+Exposure times: g - 900s , r - 1800s, i - 1200s
+Wrote functions to convert to counts.
+Combined counts header info extraction, conversion, resizing, psf generation into one function (one_ring_to_rule_them_all)
+Need to include the noise map when I figure that out. Breaking for lunch.
+
+
+2/9/21
+Still no response from Benne. I need to figure out this noise map thing. The FITS header is useless. I *think* they are in counts because the gain factor is huge and the signal is tiny, so I think it has already been converted to counts (ADUs). Maybe I completely misunderstood that, but hey how am I supposed to make something out of nothing. The lack on information in the images is frustrating. Met with Benne, and he worked through a lot of it with me. See that log for our discussion. Emailed Konrad Kuijken about DR3.
+
+2/5/21
+Tried taking sqrt of pixel values. Did not work at all.
+Emailed James Nightingale (autolens creator), who said I'd need to know units of data (e-/s, counts), exposure time to convert to counts, and sky background level if not already subtracted.
+
+2/4/21
+The noise map in tutorials shows features from the galaxies... Perhaps I need to rethink that procedure. Here's how the API for autolens describes it: 'An array describing the RMS standard deviation error in each pixel in units of electrons per second.' I think that's what I've done? What about these units e-/s? Image is also that.
+Downloaded tile and catalog tables that should give each tile's FWHM of psf.
+To ask Benne: Gain - electrons per second?
+Psf convolution was struggling, which I believe is because I made the image too small and the psf too large. Reworked some prep. Ran into another config file problem when I tried to run the model... which had inf loglikelihood measurements. Something is completely wrong that I need to figure  out.. I'm wondering if we misinterpreted the noise map generation. Perhaps I need to add the image back onto it? Why would that be the case?
+Summary:
+- Have tile PSFs for g, r, i
+- Model starts to run; problem appears to be in noise map - don't think I have what it needs
+
+**** I decided on 2/4/21 that it makes more sense to update at the top... ****
+1/14/21
+Reviewing all the work prior to today.
+Cut the samples acc. to (z_lens > 0.05) and (z_src - z_lens > 0.1)
+Created directory w/in csv files labeled "latest"
+Most recent data as of beginning of session:
+    links_autoz_sample_latest.csv (links_autoz_sample_061520) (56 rows, 52 unique candidates)
+    links_knabel_autoz_sample_latest.csv (...061520) (7 rows, 6 unique candidates)
+    li_autoz_sample_latest.csv (...061520) (8 rows, 8 unique candidates)
+Most recent data following end of session:
+    links_sample_latest_len42.csv (42 rows, 40 unique candidates)
+    links_knabel_sample_len7.csv (7 rows, 6 unique candidates)
+    li_sample_len3.csv (3 unique candidates)
+Notes:
+    I have not determined how I will choose one of the duplicates over the other.
+
+1/15/21
+Working with final two duplicates in LinKS candidates. Simple to cut.
+Most recent data following session:
+	links_sample_latest_len40
+	links_knabel_sample_len7
+	li_sample_len3
+Notes:
+	I intend to combine the notebooks and visualizations and begin writing.   
+    
+1/15/21
+Consolidated work to a master notebook. Got through the most recent selection.
+Most recent data following session:
+	links_sample_latest_len40
+	links_knabel_sample_latest_len6
+	li_sample_latest_len3
+Next step to pull the visualization pieces into the master notebook.
+Notes:
+    Check those data against the ones saved in the latest folder earlier today.
+        All candidates should be the same... hopefully I got the Lambdar stuff 
+        right the first time
+
+1/18/21
+Consolidated visualization code to master notebok.
+Looked at two LinKS candidates that appear to fall within the selection parameter space used by Holwerda-15... One of them passes, and I have no idea why it wasn't selected in the paper.
+It could have been on an alias... All candidates, old and new, near the alias of
+(1+z)/(1+z2)=1.343±0.002 (∼5007/3727) or the inversewere removed from the sample.
+For this candidate, the result is 1.344, which shows that it was removed by happenstance. With a log(mass) ~ 11.2 and redshift 0.22, it falls right at the overlap between spec and mac in the Knabel-2020 paper. Interesting!
+Discuss with Benne the relevant info to focus on.
+
+1/19/21
+Notebook: 011921_correlation_tests
+Applying tests of correlation for output parameters from autoz and lens scores.
+In master notebook, CNN prob is incorrectly merged. Change that!
+Ran spearman, pearson and kendall tau tests on the scores and cnn probability output to sigma2 and R. Scores were not well-correlated at all. CNN probability output was ~0.25, but there are a couple outliers. It may be useful to bootstrap and check again.
+
+1/20/21
+Notebook: 011021_correlation_tests
+Fitted linear regression to the parameters. 
+Very weak correlations, but I at least have some numbers to it. 
+Ran some bootstrapping tests to see about uncertainties and get more info on how outliers affect it... Not sure how to do all of that properly. Emailed Benne. I used the result of the fit and put the uncertainty as +/- the std from the bootstrapping.
+Added these results to the paper.
+Still need to fix CNN prob merging in master notebook and put correlation studies in the master as well.
+
+1/21/21
+Updated master notebook with the correlation studies and visualizations.
+Also removed a LinKS candidate whose probability of redshift success in autoz was very low.
+This forced me to redo the correlation studies, which changed the numbers slightly. No change in outcome.
+Looked at the z-lens redshift outputs for Li candidates against Li photo-z, which are inconsistent for two of the three. Will need to make a decision there. I need to check the z-src as well.
+
+1/21/21
+Checking on duplicates I came upon the concerning fact that I had mixed up ELG + ELG and PG + PG. Has minor consequences, but I'm glad I caught it here.
+In response to my concern about redshift matches having sigma_source>sigma_lens, Benne:
+    "That is more a strength of the emission line rather than anything else. This is a flux-weighted result after all. 
+So if you have a whopping Halpha line, it's going to be the primary solution, even though the continuum is a lower redshift. SO this is fine.""
+To Do:
+Overlay the redshift and stellar mass results over the results from Knabel-2020
+Further explore primary redshift as background source
+Flesh out writing sections on "what could have been" and results from Li.
+
+1/22/21 - Morning
+Notebook: 012221_autoz_samples_comparison_to_knabel2020 (copied to master notebook)
+Plotted lens redshift to lens stellar mass on top of big plot from knabel2020.
+    All autoz candidates are at log(m*) > 11.0 but at the lower end of the range of LinKS-Knabel2020 candidates, throughout redshift range.
+Calculated PM and SIS Einstein radius estimates using AUTOZ source redshifts and comparing to the 2:1 ratio we used in Knabel-2020.
+    In general, AUTOZ source redshifts gave lower estimates compared to 2:1 ratio, which have mean ~ or < 1.0 arcsec.
+    It appears they are typically on the lower end of the machine learning candidate mass range and Einstein radius. Especially looking at the LinKS sample, it appears these candidates have estimated Einstein radii of ~1 arcsec or less, which fits our idea that they would have a better shot of being detected by AUTOZ. Most of these didn't make the cut based on the visual inspection scores given by Petrillo, which also makes sense if their Einstein radii are particularly small (leading to low scores).
+    (mean, median, std)
+    LinKS PM:  1.138 0.984 0.535
+    LinKS PM 2to1:  1.241 1.171 0.414
+    Average Difference:  0.102
+    --
+    LinKS SIS:  0.857 0.771 0.352
+    LinKS SIS 2to1:  1.042 1.015 0.244
+    Average Difference:  0.185
+    --
+    LinKS Knabel-2020 PM:  1.033 0.918 0.192
+    LinKS Knabel-2020 PM 2to1:  1.248 1.199 0.317
+    Average Difference:  0.214
+    --
+    LinKS Knabel-2020 SIS:  0.757 0.726 0.141
+    LinKS Knabel-2020 SIS 2to1:  1.094 1.181 0.263
+    Average Difference:  0.336
+    --
+    Li PM:  1.304 1.043 0.777
+    Li PM 2to1:  1.26 1.257 0.528
+    Average Difference:  -0.044
+    --
+    Li SIS:  0.98 0.819 0.475
+    Li SIS 2to1:  0.965 1.023 0.258
+    Average Difference:  -0.015
+I want to show this difference a little better and discuss all of this in the paper. For this afternoon.
+
+1/22/21 Afternoon
+I looked at mean and median stellar masses and Einstein radius estimates. KS tests show disparity to high significance between stellar mass of LinKS AUTOZ and LinKS from Knabel-2020, and an almost identical result when compared to the GAMA spectroscopic sample.
+LinKS - Mass:  [0.352 0.007] (metric pvalue)
+LinKS/Spec - Mass:  [0.353 0.007]
+Also looked at G544226, which would have been the overlap between GAMA spec and LinKS in Knabel2020. It is the ideal for identification by both.
+Plan to rename Li candidates to BG (bright galaxies) or Li-BG for sake of distinguishing them from LinKS.
+Still more to write in the paper, and I need to start on reviewing SVMs on Monday.
+
+1/25/21
+ML for classification - SVMs (SVC), K-NearestNeighbor, supervised vs unsupervised...
+    What is my test/train?
+    KNN : curse of dimensionality
+    Cross-validation strategies: KFold, etc. https://scikit-learn.org/stable/tutorial/statistical_inference/model_selection.html
+Stopped for lunch at sklearn tutorial 3 - unsupervised learning
+Unsupervised learning:
+    K-means clustering (sparsity mitigates curse of dimensionality)
+    Hierarchical - Agglomerative - bottom-up approaches
+        feature agglomeration mitigates curse of dimensionality
+    Transforms, Decomposition, PCA to reduce dimensionality
+        ICA
+Pipelines... Maximize cross-validation scores from multiple algorithms... e.g. PCA and SVC?
+Quadratic Surface SVM? - SVM are best for supervised learning. Adapt to unsupervised?
+    https://www.sciencedirect.com/science/article/abs/pii/S0377221719306630
+
+1/26/21
+Writing more of the paper.
+Reviewing ML...
+Starting to think I'll want to begin with SVM supervised, tell it what to do. See what it says about the sigma2 and R parameter space.
+Then give it everything, let it decide with PCA what to determine, still keep it supervised.
+Then try it k-means clustering and PCA and see if it marks off anything similar.
+
+1/28/21
+Benne wanted to scrap the ML idea for now... I'll come back to it.
+We're going to focus on the lens modeling, which is more fun anway!
+I've reviewed PyAutolens HowTos thru Ch2.5.
+Tomorrow:
+Finish 6-9, look at preprocessing
+Take a look at some real images
+Hopefully model a KiDS image next week.
+
+1/29/21
+Finished autolens tutorials, prepping G3575500 (1906) for modeling.
+Need to figure out the psf stuff and whether I should stack the images... I think that's what I did before.
+
+2/3/21
+Had a bunch of issues trying to make autolens do anything that isn't part of the tutorials.
+

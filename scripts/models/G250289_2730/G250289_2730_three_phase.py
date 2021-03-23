@@ -233,7 +233,7 @@ dark.redshift_object = zlens
 dark.redshift_source = zsource
 
 lens = al.GalaxyModel(
-    redshift=zlens, mass=mass#, dark=dark
+    redshift=zlens, mass=mass, dark=dark
 )
 
 source = al.GalaxyModel(
