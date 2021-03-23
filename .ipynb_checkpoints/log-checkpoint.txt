@@ -2,12 +2,85 @@ Log of Updates and Files
 
 TO DO:
 - Look at HST proposal text
-- Model 5 candidates
+- Model ~5 candidates
     - Redo 1933 and 2730 with correct phase2 mass profile
-    - We'll have 2730, 1933, 3234, 3212, and 3056
-- Simulate one of the models w/ 0.65 psf and 1.0 psf
-    - 1933 was pretty good, but I'm redoing that fit, so it would be useful to redo the simulation as well.
-- Check out the mass estimates from the group catalogue
+    - We'll have 2730, 1933, 3234, 3212, 3056, 2828
+- Clean up simulated images
+
+Candidates:
+1933 - complete
+2730 - complete
+3234 - ready to be rerun
+3212 - complete
+3056 - running
+2828 - ready to be run
+26 - ready to be scripted
+
+3/24/21
+TO DO:
+- Prepare 26 script.
+- Prepare next candidate.
+
+3/23/21 - afternoon
+- Emailed Jammy about the M/L ratios.
+###
+Model 3234
+- Try a tighter lens mask.
+- It is ready to go.
+###
+Model 3056
+- Running
+- Phase 1 complete
+- Phase 2 complete
+- Phase 3 appears to be running well.
+###
+Model 2828
+- Ready to go.
+###
+Prepping G262874_26 	RA: 221.61067 	Dec: 2.22389 	score: 12.0
+- Downloading r and r weight. Done
+- Downloading g and g weight. Done
+- Image, noise map, psf processed.
+- Interesting notes:
+    - r-band max intensity is the source image
+    - g-band lens all but disappears
+- Ready to be scripted.
+    - Phase 1: r-band lens and mask
+    - Phase 2: g-band source and mask
+    - Phase 3: r-band whole
+- It may be worth trying to add their images and run it that way if this fit isn't good.
+
+3/23/21 - Meeting with Benne
+Priority:
+Hubble Proposal
+---
+To Discuss:
+- M/L ratios in the models
+    - Attribute of the galaxy's elliptical light-mass-profile
+    - separate from the dark matter component
+    - How can I interpret this?
+---
+Simulated Lens:
+Make the plots pretty for HST prop
+---
+M/L:
+Email Jammy
+---
+Corner Plots:
+Figure it out
+---
+Group/Environment Catalogues:
+- Other option: void vs. tendril vs. filaments
+    - on GAMA website
+    - doesn't seem like it's going to work
+- This has to be somewhere... :| Benne will phone a friend (Mehmet Alpaslan)
+---
+DEVILS:
+9 lenses to model -> Hubble HST w/ ACS
+Take a look... Give legitimacy of candidates.
+ACS tiles, mosaic... Use tiles, then it's individual exposures, includes weight images.
+If I have time before I leave... No worries otherwise.
+https://irsa.ipac.caltech.edu/data/COSMOS/index_cutouts.html
 
 3/23/21 - morning
 - Run Model 1933
@@ -16,8 +89,11 @@ TO DO:
 - Finished with ~ 400 log likelihood and reasonable looking fit! Hooray!
 ### Model 1933 - Experiment 5
 - Running on surface
+- Finished
 ### Prep G138582_2828
-- downloading r weight.
+- downloading r weight, g, g weight
+- prepped image, positions, and masks
+- ready to go
 ### M/L ratio plot
 - We want to plot M/L ratio against the environmental measures that we don't have...
 - Plotted M/L to stellar mass as a sort of first look.
@@ -25,6 +101,12 @@ TO DO:
 - MassA, MassProxy, and MassAfunc are all 0 for two of the 9... Not sure what the deal is there, but there's no way around it for me.
 #####
 - Need to rerun 3234.
+- Tried to save plots to put into paper and proposal
+    - aplt doesn't have savefig... need to figure that out (ha!)
+    output = aplt.Output(path=png_path, filename='simulated_lens_model_1933_vst', format="png")
+    mat_plot_2d = aplt.MatPlot2D(output=output)
+    imaging_plotter = aplt.ImagingPlotter(imaging=imaging, mat_plot_2d=mat_plot_2d)
+    imaging_plotter.figures(image=True)
 
 3/22/21 - morning
 ### Model 3234 - Experiment 2

@@ -123,7 +123,7 @@ source_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_r_source_mask.fits
 #imaging_plotter_g.subplot_imaging()
 
 # set positions
-pos = np.genfromtxt(f'{object_folder}3234_r_positions_grid.csv', delimiter=',')
+pos = np.genfromtxt(f'{object_folder}{links_id}_r_positions_grid.csv', delimiter=',')
 imaging_r.positions = al.Grid2DIrregular(
     [(pos[0], pos[1]), ( pos[2],  pos[3])]#, (pos[4], pos[5])]#, (-0.8, 1.0), (-1.0, 0.5), (0.3, 1.1)]
 )
@@ -159,10 +159,6 @@ performance_log = pd.DataFrame(columns=['Experiment',
                                         ])
 
 # load performance log from csv
-#performance_log = pd.read_csv(f'{csv_path}G{gama_id}_{links_id}_performance_log.csv')
-#print(performance_log)
-#print(performance_log)
-
 
 # In[14]:
 
