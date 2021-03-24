@@ -1,0 +1,73 @@
+Bayesian Evidence                                                                         -218.33385194
+Maximum Likelihood                                                                        -161.60652989
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        -0.058
+                elliptical_comps_1                                                        -0.145
+            intensity                                                                     0.086
+            sersic_index                                                                  5.614
+            effective_radius                                                              2.681
+            mass_to_light_ratio                                                           0.194
+        dark
+            mass_at_200                                                                   26410778031938.055
+    source
+        bulge
+            intensity                                                                     15.149
+            centre
+                centre_0                                                                  0.172
+                centre_1                                                                  -0.515
+            effective_radius                                                              0.063
+
+
+Summary (3.0 sigma limits):
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        -0.0582 (-0.0582, -0.0431)
+                elliptical_comps_1                                                        -0.1446 (-0.1503, -0.1035)
+            intensity                                                                     0.0865 (0.0831, 0.0867)
+            sersic_index                                                                  5.6141 (5.5729, 5.6972)
+            effective_radius                                                              2.6810 (2.6601, 2.7277)
+            mass_to_light_ratio                                                           0.1945 (0.1651, 0.1970)
+        dark
+            mass_at_200                                                                   2.6411e+13 (2.6411e+13, 3.8819e+13)
+    source
+        bulge
+            intensity                                                                     15.1501 (15.1344, 15.7405)
+            centre
+                centre_0                                                                  0.1715 (0.1515, 0.1716)
+                centre_1                                                                  -0.5150 (-0.5150, -0.4787)
+            effective_radius                                                              0.0632 (0.0570, 0.0632)
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        bulge
+            elliptical_comps
+                elliptical_comps_0                                                        -0.0582 (-0.0582, -0.0582)
+                elliptical_comps_1                                                        -0.1446 (-0.1446, -0.1446)
+            intensity                                                                     0.0865 (0.0865, 0.0865)
+            sersic_index                                                                  5.6141 (5.6141, 5.6141)
+            effective_radius                                                              2.6810 (2.6810, 2.6811)
+            mass_to_light_ratio                                                           0.1945 (0.1945, 0.1945)
+        dark
+            mass_at_200                                                                   2.6411e+13 (2.6411e+13, 2.6411e+13)
+    source
+        bulge
+            intensity                                                                     15.1501 (15.1493, 15.1508)
+            centre
+                centre_0                                                                  0.1715 (0.1715, 0.1716)
+                centre_1                                                                  -0.5150 (-0.5150, -0.5149)
+            effective_radius                                                              0.0632 (0.0632, 0.0632)
+
+instances
+

@@ -236,13 +236,13 @@ def masquerade (image, gama_id, links_id, band, pixel_scale, re, re_err):
                               inner_radius, outer_radius = [float(input()), float(input())]
                         else:
                             print('Radius unchanged.')
-                            print('New center?')
-                            answer = str(input())
-                            if answer == 'y':
-                                  print('New center values? (y, x)')
-                                  centre = (float(input()), float(input()))
-                            else:
-                                  print('Center unchanged.')
+                        print('New center?')
+                        answer = str(input())
+                        if answer == 'y':
+                            print('New center values? (y, x)')
+                            centre = (float(input()), float(input()))
+                        else:
+                            print('Center unchanged.')
                 else:
                     print('Skipping')
                     break

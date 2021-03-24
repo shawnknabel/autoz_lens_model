@@ -4,7 +4,7 @@ TO DO:
 - Look at HST proposal text
 - Model ~5 candidates
     - Redo 1933 and 2730 with correct phase2 mass profile
-    - We'll have 2730, 1933, 3234, 3212, 3056, 2828
+    - We'll have 2730, 1933, 3234, 3212, 3056, 2828, 26, 245
 - Clean up simulated images
 
 Candidates:
@@ -12,14 +12,45 @@ Candidates:
 2730 - complete
 3234 - ready to be rerun
 3212 - complete
-3056 - running
-2828 - ready to be run
-26 - ready to be scripted
+3056 - complete
+2828 - complete
+26 - running
+245 - ready to run
+1179 - ready to run
 
-3/24/21
+3/24/21 - morning
 TO DO:
 - Prepare 26 script.
 - Prepare next candidate.
+- Collect results so far.
+###
+Model 2828
+- Finished, looks good.
+### 
+Model 26
+- Prepping script. Done.
+- Running
+###
+Results collected.
+###
+Next candidate: G600305_245 	RA: 134.75916 	DEC: 0.23814 	score: 12.0
+- Images and weights downloaded
+- Images, noise maps, and psfs processed
+- I made the overall and source masks very large to include the feature north of the lens galaxy (which may or may not be part of anything)
+    - If this fit doesn't work well, change these masks to remove that light.
+- There also may be a little bit of light in the 10 oclock position. I left it out, but phase 3 can still identify it as source light.
+- Ready for scripting. r, g, g
+- Script ready. Files uploaded.
+###
+Next candidate: G419067_1179 	RA: 138.61974 	DEC: 2.63477 	score: 8.0 
+- Downloading images. Done
+- Images, noise maps, psfs processed
+- Ready for scripting. Use all r.
+- Script ready. Files uploaded.
+###
+Next candidate: G165293_2144 	RA: 180.60150 	DEC: -2.74642 	score: 8.0
+#####
+- Fixed loop in source mask from positions_and_masks script.
 
 3/23/21 - afternoon
 - Emailed Jammy about the M/L ratios.

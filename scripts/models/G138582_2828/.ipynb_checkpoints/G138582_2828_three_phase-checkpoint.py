@@ -123,8 +123,8 @@ source_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_g_source_mask.fits
 #imaging_plotter_g.subplot_imaging()
 
 # set positions
-pos = np.genfromtxt(f'{object_folder}{links_id}_r_positions_grid.csv', delimiter=',', skip_header=0)
-imaging_r.positions = al.Grid2DIrregular(
+pos = np.genfromtxt(f'{object_folder}{links_id}_g_positions_grid.csv', delimiter=',', skip_header=0)
+imaging_g.positions = al.Grid2DIrregular(
     [(pos[0]), (pos[1]), (pos[2]),  (pos[3]), (pos[4]),]
 )
 
@@ -251,7 +251,7 @@ source_mask.centre =lens.mass.centre
 #lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
 
 # einstein radius
-lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
+lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=einstein_radius) # take sigma to be 50% of mean # hmmm
 
 # source position
 source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)
@@ -295,7 +295,7 @@ phase2 = al.PhaseImaging(
 # run the phase
 print('Phase running...')
 tick = time.perf_counter()
-phase2_result = phase2.run(dataset=imaging_r, mask=source_mask)
+phase2_result = phase2.run(dataset=imaging_g, mask=source_mask)
 tock = time.perf_counter()
 print(f'Work complete! Took us {tock-tick} seconds or {(tock-tick)/60} minutes.')
 
@@ -355,7 +355,7 @@ lens.bulge.centre = phase1_result.instance.galaxies.lens.bulge.centre
 lens.dark.centre = lens.bulge.centre
 
 # make lens effective radius for g-band
-lens.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=2*re_r)
+#lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=2*re_g)
 
 # einstein radius
 #lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.3*einstein_radius) # take sigma to be 30% of mean # hmmm
@@ -398,7 +398,7 @@ phase3 = al.PhaseImaging(
 # run the phase
 print('Phase running...')
 tick = time.perf_counter()
-phase3_result = phase3.run(dataset=imaging_r, mask=mask)
+phase3_result = phase3.run(dataset=imaging_g, mask=mask)
 tock = time.perf_counter()
 print(f'Work complete! Took us {tock-tick} seconds or {(tock-tick)/60} minutes.')
 
