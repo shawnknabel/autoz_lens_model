@@ -109,9 +109,7 @@ imaging_g = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id
 mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_g_mask.fits', pixel_scales=imaging_r.pixel_scales)
 lens_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_r_lens_mask.fits', pixel_scales=imaging_r.pixel_scales)
 source_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_g_source_mask.fits', pixel_scales=imaging_r.pixel_scales)
-
-# tighten lens mask
-lens_mask.radius = lens_mask.radius - 0.1
+0
 
 # plot subplots for first view
 #print('Plotting r-band')

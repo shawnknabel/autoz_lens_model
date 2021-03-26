@@ -18,17 +18,53 @@ Candidates:
 3056 - complete
 2828 - complete
 26 - need to be rescripted and rerun
-245 - need to be rerun following mass study, see 3/25/21
-1179 - running
+245 - need to be rerun, unable to estimate einstein radius
+1179 - need to be rerun, interrupted and poor fit
 2144 - contaminating object to be removed before positions and masking
 
-3/26/21
+3/26/21 - afternoon
+###
+Dark Matter Fractions
+- calculating errors
+- calculated upper and lower 3sigma instances
+    - calculated errors as difference between 3sigma instance and mpdf instance
+    - fractions of dark matter upper 3sigma are below mpdf value for some, which means this is wrong
+    - still have no way of getting that mean pdf instance
+###
+LAMBDAR Stellar Masses
+- "The fits are constrained to the restframe wavelength range between 3000 and 11000 Angstrom (approximately u through Y)"
+- Catalogue: LambdarInputCatUVOptNIR (GALEX FUV - VIKING K, 1528 - 21900 Angstroms)
+    - perfect, downloaded
+- Mean ~5-6 arcsec
+###
+
+3/26/21 - morning
 TO DO:
 1. Figure out the prior problem in aggregator.
 2. Calculate errors on mass/fractions.
 3. Show the mass content in a better way, with errors on fraction.
 4. Rerun some marked as such.
 5. Check GAMA masses to see to what radius they are calculated.
+###
+Extracting mass information (Take 2)
+- Jammy said it may be using the wrong config file, set it manually.
+- It worked.
+- Running.
+2828 - done
+2730 - done
+26 - done
+1933 - done
+3056 - done
+3212 - done
+3234 - crazy number, rerunning model fit now
+245 - unable to estimate einstein radius
+###
+Dark Matter Fractions as function of stellar mass and separated by groups and isos
+- Six marked as done above plotted.
+###
+Model 3234
+- Lens mask tightened... rerunning.
+- Interrupted by Dad tinkering with the breakers in the basement. :|
 
 3/25/21 - afternoon
 ###
