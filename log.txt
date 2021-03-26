@@ -4,8 +4,11 @@ TO DO:
 - Look at HST proposal text
 - Model ~5 candidates
     - Redo 1933 and 2730 with correct phase2 mass profile
-    - We'll have 2730, 1933, 3234, 3212, 3056, 2828, 26, 245
+    - We'll have 2730, 1933, 3234, 3212, 3056, 2828, 26, 245, 1179, 2144
 - Clean up simulated images
+- Calculate dark matter fraction w/in Einstein radius
+    - See email from Jammy
+- Plot as groups and isos
 
 Candidates:
 1933 - complete
@@ -14,9 +17,65 @@ Candidates:
 3212 - complete
 3056 - complete
 2828 - complete
-26 - running
-245 - ready to run
-1179 - ready to run
+26 - need to be rescripted and rerun
+245 - need to be rerun following mass study, see 3/25/21
+1179 - running
+2144 - contaminating object to be removed before positions and masking
+
+3/26/21
+TO DO:
+1. Figure out the prior problem in aggregator.
+2. Calculate errors on mass/fractions.
+3. Show the mass content in a better way, with errors on fraction.
+4. Rerun some marked as such.
+5. Check GAMA masses to see to what radius they are calculated.
+
+3/25/21 - afternoon
+###
+Extracting mass information from models (notebook 032521_mass_studies)
+2828 - done
+2144 - no output
+2730 - error in prior
+26 - done
+1933 - error in prior
+3056 - done
+3212 - error in prior
+3234 - done, crazy number
+245 - unable to estimate einstein radius
+---
+Able to plot the three with reasonable dark matter fractions.
+All in the range of ~0.45.
+All isolated galaxies.
+Trying to plot it well, and failing.
+I plotted the fraction to stellar mass
+    - model stellar mass w/in einstein radius
+    - observed GAMA total stellar mass
+        - Check to see to what radius these are counted!
+---
+Prior error is something to do with config/general.ini
+    - Jammy says it needs to be set to [model] ignore_prior_limits=True
+    - It already was.. so apparently it's been ignoring my limits the whole time lol
+    - But for some reason it still isn't doing that for me...
+    - Perhaps it's really that I'm not accessing the correct config file?
+
+
+3/25/21 - morning
+###
+Model 1179
+- Running... interrupted.
+- Redo it.
+###
+Group Catalog G3CGalv10.fits
+- Has info on 41 of the 42 galaxies!
+    - Group vs Iso, rank, ang sep
+    - 22 group, 19 iso
+
+3/24/21 - evening
+###
+Model 245
+- Running
+- Phase 2 doesn't look super awesome.
+- Finished.
 
 3/24/21 - morning
 TO DO:
@@ -29,7 +88,9 @@ Model 2828
 ### 
 Model 26
 - Prepping script. Done.
-- Running
+- Running.
+- Finished... Not very good. Will need to be redone. 
+- Perhaps try adding the images?
 ###
 Results collected.
 ###
@@ -49,8 +110,13 @@ Next candidate: G419067_1179 	RA: 138.61974 	DEC: 2.63477 	score: 8.0
 - Script ready. Files uploaded.
 ###
 Next candidate: G165293_2144 	RA: 180.60150 	DEC: -2.74642 	score: 8.0
+- Downloading images. Done.
+- Image, noise map, and psf done.
+- Marking positions and masks.
+    - Contaminating object in bottom left needs to be removed before continuing. Do it tomorrow.
 #####
 - Fixed loop in source mask from positions_and_masks script.
+
 
 3/23/21 - afternoon
 - Emailed Jammy about the M/L ratios.
