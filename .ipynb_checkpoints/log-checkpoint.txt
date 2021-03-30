@@ -13,14 +13,50 @@ TO DO:
 Candidates:
 1933 - complete
 2730 - complete
-3234 - ready to be rerun
+3234 - need to be reassessed and rerun (M/L ratio 0 :|)
 3212 - complete
 3056 - complete
 2828 - complete
 26 - need to be rescripted and rerun
-245 - need to be rerun, unable to estimate einstein radius
-1179 - need to be rerun, interrupted and poor fit
+245 - need to be rerun, unable to estimate einstein radius... M/L ratio 0. Massive source effective radius.
+1179 - need to be rerun, interrupted and poor fit, phase2 very poor fit to lens mass ellipticity
 2144 - contaminating object to be removed before positions and masking
+
+IGNORE_PRIOR_LIMITS=TRUE
+
+3/30/21 - morning
+###
+Model 245
+- Changes to script
+    - larger inner radius on source mask
+    - smaller upper limit on source effective radius (3.0 arcsec)
+    - smaller evidence tolerance on phase2
+- Running
+###
+HST Proposal (Get to Benne)
+- Send ID/RA/DEC/mag
+- Figure out which filters are best
+
+
+3/29/21 - morning
+TO DO:
+- Clean up simulated images
+- Rerun 3234
+###
+Model 3234
+- Set general.ini [model]ignore_prior_limits=True
+    - Maybe this will help to constrain the model since it totally wasn't happening before
+- Set higher upper limits on effective radius (3 x error) and dark mass (10^16)
+- Running. Finished.
+- Still not good fit.
+###
+Simulated Images
+- Plotted with proper labels, etc.
+- Uploaded to Overleaf
+#####
+Breaking for Lunch
+
+
 
 3/26/21 - afternoon
 ###
@@ -65,6 +101,9 @@ Dark Matter Fractions as function of stellar mass and separated by groups and is
 Model 3234
 - Lens mask tightened... rerunning.
 - Interrupted by Dad tinkering with the breakers in the basement. :|
+- Finished... not a great fit.
+    - still no stellar mass
+    - still not showing lensed features
 
 3/25/21 - afternoon
 ###

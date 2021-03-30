@@ -37,6 +37,8 @@ datetime = time.strftime("%d%m%y")
 
 # paths
 autoz_path = '/data/sknabel/autoz_lens_model/'
+config_path = f'{here()}/config'
+conf.instance.push(new_path=config_path)
 file_path = f'{autoz_path}files/'
 csv_path = f'{file_path}csv/'
 fits_path = f'{file_path}fits/'
@@ -257,7 +259,7 @@ lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=einstei
 # source position
 source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)
 source.bulge.centre_1 = af.UniformPrior(lower_limit=-5, upper_limit=5)
-source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=5.0)
+source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=3.0)
 #source.bulge.intensity = af.UniformPrior(lower_limit=0.0, upper_limit=10*lens.bulge.intensity)
 
 print(f'Lens: {lens}')
@@ -282,7 +284,7 @@ settings = al.SettingsPhaseImaging(
 phase2 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase2_fit_{datetime}", n_live_points=300,
-        evidence_tolerance=0.5, walks=10, facc=0.3
+        evidence_tolerance=0.25, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)

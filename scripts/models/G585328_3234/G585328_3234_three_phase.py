@@ -37,6 +37,8 @@ datetime = time.strftime("%d%m%y")
 
 # paths
 autoz_path = '/data/sknabel/autoz_lens_model/'
+config_path = f'{here()}/config'
+conf.instance.push(new_path=config_path)
 file_path = f'{autoz_path}files/'
 csv_path = f'{file_path}csv/'
 fits_path = f'{file_path}fits/'
@@ -181,7 +183,7 @@ lens_start = al.GalaxyModel(
     redshift=zlens, bulge=al.lp.EllipticalSersic#, mass=al.mp.EllipticalIsothermal
 )
 
-lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+re_r_err)
+lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+3*re_r_err)
 lens_start.bulge.centre_0 = af.UniformPrior(lower_limit=-0.5, upper_limit=0.5)
 lens_start.bulge.centre_1 = af.UniformPrior(lower_limit=-0.5, upper_limit=0.5)
 
@@ -237,7 +239,7 @@ mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge) # doesn't w
 
 # set dark profile
 dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
-dark.mass_at_200 = af.LogUniformPrior(lower_limit=1e8, upper_limit=1e15)
+dark.mass_at_200 = af.LogUniformPrior(lower_limit=1e8, upper_limit=1e16)
 dark.redshift_object = zlens
 dark.redshift_source = zsource
 
@@ -361,7 +363,7 @@ lens.bulge.centre = phase1_result.instance.galaxies.lens.bulge.centre
 lens.dark.centre = lens.bulge.centre
 
 # make lens effective radius for g-band
-lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=re_g+re_g_err)
+lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=re_g+3*re_g_err)
 
 # einstein radius
 #lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.3*einstein_radius) # take sigma to be 30% of mean # hmmm
