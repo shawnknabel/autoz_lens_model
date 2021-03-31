@@ -64,6 +64,13 @@ def effective_radius(gama_id, band):
     elif band == 'g':
         re = candidate.GALRE_g[0]
         re_err = candidate.GALREERR_g[0]
+    elif band == 'i':
+        re = candidate.GALRE_g[0]
+        re_err = candidate.GALREERR_g[0]
+    elif band == 'white':
+        print('White, go with r-band.')
+        re = candidate.GALRE_r[0]
+        re_err = candidate.GALREERR_r[0]
     else:
         print('Get your image bands straight!')
     return(re, re_err)
@@ -89,8 +96,8 @@ def position_suspicion (image, gama_id, links_id, band, pixel_scale):
             n = int(input())
             positions_grid = []
             for i in range(n):
-                print(f'Position {i+1}... Where shall we probe? (y, x)')
-                y, x = [float(input()), float(input())]
+                print(f'Position {i+1}... Where shall we probe? pixels (y, x)')
+                y, x = [0.2*float(input()), 0.2*float(input())]
                 positions_grid.append((y, x))
             print(f'Showing positions at {positions_grid}.')
             positions = al.Grid2DIrregular(grid=positions_grid)
@@ -264,13 +271,13 @@ print('Please follow the prompts without failure, or you will be punished severe
 print('\n Enjoy your visit!')
 
 print('GAMA ID?')
-gama_id = int(input())
+gama_id = 250289#int(input())
 print('LiNKS ID?')
-links_id = int(input())
+links_id = 2730#int(input())
 print('Pixel scale?')
-pixel_scale = float(input())
+pixel_scale = 0.2#float(input())
 print('Enter any phun phrase to get us started...')
-input()
+#input()
 
         
 print('Great, you have ordered the dirty turnips with basil pesto. That will be $45.87. Pull up to the next window.')
@@ -280,29 +287,52 @@ print(':)')
 # load/show images
 r_image = al.Array2D.from_fits(file_path= f"{fits_path}G{gama_id}_{links_id}/{links_id}_r_image.fits", pixel_scales=pixel_scale)
 g_image = al.Array2D.from_fits(file_path= f"{fits_path}G{gama_id}_{links_id}/{links_id}_g_image.fits", pixel_scales=pixel_scale)
+i_image = al.Array2D.from_fits(file_path= f"{fits_path}G{gama_id}_{links_id}/{links_id}_i_image.fits", pixel_scales=pixel_scale)
+white_image = al.Array2D.from_fits(file_path= f"{fits_path}G{gama_id}_{links_id}/{links_id}_white_image.fits", pixel_scales=pixel_scale)
 print('Plotting r image')
 r_array_plotter = aplt.Array2DPlotter(array=r_image)
-r_array_plotter.figure()
+#r_array_plotter.figure()
 print('Plotting g image')
 g_array_plotter = aplt.Array2DPlotter(array=g_image)
-g_array_plotter.figure()
+#g_array_plotter.figure()
+print('Plotting i image')
+i_array_plotter = aplt.Array2DPlotter(array=i_image)
+#i_array_plotter.figure()
+print('Plotting white image')
+white_array_plotter = aplt.Array2DPlotter(array=white_image)
+#white_array_plotter.figure()
 
 # positions
 print('Do you want to indicate positions? y/n')
 answer = input()
 if answer == 'y':
+    # r band
     print('r band? y/n')
     answer = input()
     if answer == 'y':
         position_suspicion(r_image, gama_id, links_id, 'r', pixel_scale)
     else:
         print('Skipping r band')
+    # g band
     print('g band? y/n')
     answer = input()
     if answer == 'y':
         position_suspicion(g_image, gama_id, links_id, 'g', pixel_scale)
     else:
         print('Skipping g band')
+    # i band
+    print('i band? y/n')
+    answer = input()
+    if answer == 'y':
+        position_suspicion(i_image, gama_id, links_id, 'i', pixel_scale)
+    else:
+        print('Skipping i band')
+    print('white? y/n')
+    answer = input()
+    if answer == 'y':
+        position_suspicion(white_image, gama_id, links_id, 'white', pixel_scale)
+    else:
+        print('Skipping white')
 elif answer == 'n':
     print('No positions today.')
 else:
@@ -314,6 +344,7 @@ else:
 print('Do you want to create masks? y/n')
 answer = input()
 if answer == 'y':
+    # r band
     print('r band?')
     answer = input()
     if answer == 'y':
@@ -322,6 +353,7 @@ if answer == 'y':
         masquerade(r_image, gama_id, links_id, band, pixel_scale, re, re_err)
     else:
         print('Skipping r band')
+    # g band
     print('g band?')    
     answer = input()
     if answer == 'y':
@@ -330,6 +362,24 @@ if answer == 'y':
         masquerade(g_image, gama_id, links_id, band, pixel_scale, re, re_err)
     else:
         print('Skipping g band')
+    # i band
+    print('i band?')
+    answer = input()
+    if answer == 'y':
+        band = 'i'
+        re, re_err = effective_radius(gama_id, band)
+        masquerade(r_image, gama_id, links_id, band, pixel_scale, re, re_err)
+    else:
+        print('Skipping i band')
+    # white
+    print('white?')
+    answer = input()
+    if answer == 'y':
+        band = 'white'
+        re, re_err = effective_radius(gama_id, 'r')
+        masquerade(r_image, gama_id, links_id, band, pixel_scale, re, re_err)
+    else:
+        print('Skipping white')
 elif answer == 'n':
     print('No masks today.')
 else:

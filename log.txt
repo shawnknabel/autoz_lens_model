@@ -5,9 +5,8 @@ TO DO:
 - Model ~5 candidates
     - Redo 1933 and 2730 with correct phase2 mass profile
     - We'll have 2730, 1933, 3234, 3212, 3056, 2828, 26, 245, 1179, 2144
-- Clean up simulated images
+- Try white images in phase3
 - Calculate dark matter fraction w/in Einstein radius
-    - See email from Jammy
 - Plot as groups and isos
 
 Candidates:
@@ -18,11 +17,65 @@ Candidates:
 3056 - complete
 2828 - complete
 26 - need to be rescripted and rerun
-245 - need to be rerun, unable to estimate einstein radius... M/L ratio 0. Massive source effective radius.
+245 - I think it's just not a good g-band image for the fit
 1179 - need to be rerun, interrupted and poor fit, phase2 very poor fit to lens mass ellipticity
 2144 - contaminating object to be removed before positions and masking
 
-IGNORE_PRIOR_LIMITS=TRUE
+IGNORE_PRIOR_LIMITS=FALSE
+
+3/31/21 - afternoon
+
+3/31/21 - morning
+Redo models with white image at phase 3
+Rewrite image processing script
+###
+Image Preprocessing and Positions/Masks Scripts
+- Rewritten to allow g, r, i, and added white to be processed in one run.
+###
+Model 2730
+- Downloading u and i image and weight. Complete.
+- g, r, i, and white images processed
+- Rewriting script.
+- Running, Phase 1 r, Phase 2/3 white
+
+
+Benne Meeting 3/30/21
+###
+HST Proposal
+- Types
+    - Snap (SLACS was Snap): list of pot targets, any subset of them will be helpful
+        - Give us 8 from each and we can get a first measurement
+            - Kind of a small sample... But if we can get good measurements, 8 is probably good enough
+        - 1 orbit or less, quick (15-30 min total)
+    - GO: give us all 42!
+        - 42 orbits, must be rock solid
+-Questions
+    - Program
+    - Filter -> two filters or one
+        - red in the IR (space makes IR possible) for lens
+        - SLACS 814 red, 606 blue
+        - two samples (hi and low z)
+        - One filters IR (JH or H) for lens -> H is fattest possible PSF (check that)
+            - constant filter
+            - psf for IR is a little thicker than optical (lambda/D)
+            - 160W
+        - Two filters for source (to catch H-alpha line), redshift dependent
+            - low-z 814
+            - hi-z J 1.2 Micron
+            - Go to SVO Filter Profiles.... HST WFC3-UVIS
+            - 6562*(1+z), plot these and the filters
+    - Exp time (SLACS 900 s) -> equal exp betw two filters
+    - S/N argument -> lowest surface brightness that we can do
+        - S/N in the subplots?
+- F_DM and M/L ratios for models...
+    - Only model stellar masses, not DR3 observed
+###
+Model Filters
+- Try combinations for phase3
+    - add quadratically
+###
+Register for HST website.
+ 
 
 3/30/21 - morning
 ###
@@ -32,11 +85,16 @@ Model 245
     - smaller upper limit on source effective radius (3.0 arcsec)
     - smaller evidence tolerance on phase2
 - Running
+- Does not appear to be running well.
+- High log likelihood but still weird solution.
 ###
 HST Proposal (Get to Benne)
-- Send ID/RA/DEC/mag
+- Send ID/RA/DEC/mag. Done.
 - Figure out which filters are best
-
+###
+Model errors
+- lower and upper sigma instances...
+    -Presumably they refer to an instance that gives the 3sigma error of each of the parameters
 
 3/29/21 - morning
 TO DO:
@@ -44,7 +102,7 @@ TO DO:
 - Rerun 3234
 ###
 Model 3234
-- Set general.ini [model]ignore_prior_limits=True
+- Set general.ini [model]ignore_prior_limits=False
     - Maybe this will help to constrain the model since it totally wasn't happening before
 - Set higher upper limits on effective radius (3 x error) and dark mass (10^16)
 - Running. Finished.

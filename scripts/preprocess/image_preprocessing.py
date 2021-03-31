@@ -55,20 +55,24 @@ links = pd.read_csv(f'{csv_path}latest/links_sample_latest.csv')
 #print(ra, dec)
 
 
-# In[38]:
+######################################3
 
 
 # write functions
 # open fits file
-def open_sesame (gama_id, links_id, band, weight=False):
+def open_sesame (gama_id, links_id, band, avg_psf, weight=False):
     if weight == True:
         band=f'{band}_weight'
     print(f'Opening {gama_id}_{links_id} {band} image')
     hdul = fits.open(f'{fits_path}G{gama_id}_{links_id}/{links_id}_{band}.fits')
     header = hdul[0].header
+    if weight == False:
+        avg_psf = header['PSF_RAD'] # arcsec
+    else:
+        avg_psf = avg_psf
     image = hdul[0].data
     hdul.close()
-    return(image, header)
+    return(image, header, avg_psf)
 
 # create the cutout
 def cut_it_out (gama_id, image, header, pixel_scale):
@@ -179,10 +183,9 @@ def resize_image(image, new_size):
     return(resized_image)
 
 # generate psf
-def point_to_the_spread(image, header, pixel_scale, new_size):
+def point_to_the_spread(image, avg_psf, pixel_scale, psf_kernel_size):
 
     # define psf values
-    avg_psf = header['PSF_RAD'] # arcsec
     avg_psf_pxl = avg_psf/pixel_scale # pixels
     sigma_psf = avg_psf_pxl/2
     size = int(np.around(image.shape[0]/2)) # gives a grid of 101 (50 on either side of the center)
@@ -194,13 +197,13 @@ def point_to_the_spread(image, header, pixel_scale, new_size):
     print(f'A psf of {psf} with size {size} has been generated')
     
     # resize psf
-    psf_resized = resize_image(psf, new_size) # cut to 21x21
+    psf_resized = resize_image(psf, psf_kernel_size) # cut to 21x21
     print(f'New psf shape: {psf_resized.shape}')
     
     # good vibes
     print('This has been fun, right? Very fun! :)')
     
-    return(psf_resized)
+    return(psf_resized, avg_psf)
 
 def if_i_fits_i_sits (image, gama_id, links_id, band, noise=False, psf=False):
     if noise == True:
@@ -225,7 +228,7 @@ def if_i_csv_i_cannosee (image, gama_id, links_id, band, noise=False, psf=False)
 
 
 
-# In[39]:
+##############################
 
 
 def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_size, filetype):
@@ -233,7 +236,7 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     
     #load image
     print('\n Loading coadd image.')
-    image, image_header = open_sesame(gama_id, links_id, band)
+    image, image_header, avg_psf = open_sesame(gama_id, links_id, band, 0)
     
     #cut out image
     print('\n Producing cutout of coadd image.')
@@ -248,7 +251,7 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     
     #load weight
     print('\n Loading weight image.')
-    weight, weight_header = open_sesame(gama_id, links_id, band, weight=True)
+    weight, weight_header, avg_psf = open_sesame(gama_id, links_id, band, avg_psf, weight=True)
     
     #cut out weight
     print('\n Producing cutout of weight image.')
@@ -290,7 +293,7 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
 
     #create psf
     print('\n Creating psf.')
-    psf = point_to_the_spread(image_eps, image_header, pixel_scale, psf_kernel_size)
+    psf, avg_psf = point_to_the_spread(image_eps, avg_psf, pixel_scale, psf_kernel_size)
     
     print('\n I mean foods that humans eat, not humans as food.')
     
@@ -321,14 +324,84 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     else:
         print('\n Get your filetypes straight!')
     
-    
-    print('\n\n\n Work complete!')
-    
-    
+    # return counts image, resconstructed image and psf for adding to white
+    return(np.array([image_counts, reconstructed_image, avg_psf, exp_time], dtype='object'))
     
 
+def white_walkers_aint_shit (gama_id, links_id, colors, pixel_scale, psf_kernel_size, filetype):
+    # take three lists from array
+    images = colors[:,0]
+    reconstructed_images = colors[:,1]
+    avg_psfs = colors[:,2]
+    exp_times = colors[:,3]
+    
+    # add images (should be in counts)
+    print('Adding images in counts.')
+    added_image = np.sum(images)
+    added_reconstructed_image = np.sum(reconstructed_images)
+    
+    #plot counts
+    print('Plotting added images in counts.')
+    plot_image(added_image, 'counts')
+    plot_image(added_reconstructed_image, 'counts')
+    
+    # take noise from reconstructed image
+    print('Gettin noisey!')
+    noise_map = get_noisey(added_reconstructed_image)
+    
+    # take mean exp_time
+    mean_exp_time = np.mean(exp_times)
+    
+    # convert added image and noise map to eps
+    print('Converting to eps!')
+    image_white = divide_the_time(added_image, mean_exp_time)
+    noise_map_white = divide_the_time(noise_map, mean_exp_time)
+    
+    # plot eps
+    print('Plotting white image and noise map in eps')
+    plot_image(image_white, 'eps')
+    plot_image(noise_map_white, 'eps')
+    
+    # take mean psf
+    mean_psf = np.mean(avg_psfs)
+    
+    # generate psf
+    print('Generating PSF')
+    psf, avg_psf = point_to_the_spread (image_white, mean_psf, pixel_scale, psf_kernel_size)
+    
+    #
+    if filetype=='fits':
+        os.makedirs(f'{fits_path}G{gama_id}_{links_id}', exist_ok=True)
+        #save image to hdu
+        print('\n If I fits, I sits.')
+        if_i_fits_i_sits(image_white, gama_id, links_id, 'white')
+    
+        #save noise to hdu
+        if_i_fits_i_sits(noise_map_white, gama_id, links_id, 'white', noise=True)
+    
+        #save psf to hdu
+        if_i_fits_i_sits(psf, gama_id, links_id, 'white', psf=True)
+    
+        
+    elif filetype=='csv':
+        os.makedirs(f'{csv_path}G{gama_id}_{links_id}', exist_ok=True)
+        #save image to hdu
+        print('\n If I csv, I cannosee.')
+        if_i_csv_i_cannosee(image_eps, gama_id, links_id, band)
+    
+        #save noise to hdu
+        if_i_csv_i_cannosee(noise_map_eps, gama_id, links_id, band, noise=True)
+    
+        #save psf to hdu
+        if_i_csv_i_cannosee(psf, gama_id, links_id, band, psf=True)
+    else:
+        print('\n Get your filetypes straight!')
+    
 
-# In[40]:
+    
+    
+########################################################################################
+
 
 
 ## Ask for input (for script)
@@ -340,7 +413,7 @@ print('GAMA ID?')
 gama_id = int(input())
 print('LiNKS ID?')
 links_id = int(input())
-print('Band?')
+print('Band? r/g/i/all')
 band = str(input())
 print('Pixel scale?')
 pixel_scale = float(input())
@@ -356,8 +429,31 @@ print('Great, you have ordered the dirty turnips with basil pesto. That will be 
 print()
 print(':)')
 
-one_ring_to_rule_them_all(gama_id, links_id, band, pixel_scale, psf_kernel_size, filetype)
+# make array of bands
+if band == 'all':
+    bands = np.array(['r', 'g', 'i'])
+else:
+    bands = [band]
 
+# make array of color 
+images = np.zeros((101,101))
+attributes = np.zeros((1,1))
+row = np.array([images, images, attributes, attributes])
+colors = row
+if len(bands) != 1:
+    for i in range(len(bands)):
+        colors = np.vstack((colors, row))
+                  
+# iterate through colors
+for i in range(len(bands)):
+    colors[i] = one_ring_to_rule_them_all(gama_id, links_id, bands[i], pixel_scale, psf_kernel_size, filetype)
+
+print('Colors done! Now to white.')
+
+# create white image
+white_walkers_aint_shit(gama_id, links_id, colors, pixel_scale, psf_kernel_size, filetype)
+
+print('\n\n\n Work complete!')
 
 # In[ ]:
 
