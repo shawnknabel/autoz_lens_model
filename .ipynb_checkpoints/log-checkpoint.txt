@@ -11,7 +11,7 @@ TO DO:
 
 Candidates:
 1933 - complete
-2730 - complete
+2730 - complete, need to be rescripted and rerun white, change source mask
 3234 - need to be reassessed and rerun (M/L ratio 0 :|)
 3212 - complete
 3056 - complete
@@ -23,7 +23,44 @@ Candidates:
 
 IGNORE_PRIOR_LIMITS=FALSE
 
-3/31/21 - afternoon
+4/1/21 - afternoon
+HST Proposal Tasks
+###
+Filter -> two filters or one
+        - red in the IR (space makes IR possible) for lens
+        - SLACS 814 red, 606 blue
+        - two samples (hi and low z)
+        - One filters IR (JH or H) for lens -> H is fattest possible PSF (check that)
+            - constant filter
+            - psf for IR is a little thicker than optical (lambda/D)
+            - 160W
+        - Two filters for source (to catch H-alpha line), redshift dependent
+            - low-z 814
+            - hi-z J 1.2 Micron
+            - Go to SVO Filter Profiles.... HST WFC3-UVIS
+            - 6562*(1+z), plot these and the filters
+- All h-alpha lines shown in reference to some HST filters in notebook 040121_source_redshifts_halpha
+
+
+4/1/21 - morning
+###
+Rewrite the scripts for white images. 
+By adding and taking the mean exp time, the red photons are hugely overweighted. e/s accounts for diff exp times.
+- Images: add the e/s, not counts.
+- Noise: quadratically add the noise maps np.sqrt(square + square + square)
+- Finished
+###
+Model 1933
+- Reprocess with white.
+- Downloading i image and weight.... 
+    - Well. For some reason the Astro-WISE server isn't letting me use the object viewer.
+    - i image has been downloaded. Unable to access i weight.
+###
+Model 2730
+- Reprocess with white. Failed.
+######
+Breaking for lunch.
+
 
 3/31/21 - morning
 Redo models with white image at phase 3
@@ -37,6 +74,8 @@ Model 2730
 - g, r, i, and white images processed
 - Rewriting script.
 - Running, Phase 1 r, Phase 2/3 white
+- Low likelihood. Redo with the white image processed correctly.
+- Do not use the elliptical annular source mask.
 
 
 Benne Meeting 3/30/21

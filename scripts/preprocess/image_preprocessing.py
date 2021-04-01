@@ -324,39 +324,24 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
     else:
         print('\n Get your filetypes straight!')
     
-    # return counts image, resconstructed image and psf for adding to white
-    return(np.array([image_counts, reconstructed_image, avg_psf, exp_time], dtype='object'))
+    # return eps image, noise and psf for adding to white
+    return(np.array([image, noise_map_eps, avg_psf], dtype='object'))
     
 
 def white_walkers_aint_shit (gama_id, links_id, colors, pixel_scale, psf_kernel_size, filetype):
     # take three lists from array
     images = colors[:,0]
-    reconstructed_images = colors[:,1]
+    noise_maps = colors[:,1]
     avg_psfs = colors[:,2]
-    exp_times = colors[:,3]
     
-    # add images (should be in counts)
-    print('Adding images in counts.')
-    added_image = np.sum(images)
-    added_reconstructed_image = np.sum(reconstructed_images)
+    # add images (should be in eps)
+    print('Adding images in eps.')
+    image_white = np.sum(images)
     
-    #plot counts
-    print('Plotting added images in counts.')
-    plot_image(added_image, 'counts')
-    plot_image(added_reconstructed_image, 'counts')
-    
-    # take noise from reconstructed image
-    print('Gettin noisey!')
-    noise_map = get_noisey(added_reconstructed_image)
-    
-    # take mean exp_time
-    mean_exp_time = np.mean(exp_times)
-    
-    # convert added image and noise map to eps
-    print('Converting to eps!')
-    image_white = divide_the_time(added_image, mean_exp_time)
-    noise_map_white = divide_the_time(noise_map, mean_exp_time)
-    
+    # quadratically add noise maps
+    print('Quadratically adding noise maps.')
+    noise_map_white = np.sqrt(np.sum(np.square(noise_maps)))
+        
     # plot eps
     print('Plotting white image and noise map in eps')
     plot_image(image_white, 'eps')
@@ -438,7 +423,7 @@ else:
 # make array of color 
 images = np.zeros((101,101))
 attributes = np.zeros((1,1))
-row = np.array([images, images, attributes, attributes])
+row = np.array([images, images, attributes])
 colors = row
 if len(bands) != 1:
     for i in range(len(bands)):
