@@ -10,10 +10,10 @@ TO DO:
 - Plot as groups and isos
 
 Candidates:
-1933 - complete
+1933 - complete, white not good.
 2730 - complete, need to be rescripted and rerun white, change source mask
 3234 - need to be reassessed and rerun (M/L ratio 0 :|)
-3212 - complete
+3212 - complete, rerunning with white.
 3056 - complete
 2828 - complete
 26 - need to be rescripted and rerun
@@ -22,6 +22,27 @@ Candidates:
 2144 - contaminating object to be removed before positions and masking
 
 IGNORE_PRIOR_LIMITS=FALSE
+
+For Monday:
+1. Calculate F_DM and M/L ratios with error bars for what we have. Plot against stellar mass (modeled, not GAMA).
+2. Check S/N ratios for six models to give a S/N to Benne.
+
+4/2/21 - afternoon
+###
+Model 3212
+- Downloading i image and weight
+- Processing images. Done.
+- Setting positions and masks. Done.
+- Rewriting script. Done.
+- Files uploaded.
+- Running!
+###
+HST Filters
+- Plotted.
+- I think IR 105W and IR 160W are optimal.
+    - cover the most H-alpha lines (and bluer) while separating the lens and source images.
+###
+
 
 4/2/21 - morning
 To Do:
@@ -40,6 +61,8 @@ Model 1933
 - All positions/masks ready
 - Rewriting script - r, g, white
 - Running!
+- Log likelihood ~750 (compared to 1600 on g band)
+    - They aren't particularly close in fit either.
 #####
 Breaking to get vaccine!
 

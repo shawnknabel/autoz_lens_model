@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 3/17/21 - 3-phase fit to G544226_3212.
+# # 4/1/21 - 3-phase fit to G544226_3212.
 
-# ## Experiment 3 : phase1_nlive = 200, phase1_tolerance = 0.5, phase2_nlive = 200 (source mask), phase2_tolerance = 0.5, phase3_nlive = 300, phase3_tolerance = 0.25, facc=0.4 for all phases, use effective radius from GAMA DR3 Sersic Photometry catalog (including errors) and upper limit (effective radius + error), 3 position, threshold=1.0
+# ## Phases: 
+#1(r) phase1_nlive = 200, phase1_tolerance = 0.5
+#2(g) phase2_nlive = 200 (source mask), phase2_tolerance = 0.25
+#3(white) phase3_nlive = 300, phase3_tolerance = 0.25, facc=0.3 for all phases, use effective radius from GAMA DR3 Sersic Photometry catalog (including errors) and upper limit (effective radius + error), 3 position, threshold=1.0
 # 
 # ## Instance for lens centre into phase 2 and phase 3. Don't take the instance for the ellipticity and effective radius. Set same max effective radius.
 
@@ -107,19 +110,16 @@ imaging_g = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id
                               psf_path=path.join(object_folder, f'{links_id}_g_psf_image.fits'),
                                pixel_scales=0.2)
 
+# load white imaging
+imaging_white = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_white_image.fits'),
+                              noise_map_path=path.join(object_folder, f'{links_id}_white_noise_map_image.fits'),
+                              psf_path=path.join(object_folder, f'{links_id}_white_psf_image.fits'),
+                               pixel_scales=0.2)
+
 # set up masks
-mask = al.Mask2D.circular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2, radius=3.5
-)
-
-lens_mask = al.Mask2D.circular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2, radius=re_r, centre=(0.0, -0.25) 
-)
-
-source_mask = al.Mask2D.circular_annular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2, outer_radius=3.5, inner_radius=re_r,
-    centre=(0.0, -0.25)
-)
+mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_white_mask.fits', pixel_scales=imaging_r.pixel_scales)
+lens_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_r_lens_mask.fits', pixel_scales=imaging_r.pixel_scales)
+source_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_g_source_mask.fits', pixel_scales=imaging_r.pixel_scales)
 
 # plot subplots for first view
 #print('Plotting r-band')
@@ -135,9 +135,15 @@ source_mask = al.Mask2D.circular_annular(
 #imaging_plotter_g.subplot_imaging()
 
 # set positions
+pos = np.genfromtxt(f'{object_folder}{links_id}_g_positions_grid.csv', delimiter=',', skip_header=0)
 imaging_g.positions = al.Grid2DIrregular(
-    [(0.925, 0.925), (0.0, 1.3), (-0.95, 0.95)]#, (-0.8, 1.0), (-1.0, 0.5), (0.3, 1.1)]
+    [(pos[0]), (pos[1]), (pos[2])]#,  (pos[3]), (pos[4]),]
 )
+# set white with the same positions for phase 3
+imaging_white.positions = al.Grid2DIrregular(
+    [(pos[0]), (pos[1]), (pos[2])]#,  (pos[3]), (pos[4]),]
+)
+
 
 # plot positions g-band image
 #visuals_2d = aplt.Visuals2D(mask=None, positions=imaging_g.positions)
@@ -188,9 +194,9 @@ lens_start = al.GalaxyModel(
     redshift=zlens, bulge=al.lp.EllipticalSersic#, mass=al.mp.EllipticalIsothermal
 )
 
-lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+re_r_err)
+lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+3*re_r_err)
 lens_start.bulge.centre_0 = af.UniformPrior(lower_limit=-0.1, upper_limit=0.1)
-lens_start.bulge.centre_1 = af.UniformPrior(lower_limit=-0.4, upper_limit=0.1)
+lens_start.bulge.centre_1 = af.UniformPrior(lower_limit=-0.1, upper_limit=0.1)
 
 
 # set up phase
@@ -212,7 +218,7 @@ print(lens_start)
 # run the phase
 print('Phase running...')
 tick = time.perf_counter()
-phase1_result = phase1.run(dataset=imaging_r, mask=mask)
+phase1_result = phase1.run(dataset=imaging_r, mask=lens_mask)
 tock = time.perf_counter()
 print(f'Work complete! Took us {tock-tick} seconds or {(tock-tick)/60} minutes.')
 
@@ -240,7 +246,7 @@ phase1_time = tock-tick
 
 # set stellar mass profile
 mass = al.mp.EllipticalIsothermal
-#mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
+mass.take_attributes(source=phase1_result.model.galaxies.lens.bulge)
 
 # set dark profile
 dark = af.PriorModel(al.mp.SphericalNFWMCRLudlow)
@@ -266,15 +272,15 @@ lens.mass.centre = phase1_result.instance.galaxies.lens.bulge.centre
 source_mask.centre =lens.mass.centre
 
 # fix lens elliptical comps
-lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
+#lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
 
 # einstein radius
-#lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
+lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
 
 # source position
 source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)
 source.bulge.centre_1 = af.UniformPrior(lower_limit=-5, upper_limit=5)
-source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=5.0)
+source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=3.0)
 #source.bulge.intensity = af.UniformPrior(lower_limit=0.0, upper_limit=10*lens.bulge.intensity)
 
 print(f'Lens: {lens}')
@@ -299,7 +305,7 @@ settings = al.SettingsPhaseImaging(
 phase2 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase2_fit_{datetime}", n_live_points=300,
-        evidence_tolerance=0.5, walks=10, facc=0.3
+        evidence_tolerance=0.25, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)
@@ -337,9 +343,6 @@ phase2_time=tock-tick
 
 # now phase 3!
 
-#update mask to be centered on lens
-mask.centre = phase1_result.model.galaxies.lens.bulge.centre
-
 #set up lens and source
 
 # set stellar mass/light profile
@@ -360,18 +363,12 @@ source_bulge.take_attributes(source=phase2_result.model.galaxies.source.bulge)
 source = al.GalaxyModel(
     redshift=zsource, bulge=source_bulge)
 
-# make lens intensity default to 0.1 +- 0.1 because red to green makes it wonky
-#lens.bulge.intensity = af.GaussianPrior(mean=0.1, sigma=0.1)
-
-# set uniform m_l ratio
-#lens.bulge.mass_to_light_ratio = af.UniformPrior(lower_limit=0.0, upper_limit=100000.0) # leave it default
-
 # make dark matter centered at stellar mass center
 lens.bulge.centre = phase1_result.instance.galaxies.lens.bulge.centre
 lens.dark.centre = lens.bulge.centre
 
 # make lens effective radius for g-band
-lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=re_g+re_g_err)
+#lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=re_g+re_g_err)
 
 # einstein radius
 #lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.3*einstein_radius) # take sigma to be 30% of mean # hmmm
@@ -414,7 +411,7 @@ phase3 = al.PhaseImaging(
 # run the phase
 print('Phase running...')
 tick = time.perf_counter()
-phase3_result = phase3.run(dataset=imaging_g, mask=mask)
+phase3_result = phase3.run(dataset=imaging_white, mask=mask)
 tock = time.perf_counter()
 print(f'Work complete! Took us {tock-tick} seconds or {(tock-tick)/60} minutes.')
 
