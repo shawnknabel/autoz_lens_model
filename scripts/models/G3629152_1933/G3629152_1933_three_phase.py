@@ -96,11 +96,28 @@ imaging_g = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id
                               psf_path=path.join(object_folder, f'{links_id}_g_psf_image.fits'),
                                pixel_scales=0.2)
 
+# load white imaging
+imaging_white = al.Imaging.from_fits(image_path=path.join(object_folder, f'{links_id}_white_image.fits'),
+                              noise_map_path=path.join(object_folder, f'{links_id}_white_noise_map_image.fits'),
+                              psf_path=path.join(object_folder, f'{links_id}_white_psf_image.fits'),
+                               pixel_scales=0.2)
+
 # set up mask
-mask = al.Mask2D.circular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2, radius=3.5
+# set up masks
+mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_white_mask.fits', pixel_scales=imaging_r.pixel_scales)
+lens_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_r_lens_mask.fits', pixel_scales=imaging_r.pixel_scales)
+source_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_g_source_mask.fits', pixel_scales=imaging_r.pixel_scales)
+
+
+# set positions
+pos = np.genfromtxt(f'{object_folder}{links_id}_g_positions_grid.csv', delimiter=',', skip_header=0)
+imaging_g.positions = al.Grid2DIrregular(
+    [(pos[0]), (pos[1]), (pos[2])]#,  (pos[3]), (pos[4]),]
 )
-visuals_2d = aplt.Visuals2D(mask=mask)
+# set white with the same positions for phase 3
+imaging_white.positions = al.Grid2DIrregular(
+    [(pos[0]), (pos[1]), (pos[2])]#,  (pos[3]), (pos[4]),]
+)
 
 # plot subplots for first view
 #print('Plotting r-band')
@@ -147,17 +164,10 @@ print(performance_log)
 # set experiment number
 #experiment_number = '3'
 
-lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+re_r_err)
+lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+3*re_r_err)
 lens_start.bulge.centre_0 = af.UniformPrior(lower_limit=-0.1, upper_limit=0.1)
 lens_start.bulge.centre_1 = af.UniformPrior(lower_limit=-0.1, upper_limit=0.1)
 
-# set up mask
-lens_mask = al.Mask2D.circular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2, radius=re_r, #centre=(0.075, -0.075) 
-)
-visuals_2d = aplt.Visuals2D(mask=lens_mask)
-
-# I can probably use the regular mask for this.
 
 # plot subplots for first view
 #print('Plotting r-band')
@@ -170,7 +180,7 @@ visuals_2d = aplt.Visuals2D(mask=lens_mask)
 phase1 = al.PhaseImaging(
     search=af.DynestyStatic( 
         path_prefix=f"{output_folder}", name=f"experiment_{experiment_number}_phase1_{datetime}", n_live_points=200,
-        evidence_tolerance=0.5, walks = 10
+        evidence_tolerance=0.5, walks = 10,
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens_start)#, source=source)
@@ -185,7 +195,7 @@ print(lens_start)
 # run the phase
 print('Phase running...')
 tick = time.perf_counter()
-phase1_result = phase1.run(dataset=imaging_r, mask=mask)
+phase1_result = phase1.run(dataset=imaging_r, mask=lens_mask)
 tock = time.perf_counter()
 print(f'Work complete! Took us {tock-tick} seconds or {(tock-tick)/60} minutes.')
 
@@ -247,36 +257,6 @@ source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=5.0
 print(f'Lens: {lens}')
 print(f'Source: {source}')
 
-# In[10]:
-
-
-# Set up source mask
-
-source_mask = al.Mask2D.circular_annular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2, outer_radius=3.5, inner_radius=1.5,
-    centre=phase1_result.instance.galaxies.lens.bulge.centre
-)
-
-
-# Set up the positions... (GUI is not working...)
-
-# plot the r-band image to see it
-#print('Plotting g-band')
-#imaging_plotter_g = aplt.ImagingPlotter( # this is where the noise is coming up weird
-#    imaging=imaging_g, visuals_2d=aplt.Visuals2D(mask=source_mask)
-#)
-#imaging_plotter_g.figures(image=True)
-
-# set positions
-imaging_g.positions = al.Grid2DIrregular(
-    [(-0.425, -2.1), (-0.0, -2.1)]#, (-0.8, 1.0), (-1.0, 0.5), (0.3, 1.1)]
-)
-
-# plot the image
-#visuals_2d = aplt.Visuals2D(mask=mask, positions=imaging_g.positions)
-#imaging_plotter_g = aplt.ImagingPlotter(imaging=imaging_g, visuals_2d=aplt.Visuals2D(mask=source_mask))
-#imaging_plotter_g.figures(image=True)
-
 
 # In[39]:
 
@@ -296,7 +276,7 @@ settings = al.SettingsPhaseImaging(
 phase2 = al.PhaseImaging(
     search=af.DynestyStatic(
         path_prefix=f'{output_folder}', name=f"experiment_{experiment_number}_phase2_fit_{datetime}", n_live_points=300,
-        evidence_tolerance=0.5, walks=10, facc=0.3
+        evidence_tolerance=0.25, walks=10, facc=0.3
     ),
     settings=settings,
     galaxies=af.CollectionPriorModel(lens=lens, source=source)#, source=source)
@@ -359,18 +339,12 @@ source_bulge.take_attributes(source=phase2_result.model.galaxies.source.bulge)
 source = al.GalaxyModel(
     redshift=zsource, bulge=source_bulge)
 
-# make lens intensity default to 0.1 +- 0.1 because red to green makes it wonky
-#lens.bulge.intensity = af.GaussianPrior(mean=0.1, sigma=0.1)
-
-# set uniform m_l ratio
-#lens.bulge.mass_to_light_ratio = af.UniformPrior(lower_limit=0.0, upper_limit=100000.0) # leave it default
-
 # make dark matter centered at stellar mass center
 lens.bulge.centre = phase1_result.instance.galaxies.lens.bulge.centre
 lens.dark.centre = lens.bulge.centre
 
 # make lens effective radius for g-band
-lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=re_g+re_g_err)
+#lens.bulge.effective_radius = af.GaussianPrior(mean=re_g, sigma=re_g_err, lower_limit=0.0, upper_limit=re_g+3*re_g_err)
 
 # einstein radius
 #lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.3*einstein_radius) # take sigma to be 30% of mean # hmmm
@@ -413,7 +387,7 @@ phase3 = al.PhaseImaging(
 # run the phase
 print('Phase running...')
 tick = time.perf_counter()
-phase3_result = phase3.run(dataset=imaging_g, mask=mask)
+phase3_result = phase3.run(dataset=imaging_white, mask=mask)
 tock = time.perf_counter()
 print(f'Work complete! Took us {tock-tick} seconds or {(tock-tick)/60} minutes.')
 

@@ -271,11 +271,11 @@ print('Please follow the prompts without failure, or you will be punished severe
 print('\n Enjoy your visit!')
 
 print('GAMA ID?')
-gama_id = 250289#int(input())
+gama_id = int(input())
 print('LiNKS ID?')
-links_id = 2730#int(input())
+links_id = int(input())
 print('Pixel scale?')
-pixel_scale = 0.2#float(input())
+pixel_scale = float(input())
 print('Enter any phun phrase to get us started...')
 #input()
 

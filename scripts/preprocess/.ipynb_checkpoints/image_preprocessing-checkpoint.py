@@ -115,8 +115,8 @@ def cut_it_out (gama_id, image, header, pixel_scale):
         elif answer == 'n':
             print(f'Give adjustments in pixels. Pixel scale is {pixel_scale}. Up, Down, Left, Right')
             up, down, left, right = [float(input()), float(input()), float(input()), float(input())]
-            ra = ra+(right-left)*pixel_scale/3600
-            dec = dec+(down-up)*pixel_scale/3600
+            ra = ra+(left-right)*pixel_scale/3600
+            dec = dec+(up-down)*pixel_scale/3600
         else:
             print('Please answer y or n')
             answer = str(input())
@@ -325,7 +325,7 @@ def one_ring_to_rule_them_all (gama_id, links_id, band, pixel_scale, psf_kernel_
         print('\n Get your filetypes straight!')
     
     # return eps image, noise and psf for adding to white
-    return(np.array([image, noise_map_eps, avg_psf], dtype='object'))
+    return(np.array([image_eps, noise_map_eps, avg_psf], dtype='object'))
     
 
 def white_walkers_aint_shit (gama_id, links_id, colors, pixel_scale, psf_kernel_size, filetype):

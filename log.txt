@@ -23,6 +23,26 @@ Candidates:
 
 IGNORE_PRIOR_LIMITS=FALSE
 
+4/2/21 - morning
+To Do:
+- HST Proposal Tasks
+    - Filter
+- White prep script
+- Download i weight 1933
+- Prep and model 1933 white
+###
+Preprocessing Scripts
+- Appear to be working properly
+###
+Model 1933
+- i weight downloaded
+- All images processed
+- All positions/masks ready
+- Rewriting script - r, g, white
+- Running!
+#####
+Breaking to get vaccine!
+
 4/1/21 - afternoon
 HST Proposal Tasks
 ###
