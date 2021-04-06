@@ -1,0 +1,60 @@
+4/5/21 Plan to Finish Before the Move
+
+AUTOZ Lens Modeling
+What needs to happen:
+- Run all 42 final models - 4 weeks
+- Analyze results - 1 week
+- Write the paper - 2 weeks
+- HST proposal - 1 week
+- KAAS presentation - 1 day
+Total: 8 weeks
+
+SMILES
+What needs to happen:
+- Simulate training set - 1 week
+- Design neural net - 3 weeks
+- Run neural nets  - 3 weeks
+- Write report - 1 week
+Total: 8 weeks
+
+--------------------------------
+Weekly
+
+April 5-9
+Run 10 models
+HST proposal
+
+April 12-16
+Run 10 models
+KAAS presentation
+Simulate training set
+
+April 19-23
+Finish running models
+Simulate training set
+
+April 26-30
+Analyze the results
+Write paper
+
+May 3-7
+Analyze results
+Write paper
+
+May 10-14
+Finish first draft
+
+May 17-21
+Design neural nets
+
+May 24-28
+Design neural nets
+
+May 31-4
+Design/Run neural nets
+
+June 7-10
+Run neural nets
+
+June 14-18
+Write results

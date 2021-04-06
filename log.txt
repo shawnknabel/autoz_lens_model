@@ -13,19 +13,173 @@ Candidates:
 1933 - complete, white not good.
 2730 - complete, need to be rescripted and rerun white, change source mask
 3234 - need to be reassessed and rerun (M/L ratio 0 :|)
-3212 - complete, rerunning with white.
+3212 - complete, white fit was okay.
 3056 - complete
 2828 - complete
 26 - need to be rescripted and rerun
 245 - I think it's just not a good g-band image for the fit
 1179 - need to be rerun, interrupted and poor fit, phase2 very poor fit to lens mass ellipticity
 2144 - contaminating object to be removed before positions and masking
+1906 - zlens/zsource probably not right
+1340 - complete, not great
+1939 - complete, bad ->>>>>>>>>>>>>> Phase 2 gave a nonsensical ellipse in the wrong direction. Set the elliptical priors as an instance.
+1483 - running
+2562 - processed (upload files)
+3349 - processed (upload files)
+2635 - images processed, still need to do masks and positions (upload files)
+2749 - downloaded
+539 - downloaded
+1819 - downloaded
+1924 - downloaded
+
+
 
 IGNORE_PRIOR_LIMITS=FALSE
 
-For Monday:
+4/6/21 - afternoon
+To Do:
+- Read through the proposal
+- Get F_DM error bars, 1-sigma, estimate HST error bars (order of magnitude)
+- Try to do the M/L
+
+4/6/21 - Benne Meeting
+Pre-Meeting:
+1. Discuss timeline
+    - Decide on final approach
+        - filters/white? okay to be different for each?
+        - what about ELG + ELG/PG or PG + PG (redshifted to IR?)
+    - Run all models
+        - what about failure?
+        - Report every fit
+            - Plot the good ones.
+    - At this point I think I need to go ahead and run them and take what we've got
+2. M/L ratios
+    ---- https://ui.adsabs.harvard.edu/abs/2009MNRAS.400.1181Z/abstract
+        - M/L for the filter
+    ---- https://ui.adsabs.harvard.edu/abs/2001ApJ...550..212B/abstract
+    - M/L of summed filters doesn't really mean anything
+    - different bandwiths covered
+    - narrow
+    - mass will be the same, but not light
+    ----------
+    *** Take light profile from first phase and mass profile from third
+            - Take r luminosity w/in einstein radius against stellar mass w/in einstein radius
+    *** M/L ratio is the STELLAR mass to light ratio. 
+#
+To Do:
+- Read through the proposal
+- Get F_DM error bars, 1-sigma, estimate HST error bars (order of magnitude)
+- Try to do the M/L
+
+4/6/21 - morning
+###
+April 5-9
+Run 10 models
+HST proposal
+###
+- Finish Prepping models.
+- Calculate F_DM and M/L ratios with error bars for what we have. Plot against stellar mass (modeled, not GAMA).
+- Check S/N ratios for six models to give a S/N to Benne. Done.
+- Run models
+- Make table of HST filters for each candidate. Done.
+###
+Model 1483
+- Running
+###
+HST Filters
+- Table constructed and sent to Benne
+###
+S/N
+- Sent to Benne
+###
+Processing candidates images from yesterday. See 4/5/21 - morning
+
+4/5/21 - morning
+###
+April 5-9
+Run 10 models
+HST proposal
+###
+To Do:
 1. Calculate F_DM and M/L ratios with error bars for what we have. Plot against stellar mass (modeled, not GAMA).
 2. Check S/N ratios for six models to give a S/N to Benne.
+3. Run models
+###
+Pick next 10 lenses to be modeled:
+#
+3886216.0 	1340 	136.09620 	-1.58451 	8.0 	0.404170 	0.885914 	11.716750 	1.070843 	0.818502 	ELG + ELG
+- Downloading g, r, i images and weights. Done.
+- Prepping all images, noise maps. Done.
+- Positions and masks. Done.
+    - r, white, white.
+    - Create elliptical annular source mask with outer circle w/ radius 3.0 
+- Writing script. Done.
+- Modeling.
+#
+145203.0 	1939 	183.37060 	-1.38407 	8.0 	0.338887 	0.069276 	11.472861 	2.345777 	1.513615 	ELG + PG
+- Downloading g, r, i images and weights. Done.
+- Prepping all images, noise maps. Done.
+    - Interrupted, g weight file corrupted
+    - Redownload g weight
+- Prepping positions and masks. Done.
+    - r, white, white
+- Writing script. Done.
+#
+3896212.0 	1483 	129.80597 	-0.83022 	8.0 	0.380684 	0.847553 	11.776137 	1.218449 	0.929125 	PG + PG
+- Downloading g, r, i images and weights. Done.
+- Prepping all images, noise maps. Done.
+- Prepping positions and masks. Done.
+    - r, g, white
+- Writing script. Done.
+#
+84425.0 	2562 	177.77478 	0.42791 	8.0 	0.285867 	0.673673 	11.485850 	0.971126 	0.770619 	PG + ELG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+- Prepping positions, masks. Done. 
+    - r, g, g
+#
+561058.0 	3349 	182.56030 	-0.49540 	8.0 	0.320287 	0.855552 	11.473941 	0.925344 	0.771857 	PG + ELG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+- Prepping positions and masks. Done.
+    - r, g, white
+#
+296451.0 	2635 	211.85399 	1.55536 	8.0 	0.444535 	0.878675 	11.861844 	1.191224 	0.852244 	PG + PG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+- Prepping positions and masks. Done.
+    - r, white, white
+77312.0 	2749 	212.84528 	0.02337 	8.0 	0.372997 	0.804917 	11.508821 	0.830730 	0.651101 	PG + PG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+- Prepping positions and masks. Done.
+    - r, g, white
+    - No positions (I think)
+62734.0 	539 	213.56206 	-0.24168 	8.0 	0.274168 	0.597446 	11.506654 	0.996040 	0.761231 	PG + ELG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+- Prepping positions and masks. Done.
+    - r, r, r (or white?)
+387244.0 	1819 	135.56917 	2.36495 	4.0 	0.217723 	0.712327 	11.428494 	1.133082 	0.938357 	PG + ELG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+- Prepping positions and masks. Done.
+    - r, white, white
+238892.0 	1924 	215.56828 	1.56082 	4.0 	0.305116 	0.716291 	11.486208 	0.934488 	0.746640 	ELG + ELG
+- Downloading g, r, i images and weights. Done.
+- Prepping images, noise maps. Done.
+    - Interrupted, somehow the object position didn't overlap with the tile, was 215.0 1.5, now 216.0 1.5
+    - Downloading g, r, i. Done.
+- Prepping positions and masks. Done.
+    - r, r, r
+
+###
+Model 1340
+- Running 
+- Phase 1 Finished.
+- Phase 2 running. Struggling a bit. The elliptical annular mask does not work well. Finished
+- Phase 3 running.
+- Finished, log likelihood 46
 
 4/2/21 - afternoon
 ###
@@ -36,6 +190,8 @@ Model 3212
 - Rewriting script. Done.
 - Files uploaded.
 - Running!
+- Log likelihood 632, fairly good fit
+- M/L ratio is a factor 10 difference from the one against the green
 ###
 HST Filters
 - Plotted.

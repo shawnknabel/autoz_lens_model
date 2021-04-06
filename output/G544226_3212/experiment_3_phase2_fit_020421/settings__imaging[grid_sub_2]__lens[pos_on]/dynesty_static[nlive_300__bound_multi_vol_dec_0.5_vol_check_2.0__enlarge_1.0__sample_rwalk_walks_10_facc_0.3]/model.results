@@ -1,0 +1,73 @@
+Bayesian Evidence                                                                         1042.38628909
+Maximum Likelihood                                                                        1085.83711071
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        mass
+            elliptical_comps
+                elliptical_comps_0                                                        0.421
+                elliptical_comps_1                                                        -0.507
+            einstein_radius                                                               0.287
+        dark
+            centre
+                centre_0                                                                  0.119
+                centre_1                                                                  -0.253
+            mass_at_200                                                                   62087608694362.125
+    source
+        bulge
+            intensity                                                                     0.212
+            centre
+                centre_0                                                                  0.064
+                centre_1                                                                  0.098
+            effective_radius                                                              0.837
+
+
+Summary (3.0 sigma limits):
+
+galaxies
+    lens
+        mass
+            elliptical_comps
+                elliptical_comps_0                                                        0.3395 (0.1237, 0.5548)
+                elliptical_comps_1                                                        -0.4494 (-0.6613, -0.2168)
+            einstein_radius                                                               0.2619 (0.1539, 0.3803)
+        dark
+            centre
+                centre_0                                                                  0.0803 (-0.0837, 0.2023)
+                centre_1                                                                  -0.1814 (-0.3406, -0.0194)
+            mass_at_200                                                                   6.2499e+13 (3.5968e+13, 1.0384e+14)
+    source
+        bulge
+            intensity                                                                     0.2089 (0.1890, 0.2289)
+            centre
+                centre_0                                                                  0.0492 (-0.0069, 0.0934)
+                centre_1                                                                  0.1268 (0.0774, 0.1799)
+            effective_radius                                                              0.8347 (0.7557, 0.9099)
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        mass
+            elliptical_comps
+                elliptical_comps_0                                                        0.3395 (0.2994, 0.3769)
+                elliptical_comps_1                                                        -0.4494 (-0.4973, -0.4024)
+            einstein_radius                                                               0.2619 (0.2420, 0.2814)
+        dark
+            centre
+                centre_0                                                                  0.0803 (0.0631, 0.0995)
+                centre_1                                                                  -0.1814 (-0.2094, -0.1555)
+            mass_at_200                                                                   6.2499e+13 (5.6932e+13, 6.7963e+13)
+    source
+        bulge
+            intensity                                                                     0.2089 (0.2054, 0.2126)
+            centre
+                centre_0                                                                  0.0492 (0.0428, 0.0563)
+                centre_1                                                                  0.1268 (0.1184, 0.1370)
+            effective_radius                                                              0.8347 (0.8212, 0.8475)
+
+instances
+
