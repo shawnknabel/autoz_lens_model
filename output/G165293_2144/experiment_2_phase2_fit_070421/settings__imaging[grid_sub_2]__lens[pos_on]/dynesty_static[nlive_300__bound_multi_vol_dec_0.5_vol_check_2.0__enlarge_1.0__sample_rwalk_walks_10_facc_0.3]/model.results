@@ -1,0 +1,64 @@
+Bayesian Evidence                                                                         1207.84833695
+Maximum Likelihood                                                                        1253.86961432
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        dark
+            centre
+                centre_0                                                                  -0.311
+                centre_1                                                                  0.365
+            mass_at_200                                                                   416162290973651.250
+        mass
+            einstein_radius                                                               0.155
+    source
+        bulge
+            intensity                                                                     0.106
+            centre
+                centre_0                                                                  -0.230
+                centre_1                                                                  -0.029
+            effective_radius                                                              0.370
+
+
+Summary (3.0 sigma limits):
+
+galaxies
+    lens
+        dark
+            centre
+                centre_0                                                                  -0.2374 (-0.3471, -0.0344)
+                centre_1                                                                  0.2374 (-0.0204, 0.3752)
+            mass_at_200                                                                   3.3522e+14 (5.2082e+13, 4.9065e+14)
+        mass
+            einstein_radius                                                               0.2277 (0.0691, 0.7694)
+    source
+        bulge
+            intensity                                                                     0.1012 (0.0867, 0.1167)
+            centre
+                centre_0                                                                  -0.1619 (-0.2473, 0.0123)
+                centre_1                                                                  -0.1617 (-0.5278, -0.0079)
+            effective_radius                                                              0.4261 (0.3098, 0.8177)
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        dark
+            centre
+                centre_0                                                                  -0.2374 (-0.2618, -0.2119)
+                centre_1                                                                  0.2374 (0.2076, 0.2666)
+            mass_at_200                                                                   3.3522e+14 (2.9878e+14, 3.7339e+14)
+        mass
+            einstein_radius                                                               0.2277 (0.1875, 0.2708)
+    source
+        bulge
+            intensity                                                                     0.1012 (0.0987, 0.1037)
+            centre
+                centre_0                                                                  -0.1619 (-0.1816, -0.1393)
+                centre_1                                                                  -0.1617 (-0.1971, -0.1231)
+            effective_radius                                                              0.4261 (0.3937, 0.4568)
+
+instances
+

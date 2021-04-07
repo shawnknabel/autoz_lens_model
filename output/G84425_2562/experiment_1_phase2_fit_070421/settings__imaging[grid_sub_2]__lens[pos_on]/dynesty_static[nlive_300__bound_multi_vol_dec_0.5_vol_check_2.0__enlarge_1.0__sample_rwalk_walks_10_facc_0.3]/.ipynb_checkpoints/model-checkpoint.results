@@ -1,0 +1,48 @@
+Bayesian Evidence                                                                         1262.74526627
+Maximum Likelihood                                                                        1273.96083598
+
+Maximum Log Likelihood Model:
+
+galaxies
+    lens
+        dark
+            centre
+                centre_0                                                                  0.130
+                centre_1                                                                  0.089
+            mass_at_200                                                                   697171789190017.625
+        mass
+            einstein_radius                                                               0.135
+    source
+        bulge
+            intensity                                                                     0.025
+            centre
+                centre_0                                                                  0.200
+                centre_1                                                                  0.318
+            effective_radius                                                              2.611
+
+ WARNING: The samples have not converged enough to compute a PDF and model errors. 
+ The model below over estimates errors. 
+
+
+
+Summary (1.0 sigma limits):
+
+galaxies
+    lens
+        dark
+            centre
+                centre_0                                                                  0.1302 (-0.1696, 0.2945)
+                centre_1                                                                  0.0885 (-0.2247, 0.2005)
+            mass_at_200                                                                   6.9717e+14 (3.3885e+13, 9.8104e+14)
+        mass
+            einstein_radius                                                               0.1350 (0.1218, 1.5015)
+    source
+        bulge
+            intensity                                                                     0.0255 (0.0186, 20.3133)
+            centre
+                centre_0                                                                  0.1996 (-4.6876, 4.0859)
+                centre_1                                                                  0.3179 (-4.9207, 4.8260)
+            effective_radius                                                              2.6111 (1.2146, 2.9784)
+
+instances
+

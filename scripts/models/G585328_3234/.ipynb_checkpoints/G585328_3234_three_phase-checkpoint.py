@@ -256,10 +256,10 @@ lens.dark.centre = lens.mass.centre
 source_mask.centre =lens.mass.centre
 
 # fix lens elliptical comps
-#lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
+lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
 
 # einstein radius
-lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
+lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius, lower_limit=0.0) # take sigma to be 50% of mean # hmmm
 
 # source position
 source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)

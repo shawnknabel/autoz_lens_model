@@ -1,0 +1,20 @@
+Total Free Parameters = 8 
+
+galaxies
+    lens
+        mass
+            centre                                                                        (-0.04980744534957692, 0.05049527568097878)
+            elliptical_comps                                                              (-0.015340928550496784, -0.13192948792004075)
+            einstein_radius                                                               GaussianPrior, mean = 0.8708723339858606, sigma = 0.4354361669929303
+        dark
+            centre
+                centre_0                                                                  GaussianPrior, mean = 0.0, sigma = 0.1
+                centre_1                                                                  GaussianPrior, mean = 0.0, sigma = 0.1
+            mass_at_200                                                                   LogUniformPrior, lower_limit = 100000000.0, upper_limit = 1000000000000000.0
+    source
+        bulge
+            centre
+                centre_0                                                                  UniformPrior, lower_limit = -5.0, upper_limit = 5.0
+                centre_1                                                                  UniformPrior, lower_limit = -5.0, upper_limit = 5.0
+            intensity                                                                     LogUniformPrior, lower_limit = 1e-06, upper_limit = 1000000.0
+            effective_radius                                                              UniformPrior, lower_limit = 0.0, upper_limit = 3.0

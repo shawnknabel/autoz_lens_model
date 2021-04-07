@@ -105,15 +105,21 @@ imaging_white = al.Imaging.from_fits(image_path=path.join(object_folder, f'{link
 mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_white_mask.fits', pixel_scales=imaging_r.pixel_scales)
 lens_mask = al.Mask2D.from_fits(f'{object_folder}{links_id}_r_lens_mask.fits', pixel_scales=imaging_r.pixel_scales)
 source_mask = al.Mask2D.elliptical_annular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2,# outer_radius=2.5, inner_radius=0.75,
+    shape_native=imaging_white.shape_native, pixel_scales=imaging_white.pixel_scales, sub_size=2,# outer_radius=2.5, inner_radius=0.75,
     #centre=phase1_result.instance.galaxies.lens.bulge.centre
-    centre=(0.15, -0.2),
-    inner_major_axis_radius=1.55,
-    inner_axis_ratio=0.5,
+    centre=(0.2, -0.3),
+    inner_major_axis_radius=1.2,
+    inner_axis_ratio=0.6,
     inner_phi=60.0,
     outer_major_axis_radius=2.25,
-    outer_axis_ratio=0.7,
+    outer_axis_ratio=0.9,
     outer_phi=160.0,
+)
+
+# set white positions
+pos_white = np.genfromtxt(f'{object_folder}{links_id}_white_positions_grid.csv', delimiter=',', skip_header=0)
+imaging_white.positions = al.Grid2DIrregular(
+    [(pos_white[0]), (pos_white[1]), (pos_white[2]), (pos_white[3])]#, (pos[4]),]
 )
 
 #visuals_2d = aplt.Visuals2D(mask=mask)
@@ -261,12 +267,16 @@ source = al.GalaxyModel(
 lens.mass.centre = phase1_result.instance.galaxies.lens.bulge.centre
 lens.dark.centre = phase1_result.instance.galaxies.lens.bulge.centre
 
-# lens einstein radius
-lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius) # take sigma to be 50% of mean # hmmm
+# fix lens elliptical comps
+lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
+
+# einstein radius
+lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius, 
+                                             lower_limit=0.0, upper_limit=2.5) # take sigma to be 50% of mean # hmmm
 
 # source position
-source.bulge.centre_0 = af.UniformPrior(lower_limit=-3, upper_limit=3)
-source.bulge.centre_1 = af.UniformPrior(lower_limit=-3, upper_limit=3)
+source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)
+source.bulge.centre_1 = af.UniformPrior(lower_limit=-5, upper_limit=5)
 source.bulge.effective_radius = af.UniformPrior(lower_limit=0.0, upper_limit=3.0)
 #source.bulge.intensity = af.UniformPrior(lower_limit=0.0, upper_limit=10*lens.bulge.intensity)
 
@@ -276,20 +286,6 @@ print(f'Source: {source}')
 
 # In[25]:
 
-
-# Set up source mask for phase 2
-
-source_mask = al.Mask2D.elliptical_annular(
-    shape_native=imaging_r.shape_native, pixel_scales=imaging_r.pixel_scales, sub_size=2,# outer_radius=2.5, inner_radius=0.75,
-    #centre=phase1_result.instance.galaxies.lens.bulge.centre
-    centre=(0.15, -0.2),
-    inner_major_axis_radius=1.55,
-    inner_axis_ratio=0.5,
-    inner_phi=60.0,
-    outer_major_axis_radius=2.25,
-    outer_axis_ratio=0.7,
-    outer_phi=160.0,
-)
 
 
 # Set up the positions... (GUI is not working...)
@@ -396,7 +392,7 @@ lens.bulge.centre = phase1_result.instance.galaxies.lens.bulge.centre
 lens.dark.centre = lens.bulge.centre
 
 # make lens effective radius upper limit
-lens.bulge.effective_radius.upper_limit=re_r+3*re_r_err
+#lens.bulge.effective_radius.upper_limit=re_r+3*re_r_err
 
 # einstein radius
 #lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.3*einstein_radius) # take sigma to be 30% of mean # hmmm

@@ -1,0 +1,14 @@
+Experiment 2 
+Phase 1 
+Time to convergence: 2.108587432652712 seconds 
+Log likelihood: -498.77054706297736 
+Model: Galaxy (centre_0, GaussianPrior, mean = -0.05789581215024743, sigma = 0.05), (centre_1, GaussianPrior, mean = 0.09992972358695862, sigma = 0.05), (elliptical_comps_0, GaussianPrior, mean = -0.2380471690066886, sigma = 0.2), (elliptical_comps_1, GaussianPrior, mean = -0.401597303036318, sigma = 0.2), (intensity, GaussianPrior, mean = 0.4143294791444411, sigma = 0.20716473957222056), (effective_radius, GaussianPrior, mean = 1.7495118081378536, sigma = 1.7495118081378536), (sersic_index, GaussianPrior, mean = 4.565574874094051, sigma = 1.5), None, None 
+Phase 2 
+Time to convergence: 0.8748147189617157 seconds 
+Log likelihood: 1253.8696143238722 
+Model: Galaxy (einstein_radius, GaussianPrior, mean = 0.22766690737316753, sigma = 0.5417162620580444), (centre_0, GaussianPrior, mean = -0.23738706087327843, sigma = 0.20294992677867893), (centre_1, GaussianPrior, mean = 0.237402075806327, sigma = 0.2577779004692491), (mass_at_200, GaussianPrior, mean = 335217200515340.6, sigma = 283134773498916.25), Galaxy (centre_0, GaussianPrior, mean = -0.16194906597660053, sigma = 0.17421492316337212), (centre_1, GaussianPrior, mean = -0.16166733401568292, sigma = 0.36614475917514433), (intensity, GaussianPrior, mean = 0.10115305406994869, sigma = 0.050576527034974346), (effective_radius, GaussianPrior, mean = 0.4260525126096758, sigma = 0.4260525126096758), None, None 
+Phase 3 
+Time to convergence: 11617.04581407085 seconds 
+Log likelihood: 1866.0047210232633 
+Model: Galaxy (elliptical_comps_0, GaussianPrior, mean = -0.22946043917839629, sigma = 0.2), (elliptical_comps_1, GaussianPrior, mean = -0.403186397340258, sigma = 0.2), (intensity, GaussianPrior, mean = 0.09026947685505952, sigma = 0.07976927803798008), (effective_radius, GaussianPrior, mean = 1.8698823369569921, sigma = 1.8698823369569921), (sersic_index, GaussianPrior, mean = 4.7436570813336285, sigma = 1.5), (mass_to_light_ratio, GaussianPrior, mean = 0.00034313750913474357, sigma = 0.04171101629594915), (mass_at_200, GaussianPrior, mean = 273216909349294.97, sigma = 136608454674647.48), Galaxy (centre_0, GaussianPrior, mean = -0.06764996912666117, sigma = 0.05), (centre_1, GaussianPrior, mean = -0.5869898172445468, sigma = 0.19537145175764337), (intensity, GaussianPrior, mean = 0.15135229912326104, sigma = 0.07567614956163052), (effective_radius, GaussianPrior, mean = 0.321852954771441, sigma = 0.321852954771441), None, None 
+

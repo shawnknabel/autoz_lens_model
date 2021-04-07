@@ -178,7 +178,7 @@ lens_start = al.GalaxyModel(
     redshift=zlens, bulge=al.lp.EllipticalSersic#, mass=al.mp.EllipticalIsothermal
 )
 
-lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+re_r_err)
+lens_start.bulge.effective_radius = af.GaussianPrior(mean=re_r, sigma=re_r_err, lower_limit=0.0, upper_limit=re_r+3*re_r_err)
 lens_start.bulge.centre_0 = af.UniformPrior(lower_limit=-0.5, upper_limit=0.5)
 lens_start.bulge.centre_1 = af.UniformPrior(lower_limit=-0.5, upper_limit=0.5)
 
@@ -251,10 +251,10 @@ lens.dark.centre = lens.mass.centre
 #source_mask.centre =lens.mass.centre
 
 # fix lens elliptical comps
-#lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
+lens.mass.elliptical_comps = phase1_result.instance.galaxies.lens.bulge.elliptical_comps
 
 # einstein radius
-lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=einstein_radius) # big sigma
+lens.mass.einstein_radius = af.GaussianPrior(mean=einstein_radius, sigma=0.5*einstein_radius, lower_limit=0.0) # big sigma
 
 # source position
 source.bulge.centre_0 = af.UniformPrior(lower_limit=-5, upper_limit=5)

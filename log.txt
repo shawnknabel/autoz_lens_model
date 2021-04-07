@@ -1,40 +1,74 @@
 Log of Updates and Files
 
-TO DO:
-- Look at HST proposal text
-- Model ~5 candidates
-    - Redo 1933 and 2730 with correct phase2 mass profile
-    - We'll have 2730, 1933, 3234, 3212, 3056, 2828, 26, 245, 1179, 2144
-- Try white images in phase3
-- Calculate dark matter fraction w/in Einstein radius
-- Plot as groups and isos
-
 Candidates:
 1933 - complete, white not good.
-2730 - complete, need to be rescripted and rerun white, change source mask
-3234 - need to be reassessed and rerun (M/L ratio 0 :|)
+2730 - complete, green okay, script ready
+3234 - complete, script ready.
 3212 - complete, white fit was okay.
 3056 - complete
 2828 - complete
-26 - need to be rescripted and rerun
-245 - I think it's just not a good g-band image for the fit
-1179 - need to be rerun, interrupted and poor fit, phase2 very poor fit to lens mass ellipticity
-2144 - contaminating object to be removed before positions and masking
-1906 - zlens/zsource probably not right
-1340 - complete, not great
-1939 - complete, bad ->>>>>>>>>>>>>> Phase 2 gave a nonsensical ellipse in the wrong direction. Set the elliptical priors as an instance.
-1483 - running
-2562 - processed (upload files)
-3349 - processed (upload files)
-2635 - images processed, still need to do masks and positions (upload files)
-2749 - downloaded
-539 - downloaded
-1819 - downloaded
-1924 - downloaded
+26 - complete, script ready.
+245 - complete, not great, script ready.
+1179 - script ready.
+2144 - running
+1906 - script ready.
+1340 - complete, not great, script ready.
+1939 - complete, bad, script ready.
+1483 - complete, decent
+2562 - complete, decent
+3349 - script ready.
+2635 - script ready.
+2749 - script ready.
+539 - script ready.
+1819 - script ready.
+1924 - script ready.
 
+4/7/21 - morning
+To Do:
+- Read HST proposal 
+- Model 2562
+- Prep rest of scripts
+###
+Model 2562
+- Running
+###
+3349 - script ready.
+2635 - script ready.
+2749 - script ready.
+539 - script ready.
+1819 - script ready.
+1924 - script ready.
+###
+2144 was never positioned/masked.
+- There is a contaminating object in the bottom left...
+    - I made the image 45x45 to cut out most of the light from this source
+- Images processed.
+- Positions and masks
+    - r, g, g
+    - lens is very elliptical, need elliptical lens and source masks. Unable to do in script.
+    - Making notebook to make these.
+- Script ready.
+- Running!
+    - buffer problem because of the resizing...
+    - I recut the images to the normal 101 size (it should be fine with the masks)
+- Running again (experiment 2)
+    - interrupted at phase 3
+        - "input array is 2D but not the same dimensions as the sub-mask"
+        - was because the mask was made on a 45x45 before I went back to the 101x101
+- Running, skipping straight to phase 3
+###
+1906 revisited.
+- This is the first one I did, and I determined I was struggling because the lens/source redshifts might be backwards. But here we go.
+- Downloading r weight (others already on disk)
+- Images processed.
+- Positions and masks. Done.
+    - r, g, g
+- Script ready.
+###
 
-
-IGNORE_PRIOR_LIMITS=FALSE
+#####
+Notes:
+- 1483 phase 2 gave a negative Einstein radius. I set a lower limit now. This could be what is fucking up the M/L ratios.
 
 4/6/21 - afternoon
 To Do:
@@ -137,34 +171,41 @@ Pick next 10 lenses to be modeled:
 - Prepping images, noise maps. Done.
 - Prepping positions, masks. Done. 
     - r, g, g
+- Writing script. Done.
 #
 561058.0 	3349 	182.56030 	-0.49540 	8.0 	0.320287 	0.855552 	11.473941 	0.925344 	0.771857 	PG + ELG
 - Downloading g, r, i images and weights. Done.
 - Prepping images, noise maps. Done.
 - Prepping positions and masks. Done.
     - r, g, white
+- Writing script. Done.
 #
 296451.0 	2635 	211.85399 	1.55536 	8.0 	0.444535 	0.878675 	11.861844 	1.191224 	0.852244 	PG + PG
 - Downloading g, r, i images and weights. Done.
 - Prepping images, noise maps. Done.
 - Prepping positions and masks. Done.
     - r, white, white
+    - No positions (I think)
+- Writing script. Done.
 77312.0 	2749 	212.84528 	0.02337 	8.0 	0.372997 	0.804917 	11.508821 	0.830730 	0.651101 	PG + PG
 - Downloading g, r, i images and weights. Done.
 - Prepping images, noise maps. Done.
 - Prepping positions and masks. Done.
     - r, g, white
-    - No positions (I think)
+    - positions: g 2, white 3
+- Writing script. Done.
 62734.0 	539 	213.56206 	-0.24168 	8.0 	0.274168 	0.597446 	11.506654 	0.996040 	0.761231 	PG + ELG
 - Downloading g, r, i images and weights. Done.
 - Prepping images, noise maps. Done.
 - Prepping positions and masks. Done.
-    - r, r, r (or white?)
+    - r, r, r
+- Writing script. Done.
 387244.0 	1819 	135.56917 	2.36495 	4.0 	0.217723 	0.712327 	11.428494 	1.133082 	0.938357 	PG + ELG
 - Downloading g, r, i images and weights. Done.
 - Prepping images, noise maps. Done.
 - Prepping positions and masks. Done.
     - r, white, white
+- Writing script. Done.
 238892.0 	1924 	215.56828 	1.56082 	4.0 	0.305116 	0.716291 	11.486208 	0.934488 	0.746640 	ELG + ELG
 - Downloading g, r, i images and weights. Done.
 - Prepping images, noise maps. Done.
@@ -172,6 +213,7 @@ Pick next 10 lenses to be modeled:
     - Downloading g, r, i. Done.
 - Prepping positions and masks. Done.
     - r, r, r
+- Writing script. Done.
 
 ###
 Model 1340
